@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aviabrand.uz — скоро онлайн-продажа</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="nav">
+      <div class="brand">
+        <span>✈️</span>
+        <span>aviabrand.uz</span>
+        <span class="badge">coming soon</span>
+      </div>
+
+      <div class="lang">
+        <button type="button" data-set-lang="ru" data-lang="ru">RU</button>
+        <button type="button" data-set-lang="uz" data-lang="uz">UZ</button>
+      </div>
+    </header>
+
+    <main class="card" style="margin-top:18px">
+      <div class="p">
+        <h1 class="h1" style="font-size:34px" data-i18n="coming_title">
+          Скоро начнём онлайн-продажу
+        </h1>
+
+        <p class="lead" data-i18n="coming_sub">
+          Мы уже получили вашу заявку. Ниже — параметры поиска, которые вы ввели.
+        </p>
+
+        <div class="section card" id="searchSummary">
+          <div class="p">
+            <div class="grid3">
+              <div class="item">
+                <b data-i18n="field_from">Откуда</b>
+                <div id="sumFrom" class="small">-</div>
+              </div>
+
+              <div class="item">
+                <b data-i18n="field_to">Куда</b>
+                <div id="sumTo" class="small">-</div>
+              </div>
+
+              <div class="item">
+                <b data-i18n="field_pax">Пассажиры</b>
+                <div id="sumPax" class="small">-</div>
+              </div>
+            </div>
+
+            <div class="item" style="margin-top:10px">
+              <b data-i18n="field_dates">Даты</b>
+              <div id="sumDates" class="small">-</div>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn secondary" href="index.html" data-i18n="coming_btn" style="margin-top:12px;display:inline-flex">
+          Вернуться на главную
+        </a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="small" data-i18n="coming_note">
+        Если хотите — добавим форму заявки (email/телефон) на этой странице.
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-i18n="contacts_page_title">Aviabrand.uz — контакты</title>
+  <meta name="description" content="Контакты Aviabrand. Скоро подключим онлайн-продажу." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="nav">
+      <div class="brand"><span>✈️</span><span>aviabrand.uz</span><span class="badge">info</span></div>
+
+      <nav class="navlinks">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="how-to-buy.html" data-i18n="nav_how">Как купить</a>
+        <a href="fares.html" data-i18n="nav_fares">Тарифы и услуги</a>
+        <a href="faq.html" data-i18n="nav_faq">FAQ</a>
+        <a href="contacts.html" data-i18n="nav_contacts">Контакты</a>
+      </nav>
+
+      <div class="lang">
+        <button type="button" data-set-lang="ru" data-lang="ru">RU</button>
+        <button type="button" data-set-lang="uz" data-lang="uz">UZ</button>
+      </div>
+    </header>
+
+    <main class="card" style="margin-top:18px">
+      <div class="p">
+        <h1 class="h1" style="font-size:34px" data-i18n="contacts_h1">Контакты</h1>
+        <p class="lead" data-i18n="contacts_lead">Пока вы собираете данные — оставим шаблон. Потом подставим email/телефон и ссылки.</p>
+
+        <div class="section list">
+          <div class="item"><b data-i18n="contacts_email">Email</b><div class="small" data-i18n="contacts_email_hint">Укажем позже (например: support@aviabrand.uz)</div></div>
+          <div class="item"><b data-i18n="contacts_phone">Телефон</b><div class="small" data-i18n="contacts_phone_hint">Укажем позже (например: +998 …)</div></div>
+          <div class="item"><b data-i18n="contacts_hours">Время работы</b><div class="small" data-i18n="contacts_hours_hint">Укажем позже (например: 09:00–21:00)</div></div>
+        </div>
+
+        <a class="btn" href="index.html" style="margin-top:12px;display:inline-flex" data-i18n="btn_back_home">На главную</a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div>© <span id="y"></span> aviabrand.uz</div>
+      <div class="small" data-i18n="footer_note">Информационный сайт. Онлайн-продажа будет добавлена после интеграции.</div>
+    </footer>
+  </div>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script src="assets/script.js" defer></script>
+</body>
+</html>

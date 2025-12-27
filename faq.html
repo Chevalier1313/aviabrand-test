@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-i18n="faq_page_title">Aviabrand.uz — FAQ</title>
+  <meta name="description" content="Ответы на частые вопросы про покупку авиабилетов, багаж, возвраты, документы." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="nav">
+      <div class="brand"><span>✈️</span><span>aviabrand.uz</span><span class="badge">info</span></div>
+
+      <nav class="navlinks">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="how-to-buy.html" data-i18n="nav_how">Как купить</a>
+        <a href="fares.html" data-i18n="nav_fares">Тарифы и услуги</a>
+        <a href="faq.html" data-i18n="nav_faq">FAQ</a>
+        <a href="contacts.html" data-i18n="nav_contacts">Контакты</a>
+      </nav>
+
+      <div class="lang">
+        <button type="button" data-set-lang="ru" data-lang="ru">RU</button>
+        <button type="button" data-set-lang="uz" data-lang="uz">UZ</button>
+      </div>
+    </header>
+
+    <main class="card" style="margin-top:18px">
+      <div class="p">
+        <h1 class="h1" style="font-size:34px" data-i18n="faq_h1">Вопросы и ответы</h1>
+        <p class="lead" data-i18n="faq_lead">Собрали короткие ответы на самые частые вопросы по СНГ-направлениям.</p>
+
+        <div class="section list">
+          <div class="item"><b data-i18n="faq_q1">Нужно ли распечатывать билет?</b><div class="small" data-i18n="faq_a1">Обычно нет: достаточно электронного билета и паспорта. Но иногда просят распечатку — уточняйте у авиакомпании.</div></div>
+          <div class="item"><b data-i18n="faq_q2">Какие документы нужны для перелёта?</b><div class="small" data-i18n="faq_a2">Зависит от направления: внутренний паспорт/загранпаспорт, виза (если требуется), для детей — свидетельство/разрешение.</div></div>
+          <div class="item"><b data-i18n="faq_q3">Как понять, есть ли багаж?</b><div class="small" data-i18n="faq_a3">Смотрите условия тарифа: ручная кладь и багаж могут отличаться. При интеграции продаж покажем это в карточке рейса.</div></div>
+          <div class="item"><b data-i18n="faq_q4">Можно ли вернуть билет?</b><div class="small" data-i18n="faq_a4">Зависит от тарифа. У некоторых тарифов возврат запрещён, у других — с удержаниями.</div></div>
+          <div class="item"><b data-i18n="faq_q5">Когда лучше покупать?</b><div class="small" data-i18n="faq_a5">Часто выгоднее заранее. На праздники и высокий сезон — чем раньше, тем лучше.</div></div>
+        </div>
+
+        <a class="btn" href="index.html" style="margin-top:12px;display:inline-flex" data-i18n="btn_back_home">На главную</a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div>© <span id="y"></span> aviabrand.uz</div>
+      <div class="small" data-i18n="footer_note">Информационный сайт. Онлайн-продажа будет добавлена после интеграции.</div>
+    </footer>
+  </div>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script src="assets/script.js" defer></script>
+</body>
+</html>
