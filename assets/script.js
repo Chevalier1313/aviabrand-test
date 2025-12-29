@@ -1,3 +1,5 @@
+
+/* OLD JS TEMP DISABLED
 document.addEventListener("DOMContentLoaded", () => {
   const dict = {
     ru: {
@@ -319,4 +321,42 @@ document.querySelectorAll(".datefield input[type='date']").forEach((inp) => {
 
 
   applyLang("ru");
+});
+ */
+const form = document.getElementById("searchFormNew");
+const oneWay = document.getElementById("oneway");
+const returnWrap = document.getElementById("returnWrap");
+const date2 = document.getElementById("date2");
+
+function syncReturn() {
+  if (!oneWay || !returnWrap || !date2) return;
+
+  if (oneWay.checked) {
+    returnWrap.style.display = "none";
+    date2.value = "";
+    date2.disabled = true;
+  } else {
+    returnWrap.style.display = "";
+    date2.disabled = false;
+  }
+}
+
+oneWay.addEventListener("change", syncReturn);
+syncReturn();
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const params = new URLSearchParams({
+    from: document.getElementById("from").value,
+    to: document.getElementById("to").value,
+    date1: document.getElementById("date1").value,
+    pax: document.getElementById("pax").value
+  });
+
+  if (!oneWay.checked && date2.value) {
+    params.set("date2", date2.value);
+  }
+
+  window.location.href = "coming-soon.html?" + params.toString();
 });
