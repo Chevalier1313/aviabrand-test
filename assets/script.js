@@ -1,19 +1,14 @@
-// aviabrand-test: booking form logic (index.html) + coming-soon summary
-// NOTE: This file must be valid JS. Do NOT leave '...' in code.
-
+// assets/script.js
 document.addEventListener("DOMContentLoaded", () => {
+  // =========================
+  // 1) INDEX: форма поиска
+  // =========================
   const form = document.getElementById("searchForm");
-  if (!form) {
-    console.warn("#searchForm not found");
-    return;
-  }
-
-  const oneWay = document.getElementById("oneway");       // id="oneway" in HTML
+  const oneWay = document.getElementById("oneway");
   const returnWrap = document.getElementById("returnWrap");
   const date2 = document.getElementById("date2");
   const date1 = document.getElementById("date1");
 
-  // --- A) one-way toggle: hide/show return date ---
   function syncReturn() {
     if (!oneWay || !returnWrap || !date2) return;
 
@@ -25,27 +20,24 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       returnWrap.style.display = "";
       date2.disabled = false;
-      date2.required = false; // can set true later if you want
+      date2.required = false;
     }
   }
+
   if (oneWay) {
     oneWay.addEventListener("change", syncReturn);
-    syncReturn(); // apply on load
+    syncReturn();
   }
 
-  // --- B) date picker: open by click anywhere (Chrome showPicker) ---
+  // Открывать календарь по клику по полю (Chrome/Edge)
   [date1, date2].forEach((el) => {
     if (!el) return;
-
-    const openPicker = () => {
+    el.addEventListener("click", () => {
       if (typeof el.showPicker === "function") el.showPicker();
-    };
-
-    // Use click only to avoid weird focus loops
-    el.addEventListener("click", openPicker);
+    });
   });
 
-  // --- C) fake placeholder: .datefield.has-value ---
+  // fake placeholder: .datefield.has-value
   document.querySelectorAll(".datefield input[type='date']").forEach((inp) => {
     const wrap = inp.closest(".datefield");
     if (!wrap) return;
@@ -56,27 +48,29 @@ document.addEventListener("DOMContentLoaded", () => {
     sync();
   });
 
-  // --- D) submit: go to coming-soon.html with params ---
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-    const from = document.getElementById("from")?.value || "";
-    const to = document.getElementById("to")?.value || "";
-    const d1 = document.getElementById("date1")?.value || "";
-    const pax = document.getElementById("pax")?.value || "1";
+      const from = document.getElementById("from")?.value || "";
+      const to = document.getElementById("to")?.value || "";
+      const d1 = document.getElementById("date1")?.value || "";
+      const pax = document.getElementById("pax")?.value || "1";
 
-    const params = new URLSearchParams({ from, to, date1: d1, pax });
+      const params = new URLSearchParams({ from, to, date1: d1, pax });
 
-    // add date2 ONLY when not one-way and date2 has value
-    if (!oneWay?.checked) {
-      const d2 = date2?.value || "";
-      if (d2) params.set("date2", d2);
-    }
+      if (!oneWay?.checked) {
+        const d2 = date2?.value || "";
+        if (d2) params.set("date2", d2);
+      }
 
-    window.location.href = "coming-soon.html?" + params.toString();
-  });
+      window.location.href = "coming-soon.html?" + params.toString();
+    });
+  }
 
-  // --- E) coming-soon.html summary (if elements exist) ---
+  // =========================
+  // 2) COMING-SOON: вывод параметров
+  // =========================
   const summary = document.getElementById("searchSummary");
   if (summary) {
     const params = new URLSearchParams(window.location.search);
@@ -93,15 +87,21 @@ document.addEventListener("DOMContentLoaded", () => {
       return `${day}.${m}.${y}`;
     };
 
-    document.getElementById("sumFrom")?.textContent = from;
-    document.getElementById("sumTo")?.textContent = to;
-    document.getElementById("sumPax")?.textContent = pax;
-
+    const elFrom = document.getElementById("sumFrom");
+    const elTo = document.getElementById("sumTo");
+    const elPax = document.getElementById("sumPax");
     const elDates = document.getElementById("sumDates");
+
+    if (elFrom) elFrom.textContent = from;
+    if (elTo) elTo.textContent = to;
+    if (elPax) elPax.textContent = pax;
+
     if (elDates) {
-      elDates.textContent = (d1 || d2)
-        ? (d2 ? `${fmt(d1)} → ${fmt(d2)}` : fmt(d1))
-        : "-";
+      if (d1 || d2) {
+        elDates.textContent = d2 ? `${fmt(d1)} → ${fmt(d2)}` : fmt(d1);
+      } else {
+        elDates.textContent = "-";
+      }
     }
   }
 });
