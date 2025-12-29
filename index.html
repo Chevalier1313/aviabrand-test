@@ -60,50 +60,35 @@
         <div class="p">
           <h2 class="h2" data-i18n="search_title">Поиск рейса (пока в тестовом режиме)</h2>
           <form id="searchForm" class="form">
-
-  <!-- 1) чекбокс -->
   <div class="grid2">
     <label class="check full">
       <input type="checkbox" id="oneway">
       <span>Обратный билет не нужен</span>
     </label>
-  </div>
 
-  <!-- 2) from/to -->
-  <div class="grid2">
     <input class="input" id="from" type="text" placeholder="Откуда" data-i18n-ph="from" required>
     <input class="input" id="to" type="text" placeholder="Куда" data-i18n-ph="to" required>
-    <input id="from" ... autocomplete="off" spellcheck="false" />
-    <input id="to" ... autocomplete="off" spellcheck="false" />
 
-  </div>
-
-  <!-- 3) dates -->
-  <div class="grid2">
-    <div class="datefield" id="date1Wrap">
-      <input class="input" id="date1" type="date" required>
-      <input id="date1" type="date" autocomplete="off">
+    <div class="datefield">
+      <input class="input" id="date1" type="date" data-i18n-ph="date_from" required>
       <span class="dateph">Выберите дату</span>
     </div>
 
-    <div class="datefield" id="returnWrap">
-      <input class="input" id="date2" type="date">
-      <input id="date2" type="date" autocomplete="off">
+    <div id="returnWrap" class="datefield">
+      <input class="input" id="date2" type="date" data-i18n-ph="date_to">
       <span class="dateph">Выберите дату</span>
     </div>
-  </div>
 
-  <!-- 4) pax + button -->
-  <div class="grid2">
     <input class="input" id="pax" type="number" min="1" max="9" value="1" data-i18n-ph="pax" placeholder="Пассажиры">
+
     <button class="btn" type="submit" data-i18n="btn_search">Проверить и перейти</button>
   </div>
 
   <div class="small" data-i18n="note_search">
     Пока форма ведёт на страницу «Скоро начнём онлайн-продажу». Позже подключим ваш движок.
   </div>
-
 </form>
+
 
 
         </div>
