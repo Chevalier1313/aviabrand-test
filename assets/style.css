@@ -102,60 +102,43 @@ button{
     grid-template-columns:1fr;
   }
 }
-/* ===== GRID (stable) ===== */
+/* ===== FORM GRID (single source of truth) ===== */
 .grid2{
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   align-items: start;
 }
 
 .check.full{ grid-column: 1 / -1; }
-.grid2 > *{ min-width: 0; }
 
-/* ===== DATE (single source of truth) ===== */
+/* В grid используем только gap — никаких margin у детей */
+.grid2 > *{ margin: 0 !important; min-width: 0; }
 
-/* Обёртка: создаём свой stacking context + клипуем всё лишнее */
-.datefield{
-  position: relative;
+/* ===== INPUTS (single source of truth) ===== */
+.input,
+.grid2 input,
+.grid2 button{
   width: 100%;
-  overflow: hidden;      /* важно: отрезает “невидимые зоны” */
-  isolation: isolate;    /* важно: локальный слой (Chrome) */
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* Нативный date */
-.datefield input[type="date"]{
+/* IMPORTANT: date должен вести себя как остальные inputs */
+.grid2 input[type="date"]{
   -webkit-appearance: auto;
   appearance: auto;
   color-scheme: dark;
 
-  width: 100%;
-  max-width: 100%;
-  padding: 12px;
-  
-  border-radius: 10px;
-  border: 1px solid #2a3b66;
-  background: #0b1220;
-  color: #eaf0ff;
+  padding-right: 44px; /* место под иконку */
+}
 
-  padding-right: 44px;   /* место под иконку справа */
+/* ===== DATE PLACEHOLDER WRAPPER ===== */
+.datefield{
   position: relative;
-  z-index: 1;            /* внутри обёртки */
+  width: 100%;
 }
 
-/* Иконка видимая, но НЕ перехватывает клики/ховеры */
-.datefield input[type="date"]::-webkit-calendar-picker-indicator{
-  opacity: 0.9;
-  filter: invert(1) brightness(1.2);
-  pointer-events: none;
-
-  width: 18px;
-  height: 18px;
-  margin: 0;
-  padding: 0;
-}
-
-/* Fake placeholder */
 .datefield .dateph{
   position: absolute;
   left: 14px;
@@ -165,61 +148,28 @@ button{
   font-size: 14px;
   pointer-events: none;
   white-space: nowrap;
-  z-index: 2;
 }
 
-/* A3: hide native date text WITHOUT datetime-edit parts (kills Chrome bubble) */
-.datefield:not(.has-value) input[type="date"]{
+/* пока нет значения — прячем нативный dd.mm.yyyy (Chrome/WebKit) */
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit,
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-text,
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-month-field,
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-day-field,
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-year-field{
   color: transparent;
   -webkit-text-fill-color: transparent;
-  caret-color: transparent;
 }
 
-/* when value exists -> show date normally */
-.datefield.has-value input[type="date"]{
-  color: #eaf0ff;
-  -webkit-text-fill-color: #eaf0ff;
-  caret-color: auto;
+/* когда есть значение — скрываем placeholder */
+.datefield.has-value .dateph{ display: none; }
+
+/* индикатор не должен “перекрывать” соседние поля */
+.grid2 input[type="date"]::-webkit-calendar-picker-indicator{
+  opacity: 0.9;
+  filter: invert(1) brightness(1.2);
+  pointer-events: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
 }
-
-
-/* Когда есть значение — скрываем “Выберите дату” */
-.datefield.has-value .dateph{
-  display: none;
-}
-
-/* Мини-страховка: From/To всегда “выше” любых внутренних слоёв даты в гриде */
-#from, #to{
-  position: relative;
-  z-index: 3;
-}
-/* A1: В grid используем только gap, без margin-top (убирает перекрытия и bubble) */
-.grid2 > *{
-  margin-top: 0 !important;
-}
-/* (A) В grid используем только gap, никаких margin-top у полей */
-.grid2 { gap: 12px; }
-
-.grid2 > * { margin: 0 !important; } /* сброс на случай старых правил */
-
-.grid2 .input,
-.grid2 input,
-.grid2 button {
-  margin-top: 0 !important;
-}
-/* ===== FIX GRID OVERLAP (must be at the end) ===== */
-
-/* в grid используем gap, а не margin-top у инпутов */
-.grid2 { gap: 12px; }
-
-/* критично: у детей grid не должно быть margin-top, иначе начинаются наезды */
-.grid2 > * { margin-top: 0 !important; }
-
-/* возвращаем отступ через gap, а не через margin */
-.form .input,
-.form input,
-.form button { margin: 0 !important; }
-
-/* чтобы инпуты не растягивали/не ломали колонку */
-.grid2 > * { min-width: 0; }
-
