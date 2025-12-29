@@ -133,35 +133,7 @@ button{
   padding-right: 44px; /* место под иконку */
 }
 
-/* ===== DATE PLACEHOLDER WRAPPER ===== */
-.datefield{
-  position: relative;
-  width: 100%;
-}
 
-.datefield .dateph{
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(234,240,255,.6);
-  font-size: 14px;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-/* пока нет значения — прячем нативный dd.mm.yyyy (Chrome/WebKit) */
-.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit,
-.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-text,
-.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-month-field,
-.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-day-field,
-.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-year-field{
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
-/* когда есть значение — скрываем placeholder */
-.datefield.has-value .dateph{ display: none; }
 
 /* индикатор не должен “перекрывать” соседние поля */
 .grid2 input[type="date"]::-webkit-calendar-picker-indicator{
