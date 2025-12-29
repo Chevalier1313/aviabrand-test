@@ -123,25 +123,30 @@ button{
   max-width: 100%;
   box-sizing: border-box;
 }
+/* ===== NEW SEARCH FORM (clean) ===== */
 
-/* IMPORTANT: date должен вести себя как остальные inputs */
-.grid2 input[type="date"]{
-  -webkit-appearance: auto;
-  appearance: auto;
-  color-scheme: dark;
-
-  padding-right: 44px; /* место под иконку */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-
-
-/* индикатор не должен “перекрывать” соседние поля */
-.grid2 input[type="date"]::-webkit-calendar-picker-indicator{
-  opacity: 0.9;
-  filter: invert(1) brightness(1.2);
-  pointer-events: none;
-  width: 18px;
-  height: 18px;
+.grid2 > * {
   margin: 0;
-  padding: 0;
+  min-width: 0;
 }
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #2a3b66;
+  background: #0b1220;
+  color: #eaf0ff;
+}
+
+input[type="date"] {
+  color-scheme: dark;
+}
+
+
