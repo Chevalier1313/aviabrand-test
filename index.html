@@ -63,7 +63,7 @@
         <div class="p">
           <h2 class="h2" data-i18n="search_title">Поиск рейса (пока в тестовом режиме)</h2>
           
-<form id="searchFormNew" class="form">
+<form id="searchForm" class="form">
   <div class="grid2">
 
     <label class="check full">
@@ -74,7 +74,10 @@
     <input id="from" type="text" placeholder="Откуда" required>
     <input id="to" type="text" placeholder="Куда" required>
 
-    <input id="date1" type="date" required>
+    <div class="datefield" id="departWrap">
+      <input class="input" id="date1" type="date" required>
+      <span class="dateph">Выберите дату</span>
+    </div>
 
     <div id="returnWrap" class="datefield">
       <input class="input" id="date2" type="date" data-i18n-ph="date_to">
