@@ -1,38 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("searchForm");
-  if (!form) return;
-
   const oneWay = document.getElementById("oneway");
+  const returnWrap = document.getElementById("returnWrap");
   const date2 = document.getElementById("date2");
 
-  // IMPORTANT: если #returnWrap нет — прячем ближайшую обёртку date2 или само поле
-  const returnWrap =
-    document.getElementById("returnWrap") ||
-    (date2 ? date2.closest(".datefield") : null) ||
-    date2;
+  if (!form) {
+    console.warn("Form #searchForm not found");
+    return;
+  }
 
   function syncReturn() {
-    if (!oneWay || !date2 || !returnWrap) return;
+    if (!oneWay || !returnWrap || !date2) {
+      console.warn("oneWay/returnWrap/date2 not found", { oneWay, returnWrap, date2 });
+      return;
+    }
 
     const hide = oneWay.checked;
-
     returnWrap.style.display = hide ? "none" : "";
     date2.disabled = hide;
-    date2.required = false;
-
     if (hide) date2.value = "";
   }
 
   if (oneWay) {
     oneWay.addEventListener("change", syncReturn);
     syncReturn();
+  } else {
+    console.warn("Checkbox #oneway not found");
   }
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const from = document.getElementById("from")?.value || "";
-    const to = document.getElementById("to")?.value || "";
+    const from = document.getElementById("from")?.value?.trim() || "";
+    const to = document.getElementById("to")?.value?.trim() || "";
     const date1 = document.getElementById("date1")?.value || "";
     const pax = document.getElementById("pax")?.value || "1";
 
