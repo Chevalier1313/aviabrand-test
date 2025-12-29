@@ -234,10 +234,26 @@ if (oneWay) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  el.addEventListener("click", () => {
-    if (el.disabled) return;
+  // 1) Убираем нативный tooltip Chrome ("22.12.2024")
+  const killTitle = () => {
+    el.removeAttribute("title");
+    // на всякий случай, если где-то проставили el.title = ...
+    el.title = "";
+  };
+
+  killTitle();
+  el.addEventListener("mouseenter", killTitle);
+  el.addEventListener("mousemove", killTitle);
+  el.addEventListener("focus", killTitle);
+  el.addEventListener("click", killTitle);
+
+  // 2) date picker: открывать по клику в любом месте поля
+  const openPicker = () => {
     if (typeof el.showPicker === "function") el.showPicker();
-  });
+  };
+
+  el.addEventListener("click", openPicker);
+  el.addEventListener("focus", openPicker);
 });
 
 if (form) {
