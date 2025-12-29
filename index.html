@@ -62,36 +62,7 @@
       <aside class="card">
         <div class="p">
           <h2 class="h2" data-i18n="search_title">Поиск рейса (пока в тестовом режиме)</h2>
-          <!-- OLD FORM (disabled) <form id="searchForm" class="form">
-  <div class="grid2">
-    <label class="check full">
-      <input type="checkbox" id="oneway">
-      <span>Обратный билет не нужен</span>
-    </label>
-
-    <input class="input" id="from" type="text" placeholder="Откуда" data-i18n-ph="from" required>
-    <input class="input" id="to" type="text" placeholder="Куда" data-i18n-ph="to" required>
-
-    <div class="datefield">
-      <input class="input" id="date1" type="date" required>
-      <input class="input" id="date2" type="date">
-    </div>
-
-    <div id="returnWrap" class="datefield">
-      <input class="input" id="date2" type="date" data-i18n-ph="date_to">
-      <span class="dateph">Выберите дату</span>
-    </div>
-
-    <input class="input" id="pax" type="number" min="1" max="9" value="1" data-i18n-ph="pax" placeholder="Пассажиры">
-
-    <button class="btn" type="submit" data-i18n="btn_search">Проверить и перейти</button>
-  </div>
-
-  <div class="small" data-i18n="note_search">
-    Пока форма ведёт на страницу «Скоро начнём онлайн-продажу». Позже подключим ваш движок.
-  </div>
-</form>-->
-
+          
 <form id="searchFormNew" class="form">
   <div class="grid2">
 
@@ -105,8 +76,9 @@
 
     <input id="date1" type="date" required>
 
-    <div id="returnWrap">
-      <input id="date2" type="date">
+    <div id="returnWrap" class="datefield">
+      <input class="input" id="date2" type="date" data-i18n-ph="date_to">
+      <span class="dateph">Выберите дату</span>
     </div>
 
     <input id="pax" type="number" min="1" max="9" value="1">
