@@ -207,3 +207,19 @@ button{
 .grid2 button {
   margin-top: 0 !important;
 }
+/* ===== FIX GRID OVERLAP (must be at the end) ===== */
+
+/* в grid используем gap, а не margin-top у инпутов */
+.grid2 { gap: 12px; }
+
+/* критично: у детей grid не должно быть margin-top, иначе начинаются наезды */
+.grid2 > * { margin-top: 0 !important; }
+
+/* возвращаем отступ через gap, а не через margin */
+.form .input,
+.form input,
+.form button { margin: 0 !important; }
+
+/* чтобы инпуты не растягивали/не ломали колонку */
+.grid2 > * { min-width: 0; }
+
