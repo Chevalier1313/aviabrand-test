@@ -205,8 +205,8 @@ field_dates: "Sanalar",
   });
 // FORM → coming-soon.html
 const form = document.getElementById("searchForm");
-const oneWay = document.getElementById("oneway");     // ✅ один чекбокс
-const returnWrap = document.getElementById("returnWrap"); // ✅ обертка вокруг date2
+const oneWay = document.getElementById("oneway");       // один чекбокс: id="oneway"
+const returnWrap = document.getElementById("returnWrap"); // обертка вокруг date2
 const date2 = document.getElementById("date2");
 
 function syncReturnDateVisibility() {
@@ -215,36 +215,33 @@ function syncReturnDateVisibility() {
   if (oneWay.checked) {
     returnWrap.style.display = "none";
     date2.value = "";
-    date2.required = false;
     date2.disabled = true;
+    date2.required = false;
   } else {
     returnWrap.style.display = "";
     date2.disabled = false;
-    date2.required = false; // можно потом сделать true, если решишь что обратная дата обязательна
+    date2.required = false; // пока не делаем обязательной
   }
 }
 
 if (oneWay) {
   oneWay.addEventListener("change", syncReturnDateVisibility);
-  syncReturnDateVisibility(); // применить сразу
+  syncReturnDateVisibility();
 }
 
-if (form) {
-  // date picker: открывать по клику в любом месте поля
+// date picker: открывать по клику в любом месте поля (только click, без focus)
 ["date1", "date2"].forEach((id) => {
   const el = document.getElementById(id);
   if (!el) return;
 
   el.addEventListener("click", () => {
-    if (typeof el.showPicker === "function") el.showPicker();
-  });
-
-  el.addEventListener("focus", () => {
+    if (el.disabled) return;
     if (typeof el.showPicker === "function") el.showPicker();
   });
 });
 
-  form.addEventListener("submit", function (e) {
+if (form) {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const from = document.getElementById("from")?.value || "";
@@ -254,57 +251,56 @@ if (form) {
 
     const params = new URLSearchParams({ from, to, date1, pax });
 
-    // date2 добавляем ТОЛЬКО если это не one-way и дата реально выбрана
+    // date2 добавляем ТОЛЬКО если НЕ one-way и дата реально выбрана
     if (!oneWay?.checked) {
-      const d2 = document.getElementById("date2")?.value || "";
+      const d2 = date2?.value || "";
       if (d2) params.set("date2", d2);
     }
 
     window.location.href = "coming-soon.html?" + params.toString();
   });
 }
-  // ===== coming-soon summary (fills variables on coming-soon.html) =====
-  const summary = document.getElementById("searchSummary");
-  if (summary) {
-    const params = new URLSearchParams(window.location.search);
 
-    const from = params.get("from") || "-";
-    const to = params.get("to") || "-";
-    const date1 = params.get("date1");
-    const date2 = params.get("date2");
-    const pax = params.get("pax") || "-";
+// ===== coming-soon summary (fills variables on coming-soon.html) =====
+const summary = document.getElementById("searchSummary");
+if (summary) {
+  const params = new URLSearchParams(window.location.search);
 
-    const fmt = (d) => {
-      if (!d) return "";
-      const [y, m, day] = d.split("-");
-      return `${day}.${m}.${y}`;
-    };
+  const from = params.get("from") || "-";
+  const to = params.get("to") || "-";
+  const date1 = params.get("date1");
+  const date2 = params.get("date2");
+  const pax = params.get("pax") || "-";
 
-    const elFrom = document.getElementById("sumFrom");
-    const elTo = document.getElementById("sumTo");
-    const elPax = document.getElementById("sumPax");
-    const elDates = document.getElementById("sumDates");
+  const fmt = (d) => {
+    if (!d) return "";
+    const [y, m, day] = d.split("-");
+    return `${day}.${m}.${y}`;
+  };
 
-    if (elFrom) elFrom.textContent = from;
-    if (elTo) elTo.textContent = to;
-    if (elPax) elPax.textContent = pax;
+  document.getElementById("sumFrom")?.textContent = from;
+  document.getElementById("sumTo")?.textContent = to;
+  document.getElementById("sumPax")?.textContent = pax;
 
-    if (elDates) {
-      if (date1 || date2) {
-        elDates.textContent = date2 ? `${fmt(date1)} → ${fmt(date2)}` : fmt(date1);
-      } else {
-        elDates.textContent = "-";
-      }
-    }
+  const elDates = document.getElementById("sumDates");
+  if (elDates) {
+    elDates.textContent = (date1 || date2)
+      ? (date2 ? `${fmt(date1)} → ${fmt(date2)}` : fmt(date1))
+      : "-";
   }
-document.querySelectorAll(".datefield input[type='date']").forEach(inp => {
-  const wrap = inp.closest(".datefield");
-  const sync = () => wrap.classList.toggle("has-value", !!inp.value);
+}
 
+// fake placeholder sync (не падаем если обертки нет)
+document.querySelectorAll(".datefield input[type='date']").forEach((inp) => {
+  const wrap = inp.closest(".datefield");
+  if (!wrap) return;
+
+  const sync = () => wrap.classList.toggle("has-value", !!inp.value);
   inp.addEventListener("change", sync);
   inp.addEventListener("input", sync);
   sync();
 });
+
 
   applyLang("ru");
 });
