@@ -102,7 +102,8 @@ button{
     grid-template-columns:1fr;
   }
 }
-/* ===== FORM GRID (single source of truth) ===== */
+/* ===== SEARCH FORM (single source of truth) ===== */
+
 .grid2{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -112,41 +113,87 @@ button{
 
 .check.full{ grid-column: 1 / -1; }
 
-/* В grid используем только gap — никаких margin у детей */
-.grid2 > *{ margin: 0 !important; min-width: 0; }
-
-/* ===== INPUTS (single source of truth) ===== */
-.input,
-.grid2 input,
-.grid2 button{
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-/* ===== NEW SEARCH FORM (clean) ===== */
-
-.grid2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.grid2 > * {
+/* В grid используем gap — у детей НЕТ margin */
+.grid2 > *{
   margin: 0;
   min-width: 0;
 }
 
-input, button {
+/* Базовый вид полей формы (from/to/pax/date/button) */
+.grid2 .input,
+.grid2 input[type="text"],
+.grid2 input[type="number"],
+.grid2 input[type="date"],
+.grid2 button{
   width: 100%;
+  box-sizing: border-box;
   padding: 12px;
   border-radius: 10px;
-  border: 1px solid #2a3b66;
+  font-size: 14px;
+
   background: #0b1220;
   color: #eaf0ff;
+  border: 1px solid #2a3b66;
 }
 
-input[type="date"] {
-  color-scheme: dark;
+/* Кнопка */
+.grid2 button{
+  background:#4f7cff;
+  border: none;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
 }
+
+/* DATE: нативный календарь + место под иконку */
+.grid2 input[type="date"]{
+  -webkit-appearance: auto;
+  appearance: auto;
+  color-scheme: dark;
+  padding-right: 44px;
+}
+
+/* Иконка календаря не перехватывает hover/click и НЕ “лезет” в соседние поля */
+.grid2 input[type="date"]::-webkit-calendar-picker-indicator{
+  opacity: 0.9;
+  filter: invert(1) brightness(1.2);
+  pointer-events: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fake placeholder через обёртку */
+.datefield{
+  position: relative;
+  width: 100%;
+}
+
+.datefield .dateph{
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(234,240,255,.6);
+  font-size: 14px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Пока пусто — прячем нативный формат */
+.datefield:not(.has-value) input[type="date"]{
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  caret-color: transparent;
+}
+
+/* Когда дата выбрана — показываем дату и скрываем placeholder */
+.datefield.has-value input[type="date"]{
+  color: #eaf0ff;
+  -webkit-text-fill-color: #eaf0ff;
+  caret-color: auto;
+}
+.datefield.has-value .dateph{ display: none; }
 
 
