@@ -69,22 +69,20 @@
       <span>Обратный билет не нужен</span>
     </label>
 
-    <input id="from" type="text" placeholder="Откуда" required>
-    <input id="to" type="text" placeholder="Куда" required>
+    <input id="from" class="input" type="text" placeholder="Откуда" required autocomplete="off">
+    <input id="to"   class="input" type="text" placeholder="Куда"   required autocomplete="off">
 
     <div class="datefield" id="departWrap">
-    <input class="input" id="date1" type="text" required>
-
-      <span class="dateph">Выберите дату</span>
+    <input class="input" id="date1" type="text" placeholder="Выберите дату" required autocomplete="off">
+      
     </div>
 
     <div id="returnWrap" class="datefield">
-    <input class="input" id="date2" type="text" data-i18n-ph="date_to">
-  
-      <span class="dateph">Выберите дату</span>
+    <input class="input" id="date2" type="text" placeholder="Выберите дату" autocomplete="off" data-i18n-ph="date_to">
+        
     </div>
 
-    <input id="pax" type="number" min="1" max="9" value="1">
+    <input id="pax" class="input" type="number" min="1" max="9" value="1">
 
     <button type="submit">Проверить и перейти</button>
 
