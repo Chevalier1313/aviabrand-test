@@ -1,17 +1,19 @@
-
-/* Step 1: prevent inputs from overflowing in grid/flex */
+/* ===== RESET ===== */
 *, *::before, *::after { box-sizing: border-box; }
 
-.grid2, .row2 { width: 100%; }
+:root{
+  --bg:#0b1220;
+  --card:#111a2e;
+  --border:#2a3b66;
+  --text:#eaf0ff;
+  --accent:#4f7cff;
+}
 
-.grid2 > *, .row2 > * { min-width: 0; }  /* critical for grid/flex children */
-
-.input, input, button { width: 100%; max-width: 100%; }
 body{
   margin:0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background:#0b1220;
-  color:#eaf0ff;
+  background:var(--bg);
+  color:var(--text);
 }
 
 .container{
@@ -20,154 +22,127 @@ body{
   padding:24px;
 }
 
-header{
+/* ===== HEADER ===== */
+header.nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:16px 20px;
   border-radius:14px;
-  background:#111a2e;
+  background:var(--card);
 }
 
-.brand{
-  font-weight:700;
-  font-size:18px;
-}
+.brand{ font-weight:700; font-size:18px; }
 
 .lang button{
   background:none;
-  border:1px solid #2a3b66;
-  color:#eaf0ff;
+  border:1px solid var(--border);
+  color:var(--text);
   padding:6px 10px;
   border-radius:8px;
   cursor:pointer;
 }
-
 .lang button.active{
-  background:#4f7cff;
-  border-color:#4f7cff;
+  background:var(--accent);
+  border-color:var(--accent);
 }
 
+/* ===== LAYOUT ===== */
 .hero{
   margin-top:24px;
   display:grid;
   grid-template-columns:1.2fr .8fr;
   gap:20px;
 }
+@media (max-width:900px){
+  .hero{ grid-template-columns:1fr; }
+}
 
 .card{
-  background:#111a2e;
+  background:var(--card);
   border-radius:16px;
   padding:20px;
 }
 
-h1{
-  margin-top:0;
-  font-size:36px;
-}
+h1{ margin:0 0 10px; font-size:36px; }
 
-@media (max-width:900px){
-  .hero{
-    grid-template-columns:1fr;
-  }
-}
-/* ===== SEARCH FORM (single source of truth) ===== */
-
+/* ===== FORM GRID (важно: только gap, никаких margin-top у полей) ===== */
 .grid2{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  align-items: start;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  align-items:start;
 }
+.check.full{ grid-column:1 / -1; }
 
-.check.full{ grid-column: 1 / -1; }
+.grid2 > *{ min-width:0; margin:0 !important; } /* ключевое против наезда */
 
-/* В grid используем gap — у детей НЕТ margin */
-.grid2 > *{
-  margin: 0;
-  min-width: 0;
-}
-
-/* Базовый вид полей формы (from/to/pax/date/button) */
-.grid2 .input,
-.grid2 input[type="text"],
-.grid2 input[type="number"],
-.grid2 input[type="date"],
+/* ===== INPUTS / BUTTONS ===== */
+.input,
+.grid2 input,
 .grid2 button{
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 14px;
-
-  background: #0b1220;
-  color: #eaf0ff;
-  border: 1px solid #2a3b66;
+  width:100%;
+  max-width:100%;
+  padding:12px;
+  border-radius:10px;
+  font-size:14px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* Кнопка */
 .grid2 button{
-  background:#4f7cff;
-  border: none;
-  color:white;
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
   font-weight:700;
   cursor:pointer;
 }
 
-/* DATE: нативный календарь + место под иконку */
+/* ===== DATE ===== */
 .grid2 input[type="date"]{
-  -webkit-appearance: auto;
-  appearance: auto;
-  color-scheme: dark;
-  padding-right: 44px;
+  -webkit-appearance:auto;
+  appearance:auto;
+  color-scheme:dark;
+  padding-right:44px; /* место под иконку */
 }
 
-/* Иконка календаря не перехватывает hover/click и НЕ “лезет” в соседние поля */
+/* ограничиваем область индикатора (чтобы он не “лез” на соседние поля) */
 .grid2 input[type="date"]::-webkit-calendar-picker-indicator{
-  opacity: 0.9;
-  filter: invert(1) brightness(1.2);
-  pointer-events: none;
-  width: 18px;
-  height: 18px;
-  margin: 0;
-  padding: 0;
+  opacity:.9;
+  filter:invert(1) brightness(1.2);
+  width:18px;
+  height:18px;
+  margin:0;
+  padding:0;
 }
+
+/* ===== FAKE PLACEHOLDER (обёртка) ===== */
 .datefield{
-  position: relative;
-  width: 100%;
-  overflow: hidden;   /* КЛЮЧ: обрезает невидимые зоны date-индикатора */
-  isolation: isolate; /* КЛЮЧ: локальный слой, чтобы Chrome не “расползал” overlay */
+  position:relative;
+  width:100%;
 }
-
-/* чтобы плейсхолдер был поверх, а input — ниже (только внутри datefield) */
-.datefield input[type="date"]{ position: relative; z-index: 1; }
-.datefield .dateph{ z-index: 2; }
-
 
 .datefield .dateph{
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(234,240,255,.6);
-  font-size: 14px;
-  pointer-events: none;
-  white-space: nowrap;
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:rgba(234,240,255,.6);
+  font-size:14px;
+  pointer-events:none;
+  white-space:nowrap;
 }
 
-/* Пока пусто — прячем нативный формат */
-.datefield:not(.has-value) input[type="date"]{
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  caret-color: transparent;
+/* пока пусто — скрываем нативный dd.mm.yyyy (Chrome/WebKit) */
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit,
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-text,
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-month-field,
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-day-field,
+.datefield:not(.has-value) input[type="date"]::-webkit-datetime-edit-year-field{
+  color:transparent;
+  -webkit-text-fill-color:transparent;
 }
 
-/* Когда дата выбрана — показываем дату и скрываем placeholder */
-.datefield.has-value input[type="date"]{
-  color: #eaf0ff;
-  -webkit-text-fill-color: #eaf0ff;
-  caret-color: auto;
-}
-.datefield.has-value .dateph{ display: none; }
-
-
+/* когда выбрано — прячем “Выберите дату” */
+.datefield.has-value .dateph{ display:none; }

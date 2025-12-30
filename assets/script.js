@@ -29,25 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
     syncReturn();
   }
 
-  // Открывать календарь по клику по полю (Chrome/Edge)
-  [date1, date2].forEach((el) => {
-    if (!el) return;
-    el.addEventListener("click", () => {
-      if (typeof el.showPicker === "function") el.showPicker();
-    });
-  });
-
-  // fake placeholder: .datefield.has-value
-  document.querySelectorAll(".datefield input[type='date']").forEach((inp) => {
-    const wrap = inp.closest(".datefield");
-    if (!wrap) return;
-
-    const sync = () => wrap.classList.toggle("has-value", !!inp.value);
-    inp.addEventListener("change", sync);
-    inp.addEventListener("input", sync);
-    sync();
-  });
-
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
