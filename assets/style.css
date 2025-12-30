@@ -66,37 +66,6 @@ h1{
   font-size:36px;
 }
 
-button{
-  width:100%;
-  padding:12px;
-  
-  border-radius:10px;
-  border:none;
-  font-size:14px;
-}
-
-.input,
-input[type="text"],
-input[type="number"]{
-  width:100%;
-  padding:12px;
-  
-  border-radius:10px;
-  border:none;
-  font-size:14px;
-
-  background:#0b1220;
-  color:#eaf0ff;
-  border:1px solid #2a3b66;
-}
-
-button{
-  background:#4f7cff;
-  color:white;
-  font-weight:700;
-  cursor:pointer;
-}
-
 @media (max-width:900px){
   .hero{
     grid-template-columns:1fr;
@@ -163,12 +132,17 @@ button{
   margin: 0;
   padding: 0;
 }
-
-/* Fake placeholder через обёртку */
 .datefield{
   position: relative;
   width: 100%;
+  overflow: hidden;   /* КЛЮЧ: обрезает невидимые зоны date-индикатора */
+  isolation: isolate; /* КЛЮЧ: локальный слой, чтобы Chrome не “расползал” overlay */
 }
+
+/* чтобы плейсхолдер был поверх, а input — ниже (только внутри datefield) */
+.datefield input[type="date"]{ position: relative; z-index: 1; }
+.datefield .dateph{ z-index: 2; }
+
 
 .datefield .dateph{
   position: absolute;
