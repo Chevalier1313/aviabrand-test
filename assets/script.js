@@ -12,33 +12,35 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- FLATPICKR: только date1/date2 ---
   const setFpDisabled = (inst, disabled) => {
     if (!inst) return;
-    if (inst._input) inst._input.disabled = disabled;   // hidden input
-    if (inst.altInput) inst.altInput.disabled = disabled; // visible input
+    if (inst._input) inst._input.disabled = disabled;      // hidden input
+    if (inst.altInput) inst.altInput.disabled = disabled;  // visible input
   };
 
-  const fp1 = (date1 && window.flatpickr)
-    ? window.flatpickr(date1, {
-        dateFormat: "Y-m-d",
-        altInput: true,
-        altFormat: "d.m.Y",
-        altInputClass: "input",
-        allowInput: true,
-        disableMobile: true
-      })
-    : null;
+  const fp1 =
+    date1 && window.flatpickr
+      ? window.flatpickr(date1, {
+          dateFormat: "Y-m-d",
+          altInput: true,
+          altFormat: "d.m.Y",
+          altInputClass: "input",
+          allowInput: true,
+          disableMobile: true,
+        })
+      : null;
 
-  const fp2 = (date2 && window.flatpickr)
-    ? window.flatpickr(date2, {
-        dateFormat: "Y-m-d",
-        altInput: true,
-        altFormat: "d.m.Y",
-        altInputClass: "input",
-        allowInput: true,
-        disableMobile: true
-      })
-    : null;
+  const fp2 =
+    date2 && window.flatpickr
+      ? window.flatpickr(date2, {
+          dateFormat: "Y-m-d",
+          altInput: true,
+          altFormat: "d.m.Y",
+          altInputClass: "input",
+          allowInput: true,
+          disableMobile: true,
+        })
+      : null;
 
-  // Плейсхолдер именно на ВИДИМОМ поле (altInput)
+  // placeholder на видимом поле (altInput)
   const applyDatePlaceholder = (inst) => {
     if (inst?.altInput) inst.altInput.placeholder = "Выберите дату";
     if (inst?._input) inst._input.placeholder = "Выберите дату";
@@ -46,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   applyDatePlaceholder(fp1);
   applyDatePlaceholder(fp2);
 
-  // --- единая синхронизация oneway (и DOM, и flatpickr) ---
+  // --- синхронизация oneway (DOM + flatpickr) ---
   function syncReturn() {
     if (!oneWay || !returnWrap || !date2) return;
 
@@ -66,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       returnWrap.style.display = "";
 
       date2.disabled = false;
-      date2.required = true; // A) round trip -> date2 обязателен
+      date2.required = true; // (A) round trip -> date2 обязателен
 
       setFpDisabled(fp2, false);
       applyDatePlaceholder(fp2);
@@ -78,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     syncReturn();
   }
 
-  // B) Очистка формы при возврате назад (Back / bfcache)
+  // (B) Очистка формы при возврате назад (Back / bfcache)
   // чтобы не оставались "залипшие" даты в altInput
   window.addEventListener("pageshow", () => {
     if (form) form.reset();
@@ -99,9 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      // A) round trip -> date2 must be filled
+      // (A) round trip -> date2 must be filled
       if (!oneWay?.checked && !date2?.value) {
-        // показываем нативное сообщение на ВИДИМОМ поле
+        // показываем сообщение на ВИДИМОМ поле
         if (fp2?.altInput) {
           fp2.altInput.setCustomValidity("Выберите дату обратного рейса");
           fp2.altInput.reportValidity();
