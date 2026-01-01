@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (inst._input) inst._input.disabled = disabled;      // hidden input
     if (inst.altInput) inst.altInput.disabled = disabled;  // visible input
   };
+  // placeholder на видимом поле (altInput)
+  const applyDatePlaceholder = (inst) => {
+    if (inst?.altInput) inst.altInput.placeholder = "Выберите дату";
+    if (inst?._input) inst._input.placeholder = "Выберите дату";
+  };
 
   const fp1 =
     date1 && window.flatpickr
@@ -25,6 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
           altInputClass: "input",
           allowInput: true,
           disableMobile: true,
+
+          // держим placeholder на altInput
+          onReady: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
+          onValueUpdate: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
+          onOpen: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
         })
       : null;
 
@@ -37,16 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
           altInputClass: "input",
           allowInput: true,
           disableMobile: true,
+
+          onReady: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
+          onValueUpdate: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
+          onOpen: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
         })
       : null;
 
-  // placeholder на видимом поле (altInput)
-  const applyDatePlaceholder = (inst) => {
-    if (inst?.altInput) inst.altInput.placeholder = "Выберите дату";
-    if (inst?._input) inst._input.placeholder = "Выберите дату";
-  };
+  // стартовый placeholder
   applyDatePlaceholder(fp1);
   applyDatePlaceholder(fp2);
+
 
   // --- синхронизация oneway (DOM + flatpickr) ---
   function syncReturn() {
@@ -118,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // стандартная валидация остальных полей
       if (!form.reportValidity()) return;
 
       const from = document.getElementById("from")?.value || "";
