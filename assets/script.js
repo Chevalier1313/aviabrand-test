@@ -9,18 +9,60 @@ document.addEventListener("DOMContentLoaded", () => {
   const date1 = document.getElementById("date1");
   const date2 = document.getElementById("date2");
 
-  // --- FLATPICKR: только date1/date2 ---
+  // ===== helpers =====
+  const startOfDay = (d) => {
+    const x = new Date(d);
+    x.setHours(0, 0, 0, 0);
+    return x;
+  };
+
+  // "разрешаем вчера"
+  const yesterday = () => {
+    const x = startOfDay(new Date());
+    x.setDate(x.getDate() - 1);
+    return x;
+  };
+
+  const BASE_MIN_DATE = yesterday();
+
   const setFpDisabled = (inst, disabled) => {
     if (!inst) return;
-    if (inst._input) inst._input.disabled = disabled;      // hidden input
-    if (inst.altInput) inst.altInput.disabled = disabled;  // visible input
+    if (inst._input) inst._input.disabled = disabled;     // hidden input
+    if (inst.altInput) inst.altInput.disabled = disabled; // visible input
   };
-  // placeholder на видимом поле (altInput)
+
   const applyDatePlaceholder = (inst) => {
     if (inst?.altInput) inst.altInput.placeholder = "Выберите дату";
     if (inst?._input) inst._input.placeholder = "Выберите дату";
   };
 
+  const getSelectedDate = (fp) => {
+    const d = fp?.selectedDates?.[0];
+    return d ? startOfDay(d) : null;
+  };
+
+  // ===== UX: date2 не раньше date1, и если стало раньше — подтянуть на date1 =====
+  const syncMinReturnToDepart = () => {
+    if (!fp1 || !fp2) return;
+
+    const d1 = getSelectedDate(fp1);
+
+    if (!d1) {
+      fp2.set("minDate", BASE_MIN_DATE);
+      return;
+    }
+
+    // date2 нельзя раньше date1 (но можно тот же день)
+    fp2.set("minDate", d1);
+
+    const d2 = getSelectedDate(fp2);
+    if (d2 && d2 < d1) {
+      fp2.setDate(d1, true); // triggerChange = true
+      applyDatePlaceholder(fp2);
+    }
+  };
+
+  // ===== FLATPICKR: только date1/date2 =====
   const fp1 =
     date1 && window.flatpickr
       ? window.flatpickr(date1, {
@@ -31,10 +73,15 @@ document.addEventListener("DOMContentLoaded", () => {
           allowInput: true,
           disableMobile: true,
 
-          // держим placeholder на altInput
-          onReady: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
-          onValueUpdate: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
-          onOpen: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
+          // UX: можно выбрать "вчера", но не раньше
+          minDate: BASE_MIN_DATE,
+
+          onReady: (_sd, _ds, inst) => applyDatePlaceholder(inst),
+          onValueUpdate: (_sd, _ds, inst) => applyDatePlaceholder(inst),
+          onOpen: (_sd, _ds, inst) => applyDatePlaceholder(inst),
+
+          // НАДЁЖНО: onChange прямо тут
+          onChange: () => syncMinReturnToDepart(),
         })
       : null;
 
@@ -48,9 +95,19 @@ document.addEventListener("DOMContentLoaded", () => {
           allowInput: true,
           disableMobile: true,
 
-          onReady: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
-          onValueUpdate: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
-          onOpen: (_selectedDates, _dateStr, inst) => applyDatePlaceholder(inst),
+          minDate: BASE_MIN_DATE,
+
+          onReady: (_sd, _ds, inst) => applyDatePlaceholder(inst),
+          onValueUpdate: (_sd, _ds, inst) => applyDatePlaceholder(inst),
+          onOpen: (_sd, _ds, inst) => {
+            applyDatePlaceholder(inst);
+
+            // date2 календарь открывается на date1 (но можно вернуть в тот же день)
+            const d1 = fp1?.selectedDates?.[0];
+            if (d1) inst.jumpToDate(d1, true);
+          },
+
+          onChange: (_sd, _ds, inst) => applyDatePlaceholder(inst),
         })
       : null;
 
@@ -58,8 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
   applyDatePlaceholder(fp1);
   applyDatePlaceholder(fp2);
 
-
-  // --- синхронизация oneway (DOM + flatpickr) ---
+  // ===== синхронизация oneway (DOM + flatpickr) =====
   function syncReturn() {
     if (!oneWay || !returnWrap || !date2) return;
 
@@ -68,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isOneWay) {
       returnWrap.style.display = "none";
 
-      // чистим и выключаем date2
       date2.value = "";
       date2.disabled = true;
       date2.required = false;
@@ -83,6 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setFpDisabled(fp2, false);
       applyDatePlaceholder(fp2);
+
+      // если date1 уже выбрана — сразу применяем minDate=date1
+      syncMinReturnToDepart();
     }
   }
 
@@ -91,8 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     syncReturn();
   }
 
-  // (B) Очистка формы при возврате назад (Back / bfcache)
-  // чтобы не оставались "залипшие" даты в altInput
+  // (B) Очистка формы при возврате назад — пусть чистит всегда
   window.addEventListener("pageshow", () => {
     if (form) form.reset();
 
@@ -102,26 +159,28 @@ document.addEventListener("DOMContentLoaded", () => {
     if (fp1) fp1.clear();
     if (fp2) fp2.clear();
 
+    if (fp1) fp1.set("minDate", BASE_MIN_DATE);
+    if (fp2) fp2.set("minDate", BASE_MIN_DATE);
+
     applyDatePlaceholder(fp1);
     applyDatePlaceholder(fp2);
 
     syncReturn();
   });
 
+  // ===== Submit =====
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
       // (A) round trip -> date2 must be filled
       if (!oneWay?.checked && !date2?.value) {
-        // показываем сообщение на ВИДИМОМ поле
         if (fp2?.altInput) {
           fp2.altInput.setCustomValidity("Выберите дату обратного рейса");
           fp2.altInput.reportValidity();
           fp2.altInput.setCustomValidity("");
           fp2.open();
         } else {
-          // запасной вариант (если altInput вдруг нет)
           date2.setCustomValidity("Выберите дату обратного рейса");
           date2.reportValidity();
           date2.setCustomValidity("");
@@ -129,7 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // стандартная валидация остальных полей
       if (!form.reportValidity()) return;
 
       const from = document.getElementById("from")?.value || "";
