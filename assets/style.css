@@ -6,6 +6,7 @@
   --card:#111a2e;
   --border:#2a3b66;
   --text:#eaf0ff;
+  --muted:#b9c7ee;
   --accent:#4f7cff;
 }
 
@@ -15,6 +16,9 @@ body{
   background:var(--bg);
   color:var(--text);
 }
+
+a{ color:inherit; text-decoration:none; }
+a:hover{ text-decoration:underline; }
 
 .container{
   max-width:1100px;
@@ -27,13 +31,55 @@ header.nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:14px;
   padding:16px 20px;
   border-radius:14px;
   background:var(--card);
+  border:1px solid rgba(255,255,255,0.06);
+  flex-wrap:wrap;
 }
 
-.brand{ font-weight:700; font-size:18px; }
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  font-size:18px;
+}
 
+.badge{
+  font-size:12px;
+  font-weight:700;
+  padding:4px 8px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  color:var(--muted);
+  background:rgba(255,255,255,0.03);
+}
+
+.navlinks{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.navlinks a{
+  padding:8px 10px;
+  border-radius:10px;
+  color:var(--muted);
+}
+.navlinks a:hover{
+  background:rgba(255,255,255,0.04);
+  color:var(--text);
+  text-decoration:none;
+}
+
+.lang{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-left:auto;
+}
 .lang button{
   background:none;
   border:1px solid var(--border);
@@ -45,6 +91,16 @@ header.nav{
 .lang button.active{
   background:var(--accent);
   border-color:var(--accent);
+}
+
+/* ===== TYPO ===== */
+.h1, h1{ margin:0 0 10px; font-size:36px; line-height:1.15; letter-spacing:-0.2px; }
+.h2, h2{ margin:0 0 10px; font-size:18px; line-height:1.2; }
+.lead{ margin:0; color:var(--muted); line-height:1.5; }
+.small{ font-size:13px; color:var(--muted); line-height:1.35; }
+
+.p{ /* если захочешь — можно потом перенести padding из .card сюда */
+  /* padding:20px; */
 }
 
 /* ===== LAYOUT ===== */
@@ -62,9 +118,39 @@ header.nav{
   background:var(--card);
   border-radius:16px;
   padding:20px;
+  border:1px solid rgba(255,255,255,0.06);
 }
 
-h1{ margin:0 0 10px; font-size:36px; }
+.section{ margin-top:18px; }
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:12px;
+  margin-top:14px;
+}
+@media (max-width:900px){
+  .grid3{ grid-template-columns:1fr; }
+}
+
+.kpi{
+  padding:14px;
+}
+.kpi b{ display:block; font-size:14px; }
+.kpi span{ display:block; font-size:13px; color:var(--muted); margin-top:4px; }
+
+/* ===== LIST / ITEMS ===== */
+.list{
+  display:grid;
+  gap:10px;
+  margin-top:10px;
+}
+.item{
+  padding:12px 14px;
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:14px;
+  background:rgba(255,255,255,0.02);
+}
 
 /* ===== FORM GRID (важно: только gap, никаких margin-top у полей) ===== */
 .grid2{
@@ -73,9 +159,27 @@ h1{ margin:0 0 10px; font-size:36px; }
   gap:12px;
   align-items:start;
 }
+@media (max-width:560px){
+  .grid2{ grid-template-columns:1fr; }
+}
+
 .check.full{ grid-column:1 / -1; }
+.check{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;
+  background:rgba(255,255,255,0.02);
+  color:var(--muted);
+}
+.check input{ transform: translateY(1px); }
 
 .grid2 > *{ min-width:0; margin:0 !important; } /* ключевое против наезда */
+
+/* datefield: чтобы flatpickr altInput не “разъезжался” */
+.datefield{ width:100%; }
 
 /* ===== INPUTS / BUTTONS ===== */
 .input,
@@ -89,6 +193,7 @@ h1{ margin:0 0 10px; font-size:36px; }
   background:var(--bg);
   color:var(--text);
 }
+.input::placeholder{ color:rgba(185,199,238,0.75); }
 
 .grid2 button{
   background:var(--accent);
@@ -97,9 +202,93 @@ h1{ margin:0 0 10px; font-size:36px; }
   font-weight:700;
   cursor:pointer;
 }
+.grid2 button:hover{ filter:brightness(1.05); }
+.grid2 button:active{ transform:translateY(1px); }
+
 /* flatpickr altInput – ведёт себя как обычный input */
-.flatpickr-input {
-  appearance: none;
+.flatpickr-input { appearance:none; }
+
+/* ===== BUTTON LINKS (coming-soon.html) ===== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--accent);
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+}
+.btn.secondary{
+  background:transparent;
+  color:var(--text);
+}
+.btn:hover{ filter:brightness(1.05); text-decoration:none; }
+.btn:active{ transform:translateY(1px); }
+
+/* ===== FOOTER ===== */
+.footer{
+  margin-top:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  padding:14px 18px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.06);
+}
+@media (max-width:700px){
+  .footer{ flex-direction:column; }
+}
+/* ===== FAQ (details / summary) ===== */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
 }
 
+details summary.h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
 
+details summary.h2::after {
+  content: "▾";
+  font-size: 16px;
+  opacity: 0.7;
+  transition: transform .2s ease;
+}
+
+details[open] summary.h2::after {
+  transform: rotate(180deg);
+}
+
+details .p {
+  padding-top: 6px;
+}
+/* ===== FAQ ===== */
+.faq { display:grid; gap:10px; }
+
+.faq-item{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 12px;
+  background:rgba(0,0,0,.08);
+}
+
+.faq-item summary{
+  cursor:pointer;
+  font-weight:700;
+  list-style:none;
+}
+
+.faq-item summary::-webkit-details-marker { display:none; }
+
+.faq-item[open] summary{ margin-bottom:8px; }

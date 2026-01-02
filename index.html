@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aviabrand</title>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -66,25 +67,23 @@
 
     <label class="check full">
       <input type="checkbox" id="oneway">
-      <span>Обратный билет не нужен</span>
+      <span data-i18n="oneway_label">Обратный билет не нужен</span>
+
     </label>
 
-    <input id="from" class="input" type="text" placeholder="Откуда" required autocomplete="off">
-    <input id="to"   class="input" type="text" placeholder="Куда"   required autocomplete="off">
+    <input id="from" class="input" type="text" placeholder="Откуда" required autocomplete="off" data-i18n-ph="ph_from">
+<input id="to"   class="input" type="text" placeholder="Куда"   required autocomplete="off" data-i18n-ph="ph_to">
 
-    <div class="datefield" id="departWrap">
-    <input class="input" id="date1" type="text" placeholder="Выберите дату" required autocomplete="off">
-      
-    </div>
+<div class="datefield" id="departWrap">
+  <input class="input" id="date1" type="text" placeholder="Выберите дату" required autocomplete="off" data-i18n-ph="date_from">
+</div>
 
-    <div id="returnWrap" class="datefield">
-    <input class="input" id="date2" type="text" placeholder="Выберите дату" autocomplete="off" data-i18n-ph="date_to">
-        
-    </div>
+<div id="returnWrap" class="datefield">
+  <input class="input" id="date2" type="text" placeholder="Выберите дату" autocomplete="off" data-i18n-ph="date_to">
+</div>
 
-    <input id="pax" class="input" type="number" min="1" max="9" value="1">
+<button type="submit" data-i18n="btn_check">Проверить и перейти</button>
 
-    <button type="submit">Проверить и перейти</button>
 
   </div>
 </form>
