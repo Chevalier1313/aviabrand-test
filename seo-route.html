@@ -12,6 +12,10 @@
   <link id="canonical" rel="canonical" href="seo-route.html" />
 
   <link rel="stylesheet" href="assets/style.css" />
+  <style>
+  #seoRoutePart, #seoBcTail { display:none; }
+</style>
+
 </head>
 
 <body data-page="seo-route">
@@ -23,6 +27,7 @@
 
       <nav class="navlinks">
         <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="routes.html" data-i18n="nav_routes">Направления</a>
         <a href="how-to-buy.html" data-i18n="nav_how">Как купить</a>
         <a href="fares.html" data-i18n="nav_fares">Тарифы и услуги</a>
         <a href="faq.html" data-i18n="nav_faq">FAQ</a>
@@ -36,23 +41,30 @@
     </header>
 
     <!-- Breadcrumbs (SEO) -->
-    <div class="section" style="margin-top:14px">
-      <div class="small">
-        <a href="index.html" data-i18n="seo_bc_home">Главная</a>
-        <span> / </span>
-        <span data-i18n="seo_bc_routes">Направления</span>
-        <span> / </span>
-        <span id="seoBcRoute">—</span>
-      </div>
-    </div>
+<div class="section" style="margin-top:14px">
+  <div class="small">
+    <a href="index.html" data-i18n="seo_bc_home">Главная</a>
+    <span> / </span>
+    <a href="routes.html" data-i18n="seo_bc_routes">Направления</a>
+
+    <span id="seoBcTail">
+      <span> / </span>
+      <span id="seoBcRoute">—</span>
+    </span>
+  </div>
+</div>
+
 
     <main class="card" style="margin-top:14px">
       <div class="p">
         <h1 class="h1" style="font-size:34px">
           <span data-i18n="seo_h1_prefix">Авиабилеты</span>
-          <span id="seoFrom">—</span> → <span id="seoTo">—</span>
-        </h1>
+<span id="seoRoutePart">
+  <span id="seoFrom">—</span> → <span id="seoTo">—</span>
+</span>
 
+        </h1>
+          
         <p class="lead" id="seoLead" data-i18n="seo_lead">
           Короткая справка по направлению: советы, документы и ответы на вопросы перед покупкой.
         </p>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title data-i18n="routes_page_title">Направления авиарейсов — Aviabrand</title>
+  <meta name="description" data-i18n-content="routes_meta_desc"
+        content="Популярные направления авиарейсов: советы и подготовка к покупке билетов." />
+
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+  <div class="container">
+
+    <header class="nav">
+      <div class="brand">
+        <span>✈️</span>
+        <span>aviabrand.uz</span>
+        <span class="badge">info</span>
+      </div>
+
+      <!-- важно: navlinks (без дефиса) -->
+      <nav class="navlinks">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="routes.html" data-i18n="nav_routes">Направления</a>
+        <a href="how-to-buy.html" data-i18n="nav_how">Как купить</a>
+        <a href="fares.html" data-i18n="nav_fares">Тарифы и услуги</a>
+        <a href="faq.html" data-i18n="nav_faq">FAQ</a>
+        <a href="contacts.html" data-i18n="nav_contacts">Контакты</a>
+      </nav>
+
+      <div class="lang">
+        <button type="button" data-set-lang="ru" data-lang="ru">RU</button>
+        <button type="button" data-set-lang="uz" data-lang="uz">UZ</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="card">
+        <h1 data-i18n="routes_h1">Популярные направления</h1>
+        <p class="lead" data-i18n="routes_lead">
+          Выберите маршрут и подготовьтесь к покупке авиабилета.
+        </p>
+      </section>
+
+      <!-- TOP ROUTES (static SEO pages) -->
+      <section class="card">
+        <h2 data-i18n="routes_top_h2">Популярные маршруты</h2>
+
+        <ul class="route-list">
+          <li>
+            <a href="flights-tashkent-moscow.html" data-i18n="route_tm">
+              Ташкент — Москва
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- UNIVERSAL ROUTES -->
+      <section class="card">
+        <h2 data-i18n="routes_other_h2">Другие направления</h2>
+
+        <ul class="route-list">
+          <li>
+            <a href="seo-route.html?from=Tashkent&to=Istanbul" data-i18n="route_ti">
+              Ташкент — Стамбул
+            </a>
+          </li>
+          <li>
+            <a href="seo-route.html?from=Tashkent&to=Dubai" data-i18n="route_td">
+              Ташкент — Дубай
+            </a>
+          </li>
+          <li>
+            <a href="seo-route.html?from=Tashkent&to=Berlin" data-i18n="route_tb">
+              Ташкент — Берлин
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <a href="index.html" class="btn secondary" data-i18n="btn_back_home">
+        Вернуться на главную
+      </a>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 aviabrand.uz</span>
+      <span class="small" data-i18n="footer_note">
+        Ma’lumot sayti. Integratsiyadan so‘ng onlayn sotuv qo‘shiladi.
+      </span>
+    </footer>
+
+  </div>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>

@@ -2,89 +2,98 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title data-i18n="seo_tm_title">Авиабилеты Ташкент — Москва</title>
   <meta name="description" content="" data-i18n-content="seo_tm_desc" />
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
+  <div class="container">
 
-<header class="nav">
-  <!-- используй тот же header как в остальных страницах -->
-  <div class="nav-inner">
-    <div class="brand">
-      <span class="logo">✈</span>
-      <span class="site">aviabrand.uz</span>
-      <span class="badge">info</span>
-    </div>
-
-    <nav class="menu">
-      <a href="index.html" data-i18n="nav_home">Главная</a>
-      <a href="how-to-buy.html" data-i18n="nav_how">Как купить</a>
-      <a href="fares.html" data-i18n="nav_fares">Тарифы и услуги</a>
-      <a href="faq.html" data-i18n="nav_faq">FAQ</a>
-      <a href="contacts.html" data-i18n="nav_contacts">Контакты</a>
-    </nav>
-
-    <div class="lang">
-      <button class="lang-btn" data-set-lang="ru">RU</button>
-      <button class="lang-btn" data-set-lang="uz">UZ</button>
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="card">
-    <div class="p">
-      <h1 data-i18n="seo_tm_h1">Авиабилеты Ташкент — Москва</h1>
-
-      <!-- скрытые значения для формирования ссылки на поиск -->
-      <span id="routeFrom" data-i18n="city_tashkent" style="display:none">Ташкент</span>
-      <span id="routeTo" data-i18n="city_moscow" style="display:none">Москва</span>
-
-      <p class="lead" data-i18n="seo_tm_lead">
-        Пока сайт в информационном режиме: ниже — краткие советы и ответы, чтобы подготовиться к покупке.
-      </p>
-
-      <h2 data-i18n="seo_tm_h2_1">Как выбрать билет</h2>
-      <p data-i18n="seo_tm_p1"></p>
-
-      <h2 data-i18n="seo_tm_h2_2">Тарифы и багаж</h2>
-      <p data-i18n="seo_tm_p2"></p>
-
-      <h2 data-i18n="seo_tm_h2_3">Полезные советы</h2>
-      <ul>
-        <li data-i18n="seo_tm_li1"></li>
-        <li data-i18n="seo_tm_li2"></li>
-        <li data-i18n="seo_tm_li3"></li>
-      </ul>
-
-      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
-        <a id="seoGoSearch" href="index.html" class="btn" data-i18n="seo_btn_search" style="display:inline-flex">
-          Перейти к поиску
-        </a>
-
-        <a href="index.html" class="btn secondary" data-i18n="btn_back_home">
-          Вернуться на главную
-        </a>
+    <header class="nav">
+      <div class="brand">
+        <span>✈️</span>
+        <span>aviabrand.uz</span>
+        <span class="badge">info</span>
       </div>
-    </div>
-  </section>
-</main>
 
-<footer class="footer">
-  <div class="wrap">
-    <div class="foot-inner">
-      <div>© 2026 aviabrand.uz</div>
-      <div class="small" data-i18n="footer_note">
+      <nav class="menu">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="how-to-buy.html" data-i18n="nav_how">Как купить</a>
+        <a href="fares.html" data-i18n="nav_fares">Тарифы и услуги</a>
+        <a href="faq.html" data-i18n="nav_faq">FAQ</a>
+        <a href="contacts.html" data-i18n="nav_contacts">Контакты</a>
+      </nav>
+
+      <div class="lang">
+        <button type="button" data-set-lang="ru" data-lang="ru">RU</button>
+        <button type="button" data-set-lang="uz" data-lang="uz">UZ</button>
+      </div>
+    </header>
+
+    <main style="margin-top:18px">
+      <section class="card">
+        <div class="p">
+          <h1 class="h1" data-i18n="seo_tm_h1">Авиабилеты Ташкент — Москва</h1>
+          <p class="lead" data-i18n="seo_tm_lead">
+            Прямые и стыковочные рейсы, советы по выбору тарифа и подготовке к покупке билета.
+          </p>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+            <a
+              class="btn"
+              data-i18n="btn_go_search"
+              data-go-search
+              data-from="Tashkent"
+              data-to="Moscow"
+              href="index.html"
+            >
+              Перейти к поиску
+            </a>
+
+            <a class="btn secondary" href="index.html" data-i18n="btn_back_home">
+              Вернуться на главную
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:14px">
+        <div class="p">
+          <h2 data-i18n="seo_tm_h2_1">Как выбрать билет</h2>
+          <p data-i18n="seo_tm_p1"></p>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:14px">
+        <div class="p">
+          <h2 data-i18n="seo_tm_h2_2">Тарифы и багаж</h2>
+          <p data-i18n="seo_tm_p2"></p>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:14px">
+        <div class="p">
+          <h2 data-i18n="seo_tm_h2_3">Полезные советы</h2>
+          <ul>
+            <li data-i18n="seo_tm_li1"></li>
+            <li data-i18n="seo_tm_li2"></li>
+            <li data-i18n="seo_tm_li3"></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 aviabrand.uz</span>
+      <span class="small" data-i18n="footer_note">
         Информационный сайт. Онлайн-продажа будет добавлена после интеграции.
-      </div>
-    </div>
+      </span>
+    </footer>
   </div>
-</footer>
 
-<script src="assets/script.js"></script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
