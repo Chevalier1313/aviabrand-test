@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Title/description будут подставляться из JS -->
+  <title>Aviabrand.uz — Маршрут</title>
+  <meta id="metaDesc" name="description" content="Информация по направлению, советы, FAQ и подготовка к покупке." />
+
+  <!-- Canonical (тоже обновим через JS) -->
+  <link id="canonical" rel="canonical" href="seo-route.html" />
+
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body data-page="seo-route">
+  <div class="container">
+    <header class="nav">
+      <div class="brand">
+        <span>✈️</span><span>aviabrand.uz</span><span class="badge">info</span>
+      </div>
+
+      <nav class="navlinks">
+        <a href="index.html" data-i18n="nav_home">Главная</a>
+        <a href="how-to-buy.html" data-i18n="nav_how">Как купить</a>
+        <a href="fares.html" data-i18n="nav_fares">Тарифы и услуги</a>
+        <a href="faq.html" data-i18n="nav_faq">FAQ</a>
+        <a href="contacts.html" data-i18n="nav_contacts">Контакты</a>
+      </nav>
+
+      <div class="lang">
+        <button type="button" data-set-lang="ru" data-lang="ru">RU</button>
+        <button type="button" data-set-lang="uz" data-lang="uz">UZ</button>
+      </div>
+    </header>
+
+    <!-- Breadcrumbs (SEO) -->
+    <div class="section" style="margin-top:14px">
+      <div class="small">
+        <a href="index.html" data-i18n="seo_bc_home">Главная</a>
+        <span> / </span>
+        <span data-i18n="seo_bc_routes">Направления</span>
+        <span> / </span>
+        <span id="seoBcRoute">—</span>
+      </div>
+    </div>
+
+    <main class="card" style="margin-top:14px">
+      <div class="p">
+        <h1 class="h1" style="font-size:34px">
+          <span data-i18n="seo_h1_prefix">Авиабилеты</span>
+          <span id="seoFrom">—</span> → <span id="seoTo">—</span>
+        </h1>
+
+        <p class="lead" id="seoLead" data-i18n="seo_lead">
+          Короткая справка по направлению: советы, документы и ответы на вопросы перед покупкой.
+        </p>
+
+        <div class="grid3" style="margin-top:14px">
+          <div class="card kpi">
+            <b data-i18n="seo_kpi1b">Сравнивайте</b>
+            <span data-i18n="seo_kpi1s">прямые и с пересадкой</span>
+          </div>
+          <div class="card kpi">
+            <b data-i18n="seo_kpi2b">Проверяйте</b>
+            <span data-i18n="seo_kpi2s">багаж и правила тарифа</span>
+          </div>
+          <div class="card kpi">
+            <b data-i18n="seo_kpi3b">Готовьте</b>
+            <span data-i18n="seo_kpi3s">документы и контакты</span>
+          </div>
+        </div>
+
+        <section class="section">
+          <h2 class="h2" data-i18n="seo_s1_title">Что важно по направлению</h2>
+          <div class="list">
+            <div class="item" data-i18n="seo_s1_1">Сверьте аэропорты в городах (иногда их несколько).</div>
+            <div class="item" data-i18n="seo_s1_2">Для международных рейсов заранее проверьте требования по визе/документам.</div>
+            <div class="item" data-i18n="seo_s1_3">Если есть пересадки — закладывайте комфортное время стыковки.</div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="h2" data-i18n="seo_s2_title">Когда лучше покупать</h2>
+          <div class="list">
+            <div class="item" data-i18n="seo_s2_1">Цена зависит от спроса и наличия мест — она может меняться.</div>
+            <div class="item" data-i18n="seo_s2_2">Сравните разные даты (+/- 1–3 дня), если есть гибкость.</div>
+            <div class="item" data-i18n="seo_s2_3">Проверяйте финальную стоимость перед оплатой (багаж/услуги).</div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="h2" data-i18n="seo_s3_title">Частые вопросы по покупке</h2>
+
+          <div class="list">
+            <details class="item">
+              <summary class="h2" data-i18n="seo_faq_q1">Почему цена может отличаться?</summary>
+              <div class="small" data-i18n="seo_faq_a1">
+                Цена зависит от доступных мест, тарифа и правил авиакомпании. Перед оплатой цена обычно фиксируется.
+              </div>
+            </details>
+
+            <details class="item">
+              <summary class="h2" data-i18n="seo_faq_q2">Какие данные нужны для покупки?</summary>
+              <div class="small" data-i18n="seo_faq_a2">
+                Обычно нужны паспортные данные пассажиров и email/телефон покупателя.
+              </div>
+            </details>
+
+            <details class="item">
+              <summary class="h2" data-i18n="seo_faq_q3">Можно ли вернуть или обменять билет?</summary>
+              <div class="small" data-i18n="seo_faq_a3">
+                Зависит от тарифа. Смотрите раздел «Тарифы и услуги» — там объясняем логику условий.
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="h2" data-i18n="seo_s4_title">Полезные ссылки</h2>
+          <div class="list">
+            <a class="item" href="how-to-buy.html" data-i18n="seo_link1">Как купить — пошаговая инструкция</a>
+            <a class="item" href="fares.html" data-i18n="seo_link2">Тарифы и услуги — багаж, обмен/возврат</a>
+            <a class="item" href="faq.html" data-i18n="seo_link3">FAQ — ответы на популярные вопросы</a>
+          </div>
+        </section>
+
+        <a class="btn secondary" id="seoGoSearch" href="index.html" style="margin-top:14px;display:inline-flex" data-i18n="seo_btn_search">
+          Перейти к поиску
+        </a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div>© <span id="y"></span> aviabrand.uz</div>
+      <div class="small" data-i18n="footer_note">Информационный сайт. Онлайн-продажа будет добавлена после интеграции.</div>
+    </footer>
+  </div>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script src="assets/script.js"></script>
+
+  <!-- JSON-LD (минимальный, обновится через JS) -->
+  <script type="application/ld+json" id="seoJsonLd">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Aviabrand Route",
+    "description":"Route info",
+    "breadcrumb":{
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"index.html"},
+        {"@type":"ListItem","position":2,"name":"Routes","item":"seo-route.html"}
+      ]
+    }
+  }
+  </script>
+</body>
+</html>

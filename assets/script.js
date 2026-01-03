@@ -38,20 +38,28 @@ document.addEventListener("DOMContentLoaded", () => {
       coming_title: "Скоро начнём онлайн-продажу",
       coming_sub:
         "Мы уже получили вашу заявку. Ниже — параметры поиска, которые вы ввели.",
-      coming_btn: "Вернуться на главную",
-      coming_note:
-        "Если хотите — добавим форму заявки (email/телефон) на этой странице.",
       field_from: "Откуда",
       field_to: "Куда",
       field_pax: "Пассажиры",
       field_dates: "Даты",
+      coming_btn: "Вернуться на главную",
+      coming_note:
+        "Если хотите — добавим форму заявки (email/телефон) на этой странице.",
 
-      // placeholders / labels (index)
+      // placeholders / labels / buttons (index)
       ph_from: "Откуда",
       ph_to: "Куда",
       ph_date: "Выберите дату",
       oneway_label: "Обратный билет не нужен",
       submit_btn: "Проверить и перейти",
+
+      // validation
+      v_from_min: "Введите пункт вылета (минимум 2 символа)",
+      v_to_min: "Введите пункт прилёта (минимум 2 символа)",
+      v_from_chars: "Только буквы и пробелы (без цифр/символов)",
+      v_to_chars: "Только буквы и пробелы (без цифр/символов)",
+      v_same: "Пункт прилёта должен отличаться от пункта вылета",
+      v_date2: "Выберите дату обратного рейса",
 
       // how-to-buy
       how_title: "Как купить авиабилет онлайн",
@@ -86,8 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       how_s2_3: "Укажите пассажиров: обычно 1–9 на одну бронь.",
 
       how_s3_title: "Шаг 3. Сравните варианты",
-      how_s3_1:
-        "Время: прямой рейс быстрее, с пересадкой — иногда дешевле.",
+      how_s3_1: "Время: прямой рейс быстрее, с пересадкой — иногда дешевле.",
       how_s3_2: "Багаж: проверьте включён ли багаж и ручная кладь.",
       how_s3_3:
         "Тариф: условия возврата/обмена зависят от тарифа — смотрите «Тарифы и услуги».",
@@ -99,14 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
       how_s4_3:
         "После оплаты билет приходит на email — сохраните PDF и номер брони.",
 
-      // (опциональные блоки, если они есть в твоём how-to-buy.html)
       how_s5_title: "Шаг 5. Подтвердите детали",
-      how_s5_1:
-        "Проверьте даты, города и количество пассажиров перед оплатой.",
-      how_s5_2:
-        "Уточните правила багажа и возврата по выбранному тарифу.",
-      how_s5_3:
-        "Если есть пересадки — убедитесь, что время стыковки комфортное.",
+      how_s5_1: "Проверьте даты, города и количество пассажиров перед оплатой.",
+      how_s5_2: "Уточните правила багажа и возврата по выбранному тарифу.",
+      how_s5_3: "Если есть пересадки — убедитесь, что время стыковки комфортное.",
 
       how_s6_title: "Шаг 6. После покупки",
       how_s6_1:
@@ -167,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "Выбор места, питание, страховка, приоритет — часто доступны за доплату.",
       fares_block3_2: "На пересадках обращайте внимание на длительность стыковки.",
       fares_block3_3: "Всегда проверяйте финальную стоимость перед оплатой.",
-      btn_back_home: "Вернуться на главную",
 
       // Contacts
       contacts_h1: "Контакты",
@@ -181,13 +183,77 @@ document.addEventListener("DOMContentLoaded", () => {
       contacts_hours: "Часы работы",
       contacts_hours_hint: "Пн–Пт, 09:00–18:00 (Ташкент)",
 
-      // validation
-      v_from_min: "Введите пункт вылета (минимум 2 символа)",
-      v_to_min: "Введите пункт прилёта (минимум 2 символа)",
-      v_from_chars: "Только буквы и пробелы (без цифр/символов)",
-      v_to_chars: "Только буквы и пробелы (без цифр/символов)",
-      v_same: "Пункт прилёта должен отличаться от пункта вылета",
-      v_date2: "Выберите дату обратного рейса",
+      // shared
+      btn_back_home: "Вернуться на главную",
+
+      // SEO route template page (seo-route.html)
+      seo_bc_home: "Главная",
+      seo_bc_routes: "Направления",
+
+      seo_h1_prefix: "Авиабилеты",
+      seo_lead:
+        "Короткая справка по направлению: советы, документы и ответы на вопросы перед покупкой.",
+      seo_kpi1b: "Сравнивайте",
+      seo_kpi1s: "прямые и с пересадкой",
+      seo_kpi2b: "Проверяйте",
+      seo_kpi2s: "багаж и правила тарифа",
+      seo_kpi3b: "Готовьте",
+      seo_kpi3s: "документы и контакты",
+
+      seo_s1_title: "Что важно по направлению",
+      seo_s1_1:
+        "Проверьте аэропорты вылета/прилёта и время в пути (прямой/с пересадкой).",
+      seo_s1_2:
+        "Если есть пересадка — смотрите время стыковки и необходимость визы/транзита.",
+      seo_s1_3: "Уточните сезонность: в праздники и в сезон цены могут быть выше.",
+
+      seo_s2_title: "Как искать выгоднее",
+      seo_s2_1:
+        "Сравнивайте прямые и стыковочные варианты — иногда разница в цене существенная.",
+      seo_s2_2: "Сравните разные даты (+/- 1–3 дня), если есть гибкость.",
+      seo_s2_3: "Проверяйте финальную стоимость перед оплатой (багаж/услуги).",
+
+      seo_s3_title: "Частые вопросы по покупке",
+      seo_faq_q1: "Почему цена может отличаться?",
+      seo_faq_a1:
+        "Цена зависит от тарифа, наличия мест, багажных опций и правил возврата/обмена. Также цена может измениться после обновления выдачи.",
+      seo_faq_q2: "Какие данные нужны для покупки?",
+      seo_faq_a2:
+        "Обычно нужны паспортные данные пассажиров, контактный email/телефон и способ оплаты (карта).",
+      seo_faq_q3: "Можно ли вернуть или обменять билет?",
+      seo_faq_a3:
+        "Это зависит от тарифа. Перед оплатой обязательно проверьте условия возврата/обмена и возможные штрафы.",
+
+      seo_s4_title: "Полезные ссылки",
+      seo_link1: "Как купить — пошаговая инструкция",
+      seo_link2: "Тарифы и услуги — багаж, обмен/возврат",
+      seo_link3: "FAQ — ответы на популярные вопросы",
+      seo_btn_search: "Перейти к поиску",
+
+      // SEO route meta templates (with {from}/{to})
+      seo_meta_title_tpl: "Aviabrand.uz — Авиабилеты {from} → {to}",
+      seo_meta_desc_tpl:
+        "Советы и FAQ по направлению {from} → {to}: как выбрать рейс, проверить багаж и подготовиться к покупке билета.",
+
+      // Specific SEO page: flights-tashkent-moscow.html
+      seo_tm_title: "Авиабилеты Ташкент — Москва",
+      seo_tm_desc:
+        "Информационная страница по направлению Ташкент — Москва: советы по выбору рейса, тарифам и подготовке к покупке.",
+      seo_tm_h1: "Авиабилеты Ташкент — Москва",
+      seo_tm_lead:
+        "Пока сайт в информационном режиме: ниже — краткие советы и ответы, чтобы подготовиться к покупке.",
+      seo_tm_h2_1: "Как выбрать билет",
+      seo_tm_p1:
+        "Сравните прямые и стыковочные варианты, обратите внимание на время в пути и удобство пересадок.",
+      seo_tm_h2_2: "Тарифы и багаж",
+      seo_tm_p2:
+        "Перед оплатой проверьте, включён ли багаж и какие условия обмена/возврата у тарифа.",
+      seo_tm_h2_3: "Полезные советы",
+      seo_tm_li1: "Сравните цены на соседние даты (+/- 1–3 дня), если есть гибкость.",
+      seo_tm_li2: "Проверяйте имя/фамилию как в паспорте: исправления могут быть платными.",
+      seo_tm_li3: "Сохраняйте номер брони и PDF билета после покупки.",
+      city_tashkent: "Ташкент",
+      city_moscow: "Москва",
     },
 
     uz: {
@@ -199,10 +265,10 @@ document.addEventListener("DOMContentLoaded", () => {
       nav_contacts: "Kontaktlar",
 
       // index hero / blocks
-      hero_title: "Onlayn aviabiletlаr — qulay, oson, foydali",
+      hero_title: "Onlayn aviabiletlar — qulay, oson, foydali",
       hero_sub:
         "Aviabrand ma’lumot sayti. Tez orada onlayn sotuvni ishga tushiramiz. Hozircha — reys tanlash va xaridga tayyorgarlik bo‘yicha yordam beramiz.",
-      kpi1b: "MDH uchun",
+      kpi1b: "MDH bo‘yicha",
       kpi1s: "yo‘nalishlar va maslahatlar",
       kpi2b: "RU / UZ",
       kpi2s: "ikki tilli sayt",
@@ -210,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
       kpi3s: "yengil sahifalar",
       search_title: "Reys qidirish (test rejimi)",
       sec1: "Nega Aviabrand",
-      why1: "Xariddan oldin tushunarli yo‘riqnoma va javoblar.",
+      why1: "Xariddan oldin tushunarli yo‘riqnoma va savollarga javoblar.",
       why2: "Qulay navigatsiya va telefon uchun moslashuv.",
       why3: "Sotuv tizimi bilan integratsiyaga tayyorgarlik.",
       sec2: "Keyingi qadamlar",
@@ -223,21 +289,29 @@ document.addEventListener("DOMContentLoaded", () => {
       // coming-soon
       coming_title: "Tez orada onlayn sotuvni boshlaymiz",
       coming_sub:
-        "So‘rovingiz qabul qilindi. Quyida siz kiritgan qidiruv parametrlari.",
-      coming_btn: "Bosh sahifaga qaytish",
-      coming_note:
-        "Xohlasangiz, bu sahifaga ariza formasi (email/telefon) qo‘shamiz.",
+        "So‘rovingiz qabul qilindi. Quyida — siz kiritgan qidiruv parametrlari.",
       field_from: "Qayerdan",
       field_to: "Qayerga",
       field_pax: "Yo‘lovchilar",
       field_dates: "Sanalar",
+      coming_btn: "Bosh sahifaga qaytish",
+      coming_note:
+        "Xohlasangiz — bu sahifaga ariza formasi (email/telefon) qo‘shamiz.",
 
-      // placeholders / labels (index)
+      // placeholders / labels / buttons (index)
       ph_from: "Qayerdan",
       ph_to: "Qayerga",
       ph_date: "Sanani tanlang",
       oneway_label: "Qaytish bileti kerak emas",
       submit_btn: "Tekshirish va o‘tish",
+
+      // validation
+      v_from_min: "Jo‘nash joyini kiriting (kamida 2 belgi)",
+      v_to_min: "Borish joyini kiriting (kamida 2 belgi)",
+      v_from_chars: "Faqat harflar va bo‘sh joy (raqam/ortiqcha belgilarsiz)",
+      v_to_chars: "Faqat harflar va bo‘sh joy (raqam/ortiqcha belgilarsiz)",
+      v_same: "Borish joyi jo‘nash joyidan farq qilishi kerak",
+      v_date2: "Qaytish sanasini tanlang",
 
       // how-to-buy
       how_title: "Onlayn aviabiletni qanday sotib olish",
@@ -291,10 +365,8 @@ document.addEventListener("DOMContentLoaded", () => {
       how_s5_title: "5-qadam. Tafsilotlarni tasdiqlang",
       how_s5_1:
         "To‘lovdan oldin sana, shaharlar va yo‘lovchilar sonini tekshiring.",
-      how_s5_2:
-        "Tanlangan tarif bo‘yicha bagaj va qaytarish qoidalarini aniqlang.",
-      how_s5_3:
-        "Transfer bo‘lsa — ulanish vaqti yetarliligini tekshiring.",
+      how_s5_2: "Tanlangan tarif bo‘yicha bagaj va qaytarish qoidalarini aniqlang.",
+      how_s5_3: "Transfer bo‘lsa — ulanish vaqti yetarliligini tekshiring.",
 
       how_s6_title: "6-qadam. Sotib olgandan keyin",
       how_s6_1: "Bilet kelgan xatni tekshiring (ba’zan «Spam»ga tushadi).",
@@ -309,56 +381,54 @@ document.addEventListener("DOMContentLoaded", () => {
       // FAQ
       faq_title: "Ko‘p so‘raladigan savollar (FAQ)",
       faq_sub:
-        "Bilet sotib olishdan oldin eng ko‘p beriladigan savollarga qisqa javoblar.",
+        "Chipta sotib olishdan oldin eng ko‘p beriladigan savollarga qisqa javoblar.",
       faq_q1: "Onlayn sotuv qachon ishga tushadi?",
       faq_a1:
-        "Onlayn sotuv bronlash tizimi bilan integratsiya tugagach ishga tushadi. Saytdagi yangiliklarni kuzating.",
-      faq_q2: "Hozir saytda bilet sotib olsa bo‘ladimi?",
+        "Onlayn sotuv bron tizimi bilan integratsiya tugagach ishga tushadi. Saytdagi yangiliklarni kuzatib boring.",
+      faq_q2: "Hozir sayt orqali chipta sotib olsam bo‘ladimi?",
       faq_a2:
-        "Hozircha yo‘q — sayt ma’lumot rejimida. Yo‘riqnomalar orqali xaridga tayyorlanishingiz mumkin.",
-      faq_q3: "«Qayerdan/Qayerga» ni qanday to‘g‘ri kiritish kerak?",
+        "Hozircha yo‘q — sayt ma’lumot rejimida ishlaydi. Yo‘riqnoma orqali xaridga tayyorlanishingiz mumkin.",
+      faq_q3: "«Qayerdan/Qayerga» shahar nomlarini qanday kiritaman?",
       faq_a3:
-        "Shahar nomini lotincha yoki kirillcha, raqamsiz va ortiqcha belgilarsiz kiriting. «Qayerdan» va «Qayerga» bir xil bo‘lmasin.",
-      faq_q4: "Nega qaytish sanasi uchishdan oldin tanlanmaydi?",
+        "Shahar nomini lotincha yoki kirillcha, raqam va ortiqcha belgilarsiz kiriting. «Qayerdan» va «Qayerga» bir xil bo‘lmasin.",
+      faq_q4: "Nega qaytish sanasi uchish sanasidan oldin tanlanmaydi?",
       faq_a4:
-        "Bu «borib-qaytish» uchun to‘g‘ri: qaytish uchishdan oldin bo‘lishi mumkin emas.",
-      faq_q5: "«Tarif» nimani anglatadi va qoidalar qayerda?",
+        "«Borib-qaytish» uchun bu to‘g‘ri: qaytish uchishdan oldin bo‘lishi mumkin emas.",
+      faq_q5: "«Tarif» nimani anglatadi va qoidalarni qayerdan ko‘raman?",
       faq_a5:
-        "Tarif bagaj hamda almashtirish/qaytarish shartlarini belgilaydi. «Tariflar va xizmatlar» bo‘limini ko‘ring.",
-      faq_q6: "Xarid uchun qanday hujjatlar kerak?",
+        "Tarif bagaj va almashtirish/qaytarish shartlarini belgilaydi. «Tariflar va xizmatlar» bo‘limiga qarang.",
+      faq_q6: "Sotib olish uchun qanday hujjatlar kerak?",
       faq_a6:
-        "Odatda yo‘lovchining pasport ma’lumotlari va to‘lov usuli (karta) kerak bo‘ladi. Xalqaro reyslarda viza/hujjat talablarini tekshiring.",
+        "Odatda yo‘lovchilarning pasport ma’lumotlari va to‘lov usuli (karta) kerak bo‘ladi. Xalqaro reyslar uchun viza/hujjat talablarini tekshiring.",
       faq_q7: "To‘lovdan so‘ng bilet qayerga keladi?",
       faq_a7:
-        "Odatda bilet ko‘rsatilgan emailga keladi. PDF va bron raqamini saqlang.",
-      faq_q8: "Bilet xati kelmasa nima qilish kerak?",
+        "Bilet odatda xarid vaqtida ko‘rsatilgan emailga keladi. PDF va bron raqamini saqlang.",
+      faq_q8: "Bilet xati kelmasa nima qilaman?",
       faq_a8:
-        "«Spam»ni tekshiring, emailni to‘g‘ri kiritganingizni ko‘ring va biroz kuting. Baribir kelmasa — qo‘llab-quvvatlashga murojaat qiling.",
+        "«Spam»ni tekshiring, email to‘g‘riligini ko‘ring va bir necha daqiqa kuting. Kelmasa — qo‘llab-quvvatlashga murojaat qiling.",
 
       // Fares
       fares_h1: "Tariflar va xizmatlar",
       fares_lead:
-        "Tarif odatda nimalarni o‘z ichiga olishini va xariddan oldin nimalarga e’tibor berish kerakligini qisqacha tushuntiramiz.",
+        "Tarif odatda nimalarni o‘z ichiga olishi va xariddan oldin nimalarga e’tibor berish kerakligini qisqacha tushuntiramiz.",
       fares_block1_h2: "1) Bagaj",
       fares_block1_1:
         "Bagaj va qo‘l yuki kiritilgan-kiritilmaganini tekshiring.",
       fares_block1_2:
-        "Aviakompaniyaga qarab me’yorlar (vazn/o‘lcham) farq qiladi.",
+        "Turli aviakompaniyalarda og‘irlik va o‘lcham me’yorlari farq qilishi mumkin.",
       fares_block1_3:
-        "Bagaj kiritilmagan bo‘lsa — ko‘pincha alohida sotib olish mumkin.",
+        "Agar bagaj kiritilmagan bo‘lsa — ko‘pincha alohida sotib olish mumkin.",
       fares_block2_h2: "2) Almashtirish va qaytarish",
       fares_block2_1:
-        "Shartlar tarifga bog‘liq: qaytarilmaydigandan tortib moslashuvchanigacha.",
+        "Shartlar tarifga bog‘liq: qaytarilmaydiganidan tortib moslashuvchanigacha.",
       fares_block2_2:
         "Almashtirish/qaytarish qo‘shimcha to‘lov va jarima bilan bo‘lishi mumkin — to‘lovdan oldin aniqlang.",
       fares_block2_3: "Tarif qoidalari va bron raqamini saqlang.",
       fares_block3_h2: "3) Qo‘shimcha xizmatlar",
       fares_block3_1:
-        "O‘rindiq tanlash, ovqat, sug‘urta, prioritet — ko‘pincha qo‘shimcha to‘lov evaziga.",
-      fares_block3_2:
-        "Transferlarda ulanish vaqti yetarliligiga e’tibor bering.",
-      fares_block3_3: "To‘lovdan oldin yakuniy summani doim tekshiring.",
-      btn_back_home: "Bosh sahifaga qaytish",
+        "O‘rindiq tanlash, ovqat, sug‘urta, ustuvorlik — ko‘pincha qo‘shimcha haq evaziga.",
+      fares_block3_2: "Transferlarda ulanish vaqtiga e’tibor bering.",
+      fares_block3_3: "To‘lovdan oldin yakuniy narxni doim tekshiring.",
 
       // Contacts
       contacts_h1: "Kontaktlar",
@@ -366,19 +436,85 @@ document.addEventListener("DOMContentLoaded", () => {
         "Yordam kerak bo‘lsa — yozing yoki qo‘ng‘iroq qiling. Ish vaqtida javob beramiz.",
       contacts_email: "Email",
       contacts_email_hint:
-        "support@aviabrand.uz (namuna — o‘zingiznikiga almashtiring)",
+        "support@aviabrand.uz (namuna — haqiqiy emailingizga almashtiring)",
       contacts_phone: "Telefon",
-      contacts_phone_hint: "+998 XX XXX XX XX (namuna — o‘zingiznikiga almashtiring)",
+      contacts_phone_hint: "+998 XX XXX XX XX (namuna — raqamingizga almashtiring)",
       contacts_hours: "Ish vaqti",
       contacts_hours_hint: "Du–Ju, 09:00–18:00 (Toshkent)",
 
-      // validation
-      v_from_min: "Jo‘nash joyini kiriting (kamida 2 belgi)",
-      v_to_min: "Borish joyini kiriting (kamida 2 belgi)",
-      v_from_chars: "Faqat harflar va bo‘sh joy (raqam/ortiqcha belgilarsiz)",
-      v_to_chars: "Faqat harflar va bo‘sh joy (raqam/ortiqcha belgilarsiz)",
-      v_same: "Borish joyi jo‘nash joyidan farq qilishi kerak",
-      v_date2: "Qaytish sanasini tanlang",
+      // shared
+      btn_back_home: "Bosh sahifaga qaytish",
+
+      // SEO route template page (seo-route.html)
+      seo_bc_home: "Bosh sahifa",
+      seo_bc_routes: "Yo‘nalishlar",
+
+      seo_h1_prefix: "Aviabiletlar",
+      seo_lead:
+        "Yo‘nalish bo‘yicha qisqa ma’lumot: maslahatlar, hujjatlar va xariddan oldin savollarga javoblar.",
+      seo_kpi1b: "Solishtiring",
+      seo_kpi1s: "to‘g‘ridan-to‘g‘ri va transferli",
+      seo_kpi2b: "Tekshiring",
+      seo_kpi2s: "bagaj va tarif qoidalari",
+      seo_kpi3b: "Tayyorlang",
+      seo_kpi3s: "hujjatlar va kontaktlar",
+
+      seo_s1_title: "Yo‘nalish bo‘yicha muhim jihatlar",
+      seo_s1_1:
+        "Uchish/qo‘nish aeroportlari va yo‘l vaqtini tekshiring (to‘g‘ridan-to‘g‘ri/transferli).",
+      seo_s1_2: "Transfer bo‘lsa — ulanish vaqti va tranzit/visa talablarini ko‘ring.",
+      seo_s1_3:
+        "Mavsumiylikni hisobga oling: bayramlarda va mavsumda narxlar yuqoriroq bo‘lishi mumkin.",
+
+      seo_s2_title: "Qanday arzonroq qidirish",
+      seo_s2_1:
+        "To‘g‘ridan-to‘g‘ri va transferli variantlarni solishtiring — ba’zan farq katta bo‘ladi.",
+      seo_s2_2:
+        "Agar moslashuv bo‘lsa — qo‘shni sanalarni (+/- 1–3 kun) solishtiring.",
+      seo_s2_3: "To‘lovdan oldin yakuniy narxni tekshiring (bagaj/xizmatlar).",
+
+      seo_s3_title: "Xarid bo‘yicha tez-tez savollar",
+      seo_faq_q1: "Nega narx farq qilishi mumkin?",
+      seo_faq_a1:
+        "Narx tarif, joy mavjudligi, bagaj opsiyalari va qaytarish/almashtirish qoidalariga bog‘liq. Yangilashdan keyin narx o‘zgarishi mumkin.",
+      seo_faq_q2: "Sotib olish uchun nimalar kerak?",
+      seo_faq_a2:
+        "Odatda yo‘lovchi pasport ma’lumotlari, kontakt email/telefon va to‘lov usuli (karta) kerak bo‘ladi.",
+      seo_faq_q3: "Biletni qaytarish yoki almashtirish mumkinmi?",
+      seo_faq_a3:
+        "Bu tarifga bog‘liq. To‘lovdan oldin qaytarish/almashtirish shartlari va jarimalarni tekshiring.",
+
+      seo_s4_title: "Foydali havolalar",
+      seo_link1: "Qanday sotib olish — bosqichma-bosqich",
+      seo_link2: "Tariflar va xizmatlar — bagaj, qaytarish/almashtirish",
+      seo_link3: "FAQ — ko‘p so‘raladigan savollar",
+      seo_btn_search: "Qidiruvga o‘tish",
+
+      seo_meta_title_tpl: "Aviabrand.uz — Aviabiletlar {from} → {to}",
+      seo_meta_desc_tpl:
+        "{from} → {to} yo‘nalishi bo‘yicha maslahatlar va FAQ: reys tanlash, bagajni tekshirish va xaridga tayyorgarlik.",
+
+      // Specific SEO page: flights-tashkent-moscow.html
+      seo_tm_title: "Aviabiletlar Toshkent — Moskva",
+      seo_tm_desc:
+        "Toshkent — Moskva yo‘nalishi bo‘yicha ma’lumot sahifasi: reys tanlash, tariflar va xaridga tayyorgarlik bo‘yicha maslahatlar.",
+      seo_tm_h1: "Aviabiletlar Toshkent — Moskva",
+      seo_tm_lead:
+        "Hozircha sayt ma’lumot rejimida: quyida xaridga tayyorlanish uchun qisqa maslahatlar.",
+      seo_tm_h2_1: "Biletni qanday tanlash",
+      seo_tm_p1:
+        "To‘g‘ridan-to‘g‘ri va transferli variantlarni solishtiring, yo‘l va ulanish qulayligiga e’tibor bering.",
+      seo_tm_h2_2: "Tariflar va bagaj",
+      seo_tm_p2:
+        "To‘lovdan oldin bagaj kiritilgan-kiritilmaganini va tarifning qaytarish/almashtirish shartlarini tekshiring.",
+      seo_tm_h2_3: "Foydali maslahatlar",
+      seo_tm_li1:
+        "Agar moslashuv bo‘lsa — qo‘shni sanalarni (+/- 1–3 kun) solishtiring.",
+      seo_tm_li2:
+        "Ism/familiya pasportdagidek bo‘lsin: tuzatishlar pullik bo‘lishi mumkin.",
+      seo_tm_li3: "Sotib olgandan keyin bron raqami va PDF biletni saqlang.",
+      city_tashkent: "Toshkent",
+      city_moscow: "Moskva",
     },
   };
 
@@ -390,64 +526,75 @@ document.addEventListener("DOMContentLoaded", () => {
     return dict[lang]?.[key] ?? dict.ru[key] ?? key;
   };
 
+  const fmtTpl = (tpl, vars) =>
+    String(tpl || "")
+      .replace(/\{from\}/g, vars.from ?? "")
+      .replace(/\{to\}/g, vars.to ?? "");
+
   const applyLangToDom = () => {
     const lang = getLang();
 
-    // активная кнопка
+    document.documentElement.setAttribute("lang", lang);
+
     document.querySelectorAll("[data-set-lang]").forEach((btn) => {
       const v = btn.getAttribute("data-set-lang");
       btn.classList.toggle("active", v === lang);
     });
 
-    // data-i18n (text)
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       if (!key) return;
+
+      if (el.tagName === "TITLE") {
+        document.title = t(key);
+        el.textContent = t(key);
+        return;
+      }
+
       el.textContent = t(key);
     });
 
-    // data-i18n-ph (placeholder)
     document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
       const key = el.getAttribute("data-i18n-ph");
       if (!key) return;
       el.setAttribute("placeholder", t(key));
     });
 
-    // ФОЛБЭКИ для index.html, где нет data-i18n на некоторых элементах:
+    document.querySelectorAll("[data-i18n-content]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-content");
+      if (!key) return;
+      el.setAttribute("content", t(key));
+    });
+
     const fromEl = document.getElementById("from");
     const toEl = document.getElementById("to");
     if (fromEl) fromEl.placeholder = t("ph_from");
     if (toEl) toEl.placeholder = t("ph_to");
 
-    // чекбокс "oneway" (у тебя span без data-i18n)
     const oneWay = document.getElementById("oneway");
     if (oneWay) {
       const span = oneWay.closest("label")?.querySelector("span");
       if (span) span.textContent = t("oneway_label");
     }
 
-    // submit button (у тебя текст без data-i18n)
     const formBtn =
       document.querySelector("#searchForm button[type='submit']") ||
       document.querySelector("#searchForm button");
     if (formBtn) formBtn.textContent = t("submit_btn");
+
+    applySeoMeta();
   };
 
-  // handlers
   document.querySelectorAll("[data-set-lang]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const lang = btn.getAttribute("data-set-lang") || "ru";
       setLang(lang);
       applyLangToDom();
 
-      // обновим placeholder у flatpickr altInput, если есть
       if (window.__fp1) applyDatePlaceholder(window.__fp1);
       if (window.__fp2) applyDatePlaceholder(window.__fp2);
     });
   });
-
-  // применить язык сразу
-  applyLangToDom();
 
   // =========================
   // 1) INDEX: форма поиска
@@ -458,14 +605,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const date1 = document.getElementById("date1");
   const date2 = document.getElementById("date2");
 
-  // ===== helpers =====
   const startOfDay = (d) => {
     const x = new Date(d);
     x.setHours(0, 0, 0, 0);
     return x;
   };
 
-  // "разрешаем вчера"
   const yesterday = () => {
     const x = startOfDay(new Date());
     x.setDate(x.getDate() - 1);
@@ -476,22 +621,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const setFpDisabled = (inst, disabled) => {
     if (!inst) return;
-    if (inst._input) inst._input.disabled = disabled; // hidden input
-    if (inst.altInput) inst.altInput.disabled = disabled; // visible input
+    if (inst._input) inst._input.disabled = disabled;
+    if (inst.altInput) inst.altInput.disabled = disabled;
   };
 
-  const applyDatePlaceholder = (inst) => {
+  function applyDatePlaceholder(inst) {
     const ph = t("ph_date");
     if (inst?.altInput) inst.altInput.placeholder = ph;
     if (inst?._input) inst._input.placeholder = ph;
-  };
+  }
 
   const getSelectedDate = (fp) => {
     const d = fp?.selectedDates?.[0];
     return d ? startOfDay(d) : null;
   };
 
-  // ===== UX: date2 не раньше date1, и если стало раньше — подтянуть на date1 =====
   const syncMinReturnToDepart = () => {
     if (!fp1 || !fp2) return;
 
@@ -502,17 +646,15 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // date2 нельзя раньше date1 (но можно тот же день)
     fp2.set("minDate", d1);
 
     const d2 = getSelectedDate(fp2);
     if (d2 && d2 < d1) {
-      fp2.setDate(d1, true); // triggerChange = true
+      fp2.setDate(d1, true);
       applyDatePlaceholder(fp2);
     }
   };
 
-  // ===== FLATPICKR: только date1/date2 =====
   const fp1 =
     date1 && window.flatpickr
       ? window.flatpickr(date1, {
@@ -522,8 +664,6 @@ document.addEventListener("DOMContentLoaded", () => {
           altInputClass: "input",
           allowInput: true,
           disableMobile: true,
-
-          // UX: можно выбрать "вчера", но не раньше
           minDate: BASE_MIN_DATE,
 
           onReady: (_sd, _ds, inst) => applyDatePlaceholder(inst),
@@ -543,15 +683,12 @@ document.addEventListener("DOMContentLoaded", () => {
           altInputClass: "input",
           allowInput: true,
           disableMobile: true,
-
           minDate: BASE_MIN_DATE,
 
           onReady: (_sd, _ds, inst) => applyDatePlaceholder(inst),
           onValueUpdate: (_sd, _ds, inst) => applyDatePlaceholder(inst),
           onOpen: (_sd, _ds, inst) => {
             applyDatePlaceholder(inst);
-
-            // date2 календарь открывается на date1 (но можно вернуть в тот же день)
             const d1 = fp1?.selectedDates?.[0];
             if (d1) inst.jumpToDate(d1, true);
           },
@@ -560,15 +697,12 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       : null;
 
-  // сохраним глобально, чтобы i18n-кнопки могли обновлять placeholder
   window.__fp1 = fp1;
   window.__fp2 = fp2;
 
-  // стартовый placeholder
   applyDatePlaceholder(fp1);
   applyDatePlaceholder(fp2);
 
-  // ===== синхронизация oneway (DOM + flatpickr) =====
   function syncReturn() {
     if (!oneWay || !returnWrap || !date2) return;
 
@@ -587,22 +721,22 @@ document.addEventListener("DOMContentLoaded", () => {
       returnWrap.style.display = "";
 
       date2.disabled = false;
-      date2.required = true; // round trip -> date2 обязателен
+      date2.required = true;
 
       setFpDisabled(fp2, false);
       applyDatePlaceholder(fp2);
-
-      // если date1 уже выбрана — сразу применяем minDate=date1
       syncMinReturnToDepart();
     }
   }
 
   if (oneWay) {
-    oneWay.addEventListener("change", syncReturn);
+    oneWay.addEventListener("change", () => {
+      syncReturn();
+      applyLangToDom();
+    });
     syncReturn();
   }
 
-  // (B) Очистка формы при возврате назад — пусть чистит всегда
   window.addEventListener("pageshow", () => {
     if (form) form.reset();
 
@@ -619,11 +753,9 @@ document.addEventListener("DOMContentLoaded", () => {
     applyDatePlaceholder(fp2);
 
     syncReturn();
+    applyLangToDom();
   });
 
-  // =========================
-  // ШАГ 1: ВАЛИДАЦИЯ FROM/TO
-  // =========================
   const fromEl = document.getElementById("from");
   const toEl = document.getElementById("to");
 
@@ -644,7 +776,6 @@ document.addEventListener("DOMContentLoaded", () => {
     clearCustom(fromEl);
     clearCustom(toEl);
 
-    // базовые проверки
     if (fromV.length < 2) {
       fromEl.setCustomValidity(t("v_from_min"));
       return false;
@@ -654,7 +785,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return false;
     }
 
-    // допустимые символы
     if (!allowedChars.test(fromV)) {
       fromEl.setCustomValidity(t("v_from_chars"));
       return false;
@@ -664,7 +794,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return false;
     }
 
-    // from != to
     if (fromV.toLowerCase() === toV.toLowerCase()) {
       toEl.setCustomValidity(t("v_same"));
       return false;
@@ -673,52 +802,44 @@ document.addEventListener("DOMContentLoaded", () => {
     return true;
   };
 
-  // чтобы сообщение исчезало как только пользователь правит поле
   if (fromEl) fromEl.addEventListener("input", () => clearCustom(fromEl));
   if (toEl) toEl.addEventListener("input", () => clearCustom(toEl));
 
-  // ===== Submit =====
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      // (A) round trip -> date2 must be filled
-      if (!oneWay?.checked && !date2?.value) {
+      if (!oneWay?.checked && date2 && !date2.value) {
+        const msg = t("v_date2");
         if (fp2?.altInput) {
-          fp2.altInput.setCustomValidity(t("v_date2"));
+          fp2.altInput.setCustomValidity(msg);
           fp2.altInput.reportValidity();
           fp2.altInput.setCustomValidity("");
           fp2.open();
         } else {
-          date2.setCustomValidity(t("v_date2"));
+          date2.setCustomValidity(msg);
           date2.reportValidity();
           date2.setCustomValidity("");
         }
         return;
       }
 
-      // ШАГ 1: валидируем from/to
       if (!validateFromTo()) {
-        // покажем ошибку на том поле, где она выставилась
         if (fromEl?.validationMessage) fromEl.reportValidity();
         else if (toEl?.validationMessage) toEl.reportValidity();
         return;
       }
 
-      // стандартная валидация остальных полей
-      if (!form.reportValidity()) return;
+      const params = new URLSearchParams();
+      if (fromEl) params.set("from", norm(fromEl.value));
+      if (toEl) params.set("to", norm(toEl.value));
+      if (date1?.value) params.set("date1", date1.value);
+      if (date2?.value && !oneWay?.checked) params.set("date2", date2.value);
 
-      const from = norm(fromEl?.value || "");
-      const to = norm(toEl?.value || "");
-      const d1 = document.getElementById("date1")?.value || "";
-      const pax = document.getElementById("pax")?.value || "1";
+      const paxEl = document.getElementById("pax");
+      if (paxEl?.value) params.set("pax", paxEl.value);
 
-      const params = new URLSearchParams({ from, to, date1: d1, pax });
-
-      if (!oneWay?.checked) {
-        const d2 = date2?.value || "";
-        if (d2) params.set("date2", d2);
-      }
+      params.set("oneway", oneWay?.checked ? "1" : "0");
 
       window.location.href = "coming-soon.html?" + params.toString();
     });
@@ -727,21 +848,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   // 2) COMING-SOON: вывод параметров
   // =========================
-  const summary = document.getElementById("searchSummary");
-  if (summary) {
-    const params = new URLSearchParams(window.location.search);
+  const onComingSoon = !!document.getElementById("sumFrom");
+  if (onComingSoon) {
+    const qs = new URLSearchParams(window.location.search);
 
-    const from = params.get("from") || "-";
-    const to = params.get("to") || "-";
-    const d1 = params.get("date1");
-    const d2 = params.get("date2");
-    const pax = params.get("pax") || "-";
-
-    const fmt = (d) => {
-      if (!d) return "";
-      const [y, m, day] = d.split("-");
-      return `${day}.${m}.${y}`;
-    };
+    const from = qs.get("from") || "-";
+    const to = qs.get("to") || "-";
+    const pax = qs.get("pax") || "1";
+    const d1 = qs.get("date1") || "";
+    const d2 = qs.get("date2") || "";
 
     const elFrom = document.getElementById("sumFrom");
     const elTo = document.getElementById("sumTo");
@@ -752,6 +867,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (elTo) elTo.textContent = to;
     if (elPax) elPax.textContent = pax;
 
+    const fmt = (s) => {
+      const m = String(s || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!m) return s || "-";
+      return `${m[3]}.${m[2]}.${m[1]}`;
+    };
+
     if (elDates) {
       if (d1 || d2) {
         elDates.textContent = d2 ? `${fmt(d1)} → ${fmt(d2)}` : fmt(d1);
@@ -760,4 +881,57 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
+
+  // =========================
+  // 3) SEO pages helpers (seo-route.html + route pages)
+  // =========================
+  function applySeoMeta() {
+    const seoFromEl = document.getElementById("seoFrom");
+    const seoToEl = document.getElementById("seoTo");
+    if (seoFromEl && seoToEl) {
+      const qs = new URLSearchParams(window.location.search);
+      const from = qs.get("from") || qs.get("f") || "-";
+      const to = qs.get("to") || qs.get("t") || "-";
+
+      seoFromEl.textContent = from;
+      seoToEl.textContent = to;
+
+      const btn = document.getElementById("seoGoSearch");
+      if (btn) {
+        const href = `index.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+        btn.setAttribute("href", href);
+      }
+
+      const canon = document.getElementById("canonical");
+      if (canon)
+        canon.setAttribute(
+          "href",
+          window.location.pathname.split("/").pop() || "seo-route.html"
+        );
+
+      const title = fmtTpl(t("seo_meta_title_tpl"), { from, to });
+      const desc = fmtTpl(t("seo_meta_desc_tpl"), { from, to });
+
+      document.title = title;
+      const metaDesc =
+        document.getElementById("metaDesc") ||
+        document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute("content", desc);
+    }
+
+    const routeFromEl = document.getElementById("routeFrom");
+    const routeToEl = document.getElementById("routeTo");
+    if (routeFromEl && routeToEl) {
+      const from = routeFromEl.textContent.trim() || "-";
+      const to = routeToEl.textContent.trim() || "-";
+
+      const btn = document.getElementById("seoGoSearch");
+      if (btn) {
+        const href = `index.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+        btn.setAttribute("href", href);
+      }
+    }
+  }
+
+  applyLangToDom();
 });
