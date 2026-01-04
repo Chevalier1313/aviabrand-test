@@ -52,6 +52,16 @@ document.addEventListener("DOMContentLoaded", () => {
       sec2_1: "Вы добавите контакты и юридическую информацию.",
       sec2_2: "Мы подключим движок продаж (с инженерами).",
       sec2_3: "Добавим SEO-страницы по направлениям и FAQ.",
+      // aliases (for legacy data-i18n keys used in some HTML)
+      sec1: "Почему Aviabrand",
+      why1: "Понятные инструкции и ответы на вопросы перед покупкой.",
+      why2: "Удобная навигация и адаптивность под телефон.",
+      why3: "Подготовка к интеграции с движком продаж.",
+      sec2: "Что дальше",
+      next1: "Вы добавите контакты и юридическую информацию.",
+      next2: "Мы подключим движок продаж (с инженерами).",
+      next3: "Добавим SEO-страницы по направлениям и FAQ.",
+
 
       // coming-soon
       coming_title: "Скоро начнём онлайн-продажу",
@@ -291,6 +301,16 @@ document.addEventListener("DOMContentLoaded", () => {
       sec2_1: "Kontaktlar va yuridik ma’lumotlarni qo‘shamiz.",
       sec2_2: "Sotuv dvigelini (muhandislar bilan) ulaymiz.",
       sec2_3: "Yo‘nalishlar bo‘yicha SEO-sahifalar va FAQ qo‘shamiz.",
+      // aliases (for legacy data-i18n keys used in some HTML)
+      sec1: "Nega Aviabrand",
+      why1: "Xarid oldidan tushunarli ko‘rsatmalar va savollarga javoblar.",
+      why2: "Qulay navigatsiya va telefon uchun moslashuv.",
+      why3: "Sotuv dvigateli bilan integratsiyaga tayyorgarlik.",
+      sec2: "Keyingi qadamlar",
+      next1: "Kontaktlar va yuridik ma’lumotlarni qo‘shamiz.",
+      next2: "Sotuv dvigatelini (muhandislar bilan) ulaymiz.",
+      next3: "Yo‘nalishlar bo‘yicha SEO-sahifalar va FAQ qo‘shamiz.",
+
 
       // coming-soon
       coming_title: "Tez orada onlayn sotuvni boshlaymiz",
