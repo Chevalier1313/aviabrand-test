@@ -38,6 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
       ph_date: "Выберите дату",
       submit_btn: "Проверить и перейти",
 
+      // validation (index)  ✅ added
+      err_from_min: "Введите пункт вылета (минимум 2 символа)",
+      err_to_min: "Введите пункт прилёта (минимум 2 символа)",
+      err_only_letters: "Только буквы и пробелы (без цифр/символов)",
+      err_same_city: "Пункт прилёта должен отличаться от пункта вылета",
+
       // aliases (old keys in html) — чтобы не ломалось
       date_from: "Выберите дату",
       date_to: "Выберите дату",
@@ -61,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
       next1: "Вы добавите контакты и юридическую информацию.",
       next2: "Мы подключим движок продаж (с инженерами).",
       next3: "Добавим SEO-страницы по направлениям и FAQ.",
-
 
       // coming-soon
       coming_title: "Скоро начнём онлайн-продажу",
@@ -215,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
       seo_s3_title: "Частые вопросы по покупке",
       seo_faq_q1: "Почему цена может отличаться?",
       seo_faq_a1:
-        "Иногда цена меняется из‑за спроса, наличия мест и правил тарифа. Перед оплатой перепроверьте детали и итоговую сумму.",
+        "Иногда цена меняется из-за спроса, наличия мест и правил тарифа. Перед оплатой перепроверьте детали и итоговую сумму.",
       seo_faq_q2: "Какие данные нужны для покупки?",
       seo_faq_a2:
         "Обычно нужны паспортные данные пассажиров и контактный email/телефон. Для оплаты — карта или другой доступный способ.",
@@ -287,6 +292,12 @@ document.addEventListener("DOMContentLoaded", () => {
       ph_date: "Sanani tanlang",
       submit_btn: "Tekshirish va o‘tish",
 
+      // validation (index) ✅ added
+      err_from_min: "Qayerdan (kamida 2 ta belgi) kiriting",
+      err_to_min: "Qayerga (kamida 2 ta belgi) kiriting",
+      err_only_letters: "Faqat harflar va bo‘sh joy (raqam/belgisiz)",
+      err_same_city: "Qayerga maydoni Qayerdan’dan farq qilishi kerak",
+
       // aliases (old keys in html)
       date_from: "Sanani tanlang",
       date_to: "Sanani tanlang",
@@ -310,7 +321,6 @@ document.addEventListener("DOMContentLoaded", () => {
       next1: "Kontaktlar va yuridik ma’lumotlarni qo‘shamiz.",
       next2: "Sotuv dvigatelini (muhandislar bilan) ulaymiz.",
       next3: "Yo‘nalishlar bo‘yicha SEO-sahifalar va FAQ qo‘shamiz.",
-
 
       // coming-soon
       coming_title: "Tez orada onlayn sotuvni boshlaymiz",
@@ -530,26 +540,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // update <html lang="..">
     document.documentElement.setAttribute("lang", lang);
 
-    // [data-i18n] text
+    // [data-i18n] text (including <title>)
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       const val = pack[key] ?? dict.ru[key] ?? key;
-
-      // allow translating <title data-i18n="...">
-      if (el.tagName === "TITLE") {
-        document.title = val;
-        return;
-      }
-
       el.textContent = val;
     });
 
-    // [data-i18n-ph] placeholder
-    document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
-      const key = el.getAttribute("data-i18n-ph");
-      const val = pack[key] ?? dict.ru[key] ?? "";
-      if ("placeholder" in el) el.placeholder = val;
-    });
+    // placeholders: support both legacy [data-i18n-ph] and newer [data-i18n-placeholder]
+    document
+      .querySelectorAll("[data-i18n-ph], [data-i18n-placeholder]")
+      .forEach((el) => {
+        const key = el.getAttribute("data-i18n-ph") || el.getAttribute("data-i18n-placeholder");
+        const val = pack[key] ?? dict.ru[key] ?? "";
+        if ("placeholder" in el) el.placeholder = val;
+      });
 
     // [data-i18n-content] attributes (meta description etc)
     document.querySelectorAll("[data-i18n-content]").forEach((el) => {
@@ -560,7 +565,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // language buttons UI
     document.querySelectorAll("[data-set-lang]").forEach((btn) => {
-      const l = (btn.getAttribute("data-set-lang") || "").toLowerCase();
+      const l = (btn.getAttribute("data-set-lang") || btn.dataset.setLang || "").toLowerCase();
       btn.classList.toggle("active", l === lang);
     });
 
@@ -722,6 +727,20 @@ document.addEventListener("DOMContentLoaded", () => {
     applyDatePlaceholder(window.__ab_fp1);
     applyDatePlaceholder(window.__ab_fp2);
     syncReturn();
+
+    // ✅ re-apply from/to from URL after reset (if present)
+    const fromEl = document.getElementById("from");
+    const toEl = document.getElementById("to");
+    if (fromEl && toEl) {
+      const u = new URL(window.location.href);
+      const qFrom = (u.searchParams.get("from") || "").trim();
+      const qTo = (u.searchParams.get("to") || "").trim();
+      if (qFrom) fromEl.value = qFrom;
+      if (qTo) toEl.value = qTo;
+
+      // validate if function exists (it will by the time pageshow fires)
+      if (typeof validateFromTo === "function") validateFromTo();
+    }
   });
 
   // from/to validation (index)
@@ -736,6 +755,12 @@ document.addEventListener("DOMContentLoaded", () => {
     el.setCustomValidity("");
   };
 
+  // ✅ localized error helper
+  const tErr = (key) => {
+    const lang = getLang();
+    return dict[lang]?.[key] ?? dict.ru[key] ?? key;
+  };
+
   const validateFromTo = () => {
     if (!fromEl || !toEl) return true;
 
@@ -746,33 +771,173 @@ document.addEventListener("DOMContentLoaded", () => {
     clearCustom(toEl);
 
     if (fromV.length < 2) {
-      fromEl.setCustomValidity("Введите пункт вылета (минимум 2 символа)");
+      fromEl.setCustomValidity(tErr("err_from_min"));
       return false;
     }
     if (toV.length < 2) {
-      toEl.setCustomValidity("Введите пункт прилёта (минимум 2 символа)");
+      toEl.setCustomValidity(tErr("err_to_min"));
       return false;
     }
 
     if (!allowedChars.test(fromV)) {
-      fromEl.setCustomValidity("Только буквы и пробелы (без цифр/символов)");
+      fromEl.setCustomValidity(tErr("err_only_letters"));
       return false;
     }
     if (!allowedChars.test(toV)) {
-      toEl.setCustomValidity("Только буквы и пробелы (без цифр/символов)");
+      toEl.setCustomValidity(tErr("err_only_letters"));
       return false;
     }
 
     if (fromV.toLowerCase() === toV.toLowerCase()) {
-      toEl.setCustomValidity("Пункт прилёта должен отличаться от пункта вылета");
+      toEl.setCustomValidity(tErr("err_same_city"));
       return false;
     }
 
     return true;
   };
 
+  // ✅ Prefill from/to on index from URL (?from=...&to=...)
+  if (fromEl && toEl) {
+    const u = new URL(window.location.href);
+    const qFrom = (u.searchParams.get("from") || "").trim();
+    const qTo = (u.searchParams.get("to") || "").trim();
+
+    if (qFrom) fromEl.value = qFrom;
+    if (qTo) toEl.value = qTo;
+
+    validateFromTo();
+  }
+
   if (fromEl) fromEl.addEventListener("input", validateFromTo);
   if (toEl) toEl.addEventListener("input", validateFromTo);
+
+    // =========================
+  // =========================
+// INDEX: pax dropdown (ADT/CHD/INF)
+// =========================
+const paxTrigger = document.getElementById("paxTrigger");
+const paxPanel = document.getElementById("paxPanel");
+const paxDone = document.getElementById("paxDone");
+
+const paxTotalEl = document.getElementById("pax"); // hidden total
+const adtEl = document.getElementById("adt");
+const chdEl = document.getElementById("chd");
+const infEl = document.getElementById("inf");
+
+const paxLabel = document.getElementById("paxLabel");
+const adtNum = document.getElementById("adtNum");
+const chdNum = document.getElementById("chdNum");
+const infNum = document.getElementById("infNum");
+
+if (paxTrigger && paxPanel && paxTotalEl && adtEl && chdEl && infEl) {
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+  const getN = (el, fallback) => {
+    const n = parseInt((el && el.value) || "", 10);
+    return Number.isFinite(n) ? n : fallback;
+  };
+
+  let adt = getN(adtEl, 1);
+  let chd = getN(chdEl, 0);
+  let inf = getN(infEl, 0);
+
+  const total = () => adt + chd + inf;
+
+  const syncUI = () => {
+    // enforce rules
+    adt = clamp(adt, 1, 9);
+    chd = clamp(chd, 0, 9);
+    inf = clamp(inf, 0, 9);
+
+    // total <= 9
+    while (total() > 9) {
+      if (inf > 0) inf--;
+      else if (chd > 0) chd--;
+      else if (adt > 1) adt--;
+      else break;
+    }
+
+    // INF <= ADT
+    if (inf > adt) inf = adt;
+
+    // write values
+    adtEl.value = String(adt);
+    chdEl.value = String(chd);
+    infEl.value = String(inf);
+    paxTotalEl.value = String(total());
+
+    // ✅ TRIGGER LABEL: ONLY TOTAL (no ADT/CHD/INF here)
+    const lang = getLang();
+    const labelRu = `${total()} пасс.`;
+    const labelUz = `${total()} yo‘lovchi`;
+    if (paxLabel) paxLabel.textContent = (lang === "uz") ? labelUz : labelRu;
+
+    // panel numbers
+    if (adtNum) adtNum.textContent = String(adt);
+    if (chdNum) chdNum.textContent = String(chd);
+    if (infNum) infNum.textContent = String(inf);
+  };
+
+  const openPanel = () => {
+    paxPanel.hidden = false;
+    paxTrigger.setAttribute("aria-expanded", "true");
+  };
+  const closePanel = () => {
+    paxPanel.hidden = true;
+    paxTrigger.setAttribute("aria-expanded", "false");
+  };
+
+  paxTrigger.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (paxPanel.hidden) openPanel();
+    else closePanel();
+  });
+
+  if (paxDone) {
+    paxDone.addEventListener("click", (e) => {
+      e.preventDefault();
+      closePanel();
+    });
+  }
+
+  // plus/minus buttons
+  paxPanel.addEventListener("click", (e) => {
+    const plus = e.target.closest("[data-pax-plus]");
+    const minus = e.target.closest("[data-pax-minus]");
+    if (!plus && !minus) return;
+
+    const key = (
+      plus?.getAttribute("data-pax-plus") ||
+      minus?.getAttribute("data-pax-minus") ||
+      ""
+    ).toLowerCase();
+    const delta = plus ? 1 : -1;
+
+    if (key === "adt") adt += delta;
+    if (key === "chd") chd += delta;
+    if (key === "inf") inf += delta;
+
+    syncUI();
+  });
+
+  // close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (paxPanel.hidden) return;
+    const inside = paxPanel.contains(e.target) || paxTrigger.contains(e.target);
+    if (!inside) closePanel();
+  });
+
+  // initial paint
+  syncUI();
+
+  // when language changes, re-render label
+  const _oldApplyLang = applyLang;
+  applyLang = function (lang) {
+    _oldApplyLang(lang);
+    syncUI();
+  };
+}
+
+
 
   // submit -> coming-soon.html with query params
   if (form) {
@@ -786,7 +951,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const fd = new FormData(form);
       const params = new URLSearchParams();
 
-      ["from", "to", "date1", "date2", "pax", "oneway"].forEach((k) => {
+      ["from", "to", "date1", "date2", "pax", "adt", "chd", "inf", "oneway"].forEach((k) => {
+
         const v = (fd.get(k) || "").toString().trim();
         if (v) params.set(k, v);
       });
@@ -797,15 +963,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================
+    // =========================
   // COMING-SOON: summary from query
   // =========================
   const qs = new URLSearchParams(window.location.search);
+
   if (document.getElementById("sumFrom")) {
     const from = qs.get("from") || "-";
     const to = qs.get("to") || "-";
     const d1 = qs.get("date1") || "";
     const d2 = qs.get("date2") || "";
+
+    // pax + breakdown
     const pax = qs.get("pax") || "1";
+    const adt = qs.get("adt");
+    const chd = qs.get("chd");
+    const inf = qs.get("inf");
 
     const elFrom = document.getElementById("sumFrom");
     const elTo = document.getElementById("sumTo");
@@ -816,7 +989,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (elFrom) elFrom.textContent = from;
     if (elTo) elTo.textContent = to;
-    if (elPax) elPax.textContent = pax;
+
+    // ✅ PAX OUTPUT (FIXED)
+    if (elPax) {
+      if (adt !== null || chd !== null || inf !== null) {
+        elPax.textContent = `ADT ${adt ?? 1}, CHD ${chd ?? 0}, INF ${inf ?? 0}`;
+      } else {
+        elPax.textContent = pax;
+      }
+    }
 
     if (elDates) {
       if (d1 || d2) {
