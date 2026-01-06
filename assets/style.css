@@ -588,3 +588,122 @@ header.nav .navlinks a.active{
   border-radius:12px;
   font-weight:600;
 }
+/* =========================
+   MOBILE HEADER FIT (<=560px)
+   brand + lang on top row, menu on second row (scrollable)
+========================= */
+@media (max-width: 560px){
+  header.nav{
+    display:grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-rows: auto auto !important;
+    grid-template-areas:
+      "brand lang"
+      "menu  menu" !important;
+    row-gap: 10px !important;
+    column-gap: 12px !important;
+    padding: 12px 12px !important;
+  }
+
+  header.nav .brand{ grid-area: brand; min-width: 0; }
+  header.nav .lang{ grid-area: lang; }
+
+  /* menu row */
+  header.nav .navlinks,
+  header.nav .nav-links,
+  header.nav nav{
+    grid-area: menu;
+
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    gap: 10px !important;
+    padding-bottom: 4px; /* чуть воздуха под скролл */
+  }
+
+  header.nav .navlinks::-webkit-scrollbar,
+  header.nav .nav-links::-webkit-scrollbar,
+  header.nav nav::-webkit-scrollbar{
+    height: 0;
+  }
+
+  /* немного компактнее текст/кнопки */
+  header.nav .brand{
+    font-size: 16px !important;
+    gap: 8px !important;
+  }
+
+  header.nav .navlinks a,
+  header.nav .nav-links a,
+  header.nav nav a{
+    font-size: 13px !important;
+    padding: 0 8px !important;
+    height: 30px !important;
+    line-height: 30px !important;
+    border-radius: 10px !important;
+  }
+
+  header.nav .lang button{
+    height: 30px !important;
+    line-height: 30px !important;
+    padding: 0 10px !important;
+    border-radius: 10px !important;
+  }
+}
+/* =========================================================
+   MOBILE FIXES (<=560px)
+   - Header: brand + lang on first row, menu on second row (scrollable)
+   - Pax label: hide external label that breaks layout
+========================================================= */
+@media (max-width:560px){
+  /* HEADER */
+  header.nav{
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas:
+      "brand lang"
+      "nav   nav" !important;
+    row-gap: 10px !important;
+    column-gap: 10px !important;
+    padding: 12px 12px !important;
+  }
+  header.nav .brand{ grid-area: brand; }
+  header.nav .lang{ grid-area: lang; margin-left: 0 !important; }
+  header.nav .navlinks,
+  header.nav .nav-links,
+  header.nav nav{
+    grid-area: nav;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 10px !important;
+    padding-bottom: 2px;
+  }
+  header.nav .navlinks::-webkit-scrollbar,
+  header.nav .nav-links::-webkit-scrollbar,
+  header.nav nav::-webkit-scrollbar{ height:0; }
+
+  header.nav .navlinks a,
+  header.nav .nav-links a,
+  header.nav nav a{
+    height: 32px !important;
+    line-height: 32px !important;
+    padding: 0 10px !important;
+    font-size: 13px !important;
+  }
+
+  /* PAX / FORM */
+  /* hide outside label “Yo‘lovchilar” if it exists above the pax button */
+  b[data-i18n="field_pax"],
+  label[data-i18n="field_pax"]{
+    display:none !important;
+  }
+
+  /* make any “full” elements span full width in grid2 */
+  .grid2 .full{ grid-column: 1 / -1 !important; }
+
+  /* in case pax control is in grid2 */
+  .grid2 .pax{ grid-column: 1 / -1 !important; }
+}
