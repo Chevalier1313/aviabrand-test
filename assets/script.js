@@ -187,9 +187,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // contacts
       contacts_h1: "Контакты",
       contacts_lead:
-        "Пока вы собираете данные — оставим шаблон. Потом подставим email/телефон и ссылки.",
+        "Свяжитесь с нами удобным способом.",
       contacts_email: "Email",
-      contacts_email_hint: "Укажем позже (например: support@aviabrand.uz)",
+      contacts_email_hint: "support@aviabrand.uz",
+
       contacts_phone: "Телефон",
       contacts_phone_hint: "Укажем позже (например: +998 ...)",
       contacts_hours: "Время работы",
@@ -440,10 +441,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // contacts
       contacts_h1: "Kontaktlar",
-      contacts_lead:
-        "Hozircha shablon. Keyin email/telefon va havolalarni qo‘shamiz.",
+      contacts_lead: "Biz bilan qulay usulda bog‘laning.",
       contacts_email: "Email",
-      contacts_email_hint: "Keyinroq ko‘rsatamiz (masalan: support@aviabrand.uz)",
+      contacts_email_hint: "support@aviabrand.uz",
+
       contacts_phone: "Telefon",
       contacts_phone_hint: "Keyinroq ko‘rsatamiz (masalan: +998 ...)",
       contacts_hours: "Ish vaqti",

@@ -1,78 +1,71 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title data-i18n="fares_page_title">Aviabrand.uz — тарифы и услуги</title>
-  <meta name="description" content="Тарифы, багаж, обмен/возврат, услуги. Скоро подключим онлайн-продажу." />
-  <link rel="stylesheet" href="assets/style.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title data-i18n="fares_page_title">Aviabrand.uz — тарифы и услуги</title>
+<meta content="Тарифы, багаж, обмен/возврат, услуги. Скоро подключим онлайн-продажу." name="description"/>
+<link href="assets/style.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="container">
-    <header class="nav">
-      <div class="brand">
-        <span>✈️</span><span>aviabrand.uz</span><span class="badge">info</span>
-      </div>
-
-      <nav class="navlinks">
-        <a href="index.html" data-i18n="nav_home">Главная</a>
-        <a href="how-to-buy.html" data-i18n="nav_how">Как купить</a>
-        <a href="fares.html" data-i18n="nav_fares">Тарифы и услуги</a>
-        <a href="faq.html" data-i18n="nav_faq">FAQ</a>
-        <a href="contacts.html" data-i18n="nav_contacts">Контакты</a>
-      </nav>
-
-      <div class="lang">
-        <button type="button" data-set-lang="ru" data-lang="ru">RU</button>
-        <button type="button" data-set-lang="uz" data-lang="uz">UZ</button>
-      </div>
-    </header>
-
-    <main class="card" style="margin-top:18px">
-      <div class="p">
-        <h1 class="h1" style="font-size:34px" data-i18n="fares_h1">Тарифы и услуги</h1>
-        <p class="lead" data-i18n="fares_lead">
+<div class="container">
+<header class="nav">
+<div class="brand">
+<span>✈️</span><span>aviabrand.uz</span><span class="badge">info</span>
+</div>
+<nav class="navlinks">
+<a data-i18n="nav_home" href="index.html">Главная</a>
+<a data-i18n="nav_routes" href="routes.html">Направления</a>
+<a data-i18n="nav_how" href="how-to-buy.html">Как купить</a>
+<a data-i18n="nav_fares" href="fares.html" class="active">Тарифы и услуги</a>
+<a data-i18n="nav_faq" href="faq.html">FAQ</a>
+<a data-i18n="nav_contacts" href="contacts.html">Контакты</a>
+</nav>
+<div class="lang">
+<button data-lang="ru" data-set-lang="ru" type="button">RU</button>
+<button data-lang="uz" data-set-lang="uz" type="button">UZ</button>
+</div>
+</header>
+<main class="card" style="margin-top:18px">
+<div class="p">
+<h1 class="h1" data-i18n="fares_h1" style="font-size:34px">Тарифы и услуги</h1>
+<p class="lead" data-i18n="fares_lead">
           Здесь — простое объяснение: чем отличаются тарифы, что с багажом и какими бывают условия обмена/возврата.
         </p>
-
-        <section class="section">
-          <h2 class="h2" data-i18n="fares_block1_h2">Как выбрать тариф</h2>
-          <div class="list">
-            <div class="item" data-i18n="fares_block1_1"><b>Эконом</b> — обычно дешевле, но условия обмена/возврата строже.</div>
-            <div class="item" data-i18n="fares_block1_2"><b>Стандарт</b> — баланс цены и гибкости.</div>
-            <div class="item" data-i18n="fares_block1_3"><b>Гибкий</b> — дороже, но проще менять даты и сдавать билеты.</div>
-          </div>
-        </section>
-
-        <section class="section">
-          <h2 class="h2" data-i18n="fares_block2_h2">Багаж и ручная кладь</h2>
-          <div class="list">
-            <div class="item" data-i18n="fares_block2_1">Ручная кладь: правила зависят от авиакомпании и тарифа.</div>
-            <div class="item" data-i18n="fares_block2_2">Багаж: может входить в тариф или покупаться отдельно.</div>
-            <div class="item" data-i18n="fares_block2_3">Совет: проверяйте вес/габариты заранее, чтобы не переплачивать в аэропорту.</div>
-          </div>
-        </section>
-
-        <section class="section">
-          <h2 class="h2" data-i18n="fares_block3_h2">Обмен и возврат</h2>
-          <div class="list">
-            <div class="item" data-i18n="fares_block3_1">Обмен: иногда платится разница в цене + сбор.</div>
-            <div class="item" data-i18n="fares_block3_2">Возврат: может быть запрещён или доступен с удержаниями.</div>
-            <div class="item" data-i18n="fares_block3_3">Важно: условия зависят от тарифа и перевозчика — уточняем при интеграции продаж.</div>
-          </div>
-        </section>
-
-        <a class="btn" href="index.html" style="margin-top:12px;display:inline-flex" data-i18n="btn_back_home">На главную</a>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div>© <span id="y"></span> aviabrand.uz</div>
-      <div class="small" data-i18n="footer_note">Информационный сайт. Онлайн-продажа будет добавлена после интеграции.</div>
-    </footer>
-  </div>
-
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-  <script src="assets/script.js" defer></script>
+<section class="section">
+<h2 class="h2" data-i18n="fares_block1_h2">Как выбрать тариф</h2>
+<div class="list">
+<div class="item" data-i18n="fares_block1_1"><b>Эконом</b> — обычно дешевле, но условия обмена/возврата строже.</div>
+<div class="item" data-i18n="fares_block1_2"><b>Стандарт</b> — баланс цены и гибкости.</div>
+<div class="item" data-i18n="fares_block1_3"><b>Гибкий</b> — дороже, но проще менять даты и сдавать билеты.</div>
+</div>
+</section>
+<section class="section">
+<h2 class="h2" data-i18n="fares_block2_h2">Багаж и ручная кладь</h2>
+<div class="list">
+<div class="item" data-i18n="fares_block2_1">Ручная кладь: правила зависят от авиакомпании и тарифа.</div>
+<div class="item" data-i18n="fares_block2_2">Багаж: может входить в тариф или покупаться отдельно.</div>
+<div class="item" data-i18n="fares_block2_3">Совет: проверяйте вес/габариты заранее, чтобы не переплачивать в аэропорту.</div>
+</div>
+</section>
+<section class="section">
+<h2 class="h2" data-i18n="fares_block3_h2">Обмен и возврат</h2>
+<div class="list">
+<div class="item" data-i18n="fares_block3_1">Обмен: иногда платится разница в цене + сбор.</div>
+<div class="item" data-i18n="fares_block3_2">Возврат: может быть запрещён или доступен с удержаниями.</div>
+<div class="item" data-i18n="fares_block3_3">Важно: условия зависят от тарифа и перевозчика — уточняем при интеграции продаж.</div>
+</div>
+</section>
+<a class="btn" data-i18n="btn_back_home" href="index.html" style="margin-top:12px;display:inline-flex">На главную</a>
+</div>
+</main>
+<footer class="footer">
+<div>© <span id="y"></span> aviabrand.uz</div>
+<div class="small" data-i18n="footer_note">Информационный сайт. Онлайн-продажа будет добавлена после интеграции.</div>
+</footer>
+</div>
+<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+<script defer="" src="assets/script.js"></script>
 </body>
 </html>

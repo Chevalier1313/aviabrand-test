@@ -155,6 +155,13 @@ header.nav .lang button.active{
   header.nav .nav-links a,
   header.nav nav a{ padding:0 8px; font-size:13px; }
 }
+/* NAV — active page */
+header.nav .navlinks a.active{
+  background: rgba(79,124,255,.15);
+  color: var(--text);
+  border-radius:12px;
+  font-weight:600;
+}
 
 
 /* =========================================================
@@ -574,3 +581,10 @@ html[lang="uz"] header.nav nav a{
 /* A bit more separation inside contacts blocks (optional, safe) */
 .section.list .item{ padding:14px 16px; }
 .section.list .item b{ margin-bottom:8px; }
+/* NAV — active page */
+header.nav .navlinks a.active{
+  background: rgba(79,124,255,.15);
+  color: var(--text);
+  border-radius:12px;
+  font-weight:600;
+}

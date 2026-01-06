@@ -1,189 +1,164 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-i18n="hero_title">Aviabrand</title>
-
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<title data-i18n="hero_title">Aviabrand</title>
+<link href="assets/style.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
+</meta></head>
 <body>
-  <div class="container">
-    <header class="nav">
-      <div class="brand">
-        <span>✈️</span>
-        <span>aviabrand.uz</span>
-        <span class="badge">info</span>
-      </div>
-
-      <nav class="nav-links">
-        <a href="index.html" data-i18n="nav_home">Главная</a>
-        <a href="routes.html" data-i18n="nav_routes">Направления</a>
-        <a href="how-to-buy.html" data-i18n="nav_how">Как купить</a>
-        <a href="fares.html" data-i18n="nav_fares">Тарифы и услуги</a>
-        <a href="faq.html" data-i18n="nav_faq">FAQ</a>
-        <a href="contacts.html" data-i18n="nav_contacts">Контакты</a>
-      </nav>
-
-      <div class="lang">
-        <!-- можно оставить как buttons, script.js работает по data-set-lang -->
-        <button type="button" data-set-lang="ru" data-lang="ru">RU</button>
-        <button type="button" data-set-lang="uz" data-lang="uz">UZ</button>
-      </div>
-    </header>
-
-    <main class="hero">
-      <section class="card">
-        <div class="p">
-          <h1 class="h1" data-i18n="hero_title">Авиабилеты онлайн — удобно, просто, выгодно</h1>
-          <p class="lead" data-i18n="hero_sub">
+<div class="container">
+<header class="nav">
+<div class="brand">
+<span>✈️</span>
+<span>aviabrand.uz</span>
+<span class="badge">info</span>
+</div>
+<nav class="navlinks">
+<a data-i18n="nav_home" href="index.html" class="active">Главная</a>
+<a data-i18n="nav_routes" href="routes.html">Направления</a>
+<a data-i18n="nav_how" href="how-to-buy.html">Как купить</a>
+<a data-i18n="nav_fares" href="fares.html">Тарифы и услуги</a>
+<a data-i18n="nav_faq" href="faq.html">FAQ</a>
+<a data-i18n="nav_contacts" href="contacts.html">Контакты</a>
+</nav>
+<div class="lang">
+<!-- можно оставить как buttons, script.js работает по data-set-lang -->
+<button data-lang="ru" data-set-lang="ru" type="button">RU</button>
+<button data-lang="uz" data-set-lang="uz" type="button">UZ</button>
+</div>
+</header>
+<main class="hero">
+<section class="card">
+<div class="p">
+<h1 class="h1" data-i18n="hero_title">Авиабилеты онлайн — удобно, просто, выгодно</h1>
+<p class="lead" data-i18n="hero_sub">
             Информационный сайт Aviabrand. Скоро запустим онлайн-продажу. Пока — подскажем, как выбрать рейс и подготовиться к покупке.
           </p>
-
-          <div class="grid3">
-            <div class="card kpi">
-              <b data-i18n="kpi1b">Под СНГ</b>
-              <span data-i18n="kpi1s">маршруты и советы</span>
-            </div>
-            <div class="card kpi">
-              <b data-i18n="kpi2b">RU / UZ</b>
-              <span data-i18n="kpi2s">двуязычный сайт</span>
-            </div>
-            <div class="card kpi">
-              <b data-i18n="kpi3b">Быстро</b>
-              <span data-i18n="kpi3s">лёгкие страницы</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <aside class="card">
-        <div class="p">
-          <h2 class="h2" data-i18n="search_title">Поиск рейса (пока в тестовом режиме)</h2>
-
-          <form id="searchForm" class="form">
-            <div class="grid2">
-              <label class="check full">
-                <!-- ✅ FIX: добавили name -->
-                <input type="checkbox" id="oneway" name="oneway">
-                <span data-i18n="oneway_label">Обратный билет не нужен</span>
-              </label>
-
-              <!-- ✅ FIX: добавили name -->
-              <input id="from" name="from" class="input" type="text" placeholder="Откуда" required autocomplete="off" data-i18n-ph="ph_from">
-              <input id="to"   name="to"   class="input" type="text" placeholder="Куда"   required autocomplete="off" data-i18n-ph="ph_to">
-
-              <div class="datefield" id="departWrap">
-                <!-- ✅ FIX: добавили name -->
-                <input class="input" id="date1" name="date1" type="text" placeholder="Выберите дату" required autocomplete="off" data-i18n-ph="date_from">
-              </div>
-
-              <div id="returnWrap" class="datefield">
-                <!-- ✅ FIX: добавили name -->
-                <input class="input" id="date2" name="date2" type="text" placeholder="Выберите дату" autocomplete="off" data-i18n-ph="date_to">
-              </div>
-              <!-- PASSENGERS (ADT/CHD/INF dropdown) -->
-<div class="full pax">
-  <label class="small" data-i18n="field_pax">Пассажиры</label>
-
-  <!-- visible "input" -->
-  <button type="button" class="input pax-trigger" id="paxTrigger" aria-haspopup="dialog" aria-expanded="false">
-    <span id="paxLabel">1</span>
-  </button>
-
-  <!-- hidden totals for FormData -->
-  <input type="hidden" id="pax" name="pax" value="1">
-  <input type="hidden" id="adt" name="adt" value="1">
-  <input type="hidden" id="chd" name="chd" value="0">
-  <input type="hidden" id="inf" name="inf" value="0">
-
-  <!-- dropdown panel -->
-  <div class="pax-panel" id="paxPanel" hidden>
-    <div class="pax-row">
-      <div class="pax-left">
-        <div class="pax-title">ADT</div>
-        <div class="pax-sub">12+</div>
-      </div>
-      <div class="pax-ctrl">
-        <button type="button" class="pax-btn" data-pax-minus="adt">−</button>
-        <span class="pax-num" id="adtNum">1</span>
-        <button type="button" class="pax-btn" data-pax-plus="adt">+</button>
-      </div>
-    </div>
-
-    <div class="pax-row">
-      <div class="pax-left">
-        <div class="pax-title">CHD</div>
-        <div class="pax-sub">2–11</div>
-      </div>
-      <div class="pax-ctrl">
-        <button type="button" class="pax-btn" data-pax-minus="chd">−</button>
-        <span class="pax-num" id="chdNum">0</span>
-        <button type="button" class="pax-btn" data-pax-plus="chd">+</button>
-      </div>
-    </div>
-
-    <div class="pax-row">
-      <div class="pax-left">
-        <div class="pax-title">INF</div>
-        <div class="pax-sub">0–1</div>
-      </div>
-      <div class="pax-ctrl">
-        <button type="button" class="pax-btn" data-pax-minus="inf">−</button>
-        <span class="pax-num" id="infNum">0</span>
-        <button type="button" class="pax-btn" data-pax-plus="inf">+</button>
-      </div>
-    </div>
-
-    <div class="pax-actions">
-      <button type="button" class="pax-done" id="paxDone">OK</button>
-    </div>
-  </div>
+<div class="grid3">
+<div class="card kpi">
+<b data-i18n="kpi1b">Под СНГ</b>
+<span data-i18n="kpi1s">маршруты и советы</span>
 </div>
-
-              <button type="submit" data-i18n="btn_check">Проверить и перейти</button>
-            </div>
-          </form>
-
-        </div>
-      </aside>
-    </main>
-
-    <section class="section">
-      <h2 class="h2" data-i18n="sec1">Почему Aviabrand</h2>
-
-      <div class="list">
-        <div class="item" data-i18n="why1">Понятные инструкции и ответы на вопросы перед покупкой.</div>
-        <div class="item" data-i18n="why2">Удобная навигация и адаптивность под телефон.</div>
-        <div class="item" data-i18n="why3">Подготовка к интеграции с движком продаж.</div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="h2" data-i18n="sec2">Что дальше</h2>
-
-      <div class="list">
-        <div class="item" data-i18n="next1">Вы добавите контакты и юридическую информацию.</div>
-        <div class="item" data-i18n="next2">Мы подключим движок продаж (с инженерами).</div>
-        <div class="item" data-i18n="next3">Добавим SEO-страницы по направлениям и FAQ.</div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div>© <span id="y"></span> aviabrand.uz</div>
-      <div class="small" data-i18n="footer_note">
+<div class="card kpi">
+<b data-i18n="kpi2b">RU / UZ</b>
+<span data-i18n="kpi2s">двуязычный сайт</span>
+</div>
+<div class="card kpi">
+<b data-i18n="kpi3b">Быстро</b>
+<span data-i18n="kpi3s">лёгкие страницы</span>
+</div>
+</div>
+</div>
+</section>
+<aside class="card">
+<div class="p">
+<h2 class="h2" data-i18n="search_title">Поиск рейса (пока в тестовом режиме)</h2>
+<form class="form" id="searchForm">
+<div class="grid2">
+<label class="check full">
+<!-- ✅ FIX: добавили name -->
+<input id="oneway" name="oneway" type="checkbox"/>
+<span data-i18n="oneway_label">Обратный билет не нужен</span>
+</label>
+<!-- ✅ FIX: добавили name -->
+<input autocomplete="off" class="input" data-i18n-ph="ph_from" id="from" name="from" placeholder="Откуда" required="" type="text"/>
+<input autocomplete="off" class="input" data-i18n-ph="ph_to" id="to" name="to" placeholder="Куда" required="" type="text"/>
+<div class="datefield" id="departWrap">
+<!-- ✅ FIX: добавили name -->
+<input autocomplete="off" class="input" data-i18n-ph="date_from" id="date1" name="date1" placeholder="Выберите дату" required="" type="text"/>
+</div>
+<div class="datefield" id="returnWrap">
+<!-- ✅ FIX: добавили name -->
+<input autocomplete="off" class="input" data-i18n-ph="date_to" id="date2" name="date2" placeholder="Выберите дату" type="text"/>
+</div>
+<!-- PASSENGERS (ADT/CHD/INF dropdown) -->
+<div class="full pax">
+<label class="small" data-i18n="field_pax">Пассажиры</label>
+<!-- visible "input" -->
+<button aria-expanded="false" aria-haspopup="dialog" class="input pax-trigger" id="paxTrigger" type="button">
+<span id="paxLabel">1</span>
+</button>
+<!-- hidden totals for FormData -->
+<input id="pax" name="pax" type="hidden" value="1"/>
+<input id="adt" name="adt" type="hidden" value="1"/>
+<input id="chd" name="chd" type="hidden" value="0"/>
+<input id="inf" name="inf" type="hidden" value="0"/>
+<!-- dropdown panel -->
+<div class="pax-panel" hidden="" id="paxPanel">
+<div class="pax-row">
+<div class="pax-left">
+<div class="pax-title">ADT</div>
+<div class="pax-sub">12+</div>
+</div>
+<div class="pax-ctrl">
+<button class="pax-btn" data-pax-minus="adt" type="button">−</button>
+<span class="pax-num" id="adtNum">1</span>
+<button class="pax-btn" data-pax-plus="adt" type="button">+</button>
+</div>
+</div>
+<div class="pax-row">
+<div class="pax-left">
+<div class="pax-title">CHD</div>
+<div class="pax-sub">2–11</div>
+</div>
+<div class="pax-ctrl">
+<button class="pax-btn" data-pax-minus="chd" type="button">−</button>
+<span class="pax-num" id="chdNum">0</span>
+<button class="pax-btn" data-pax-plus="chd" type="button">+</button>
+</div>
+</div>
+<div class="pax-row">
+<div class="pax-left">
+<div class="pax-title">INF</div>
+<div class="pax-sub">0–1</div>
+</div>
+<div class="pax-ctrl">
+<button class="pax-btn" data-pax-minus="inf" type="button">−</button>
+<span class="pax-num" id="infNum">0</span>
+<button class="pax-btn" data-pax-plus="inf" type="button">+</button>
+</div>
+</div>
+<div class="pax-actions">
+<button class="pax-done" id="paxDone" type="button">OK</button>
+</div>
+</div>
+</div>
+<button data-i18n="btn_check" type="submit">Проверить и перейти</button>
+</div>
+</form>
+</div>
+</aside>
+</main>
+<section class="section">
+<h2 class="h2" data-i18n="sec1">Почему Aviabrand</h2>
+<div class="list">
+<div class="item" data-i18n="why1">Понятные инструкции и ответы на вопросы перед покупкой.</div>
+<div class="item" data-i18n="why2">Удобная навигация и адаптивность под телефон.</div>
+<div class="item" data-i18n="why3">Подготовка к интеграции с движком продаж.</div>
+</div>
+</section>
+<section class="section">
+<h2 class="h2" data-i18n="sec2">Что дальше</h2>
+<div class="list">
+<div class="item" data-i18n="next1">Вы добавите контакты и юридическую информацию.</div>
+<div class="item" data-i18n="next2">Мы подключим движок продаж (с инженерами).</div>
+<div class="item" data-i18n="next3">Добавим SEO-страницы по направлениям и FAQ.</div>
+</div>
+</section>
+<footer class="footer">
+<div>© <span id="y"></span> aviabrand.uz</div>
+<div class="small" data-i18n="footer_note">
         Информационный сайт. Онлайн-продажа будет добавлена после интеграции.
       </div>
-    </footer>
-  </div>
-
-  <script>
+</footer>
+</div>
+<script>
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="assets/script.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script defer="" src="assets/script.js"></script>
 </body>
 </html>
