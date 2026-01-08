@@ -188,6 +188,9 @@ document.addEventListener("DOMContentLoaded", () => {
       contacts_h1: "Контакты",
       contacts_lead:
         "Свяжитесь с нами удобным способом.",
+      contacts_addr_title: "Адрес",
+      contacts_call_title: "Контакт центр", 
+      contacts_social_title: "Наши социальные сети",
       contacts_email: "Email",
       contacts_email_hint: "support@aviabrand.uz",
 
@@ -441,10 +444,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // contacts
       contacts_h1: "Kontaktlar",
-      contacts_lead: "Biz bilan qulay usulda bog‘laning.",
+      contacts_lead: 
+      "Biz bilan qulay usulda bog‘laning.",
+      contacts_addr_title: "Manzil",
+      contacts_call_title: "CALL CENTER",
+      contacts_social_title: "Ijtimoiy tarmoqlar",
       contacts_email: "Email",
       contacts_email_hint: "support@aviabrand.uz",
-
       contacts_phone: "Telefon",
       contacts_phone_hint: "Keyinroq ko‘rsatamiz (masalan: +998 ...)",
       contacts_hours: "Ish vaqti",

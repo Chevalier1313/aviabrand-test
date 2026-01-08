@@ -707,3 +707,65 @@ header.nav .navlinks a.active{
   /* in case pax control is in grid2 */
   .grid2 .pax{ grid-column: 1 / -1 !important; }
 }
+/* =========================================================
+   MOBILE FIXES (header + pax trigger alignment)
+   Safe overrides — keep existing desktop styles
+========================================================= */
+
+/* Pax trigger: center label (prevents "left stuck" look on mobile) */
+.pax-trigger{
+  justify-content: center !important;
+  text-align: center;
+}
+
+/* Small screens: header becomes 2-row grid; nav becomes scrollable */
+@media (max-width: 520px){
+  header.nav{
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas:
+      "brand lang"
+      "nav nav" !important;
+    row-gap: 10px !important;
+    align-items: center !important;
+  }
+
+  header.nav .brand{ grid-area: brand; }
+  header.nav .lang{ grid-area: lang; justify-self: end; }
+
+  header.nav .navlinks,
+  header.nav .nav-links,
+  header.nav nav{
+    grid-area: nav;
+    width: 100%;
+    justify-content: flex-start !important;
+
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    gap: 10px !important;
+    padding-bottom: 2px;
+  }
+
+  header.nav .navlinks::-webkit-scrollbar,
+  header.nav .nav-links::-webkit-scrollbar,
+  header.nav nav::-webkit-scrollbar{ height: 0; }
+
+  header.nav .navlinks a,
+  header.nav .nav-links a,
+  header.nav nav a{
+    font-size: 13px !important;
+    padding: 0 8px !important;
+    height: 30px !important;
+    line-height: 30px !important;
+    border-radius: 10px !important;
+  }
+
+  header.nav .lang button{
+    height: 30px !important;
+    line-height: 30px !important;
+    padding: 0 10px !important;
+    border-radius: 10px !important;
+  }
+}
