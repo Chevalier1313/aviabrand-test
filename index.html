@@ -67,13 +67,30 @@
 <input autocomplete="off" class="input" data-i18n-ph="ph_from" id="from" name="from" placeholder="Откуда" required="" type="text"/>
 <input autocomplete="off" class="input" data-i18n-ph="ph_to" id="to" name="to" placeholder="Куда" required="" type="text"/>
 <div class="datefield" id="departWrap">
-<!-- ✅ FIX: добавили name -->
-<input autocomplete="off" class="input" data-i18n-ph="date_from" id="date1" name="date1" placeholder="Выберите дату" required="" type="text"/>
+  <input
+    autocomplete="off"
+    class="input"
+    data-i18n-ph="ph_date"
+    id="date1"
+    name="date1"
+    placeholder="Выберите дату"
+    required
+    type="text"
+  />
 </div>
+
 <div class="datefield" id="returnWrap">
-<!-- ✅ FIX: добавили name -->
-<input autocomplete="off" class="input" data-i18n-ph="date_to" id="date2" name="date2" placeholder="Выберите дату" type="text"/>
+  <input
+    autocomplete="off"
+    class="input"
+    data-i18n-ph="ph_date"
+    id="date2"
+    name="date2"
+    placeholder="Выберите дату"
+    type="text"
+  />
 </div>
+
 <!-- PASSENGERS (ADT/CHD/INF dropdown) -->
 <div class="full pax">
 <label class="small" data-i18n="field_pax">Пассажиры</label>
@@ -126,28 +143,42 @@
 </div>
 </div>
 </div>
-<button data-i18n="btn_check" type="submit">Проверить и перейти</button>
+<button data-i18n="submit_btn" type="submit">Проверить и перейти</button>
 </div>
 </form>
 </div>
 </aside>
 </main>
 <section class="section">
-<h2 class="h2" data-i18n="sec1">Почему Aviabrand</h2>
-<div class="list">
-<div class="item" data-i18n="why1">Понятные инструкции и ответы на вопросы перед покупкой.</div>
-<div class="item" data-i18n="why2">Удобная навигация и адаптивность под телефон.</div>
-<div class="item" data-i18n="why3">Подготовка к интеграции с движком продаж.</div>
-</div>
+  <h2 class="h2" data-i18n="sec1_title">Почему Aviabrand</h2>
+  <div class="list">
+    <div class="item" data-i18n="sec1_1">
+      Понятные инструкции и ответы на вопросы перед покупкой.
+    </div>
+    <div class="item" data-i18n="sec1_2">
+      Удобная навигация и адаптивность под телефон.
+    </div>
+    <div class="item" data-i18n="sec1_3">
+      Подготовка к интеграции с движком продаж.
+    </div>
+  </div>
 </section>
+
 <section class="section">
-<h2 class="h2" data-i18n="sec2">Что дальше</h2>
-<div class="list">
-<div class="item" data-i18n="next1">Вы добавите контакты и юридическую информацию.</div>
-<div class="item" data-i18n="next2">Мы подключим движок продаж (с инженерами).</div>
-<div class="item" data-i18n="next3">Добавим SEO-страницы по направлениям и FAQ.</div>
-</div>
+  <h2 class="h2" data-i18n="sec2_title">Что дальше</h2>
+  <div class="list">
+    <div class="item" data-i18n="sec2_1">
+      Вы добавите контакты и юридическую информацию.
+    </div>
+    <div class="item" data-i18n="sec2_2">
+      Мы подключим движок продаж (с инженерами).
+    </div>
+    <div class="item" data-i18n="sec2_3">
+      Добавим SEO-страницы по направлениям и FAQ.
+    </div>
+  </div>
 </section>
+
 <footer class="footer">
 <div>© <span id="y"></span> aviabrand.uz</div>
 <div class="small" data-i18n="footer_note">

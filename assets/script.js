@@ -44,11 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
       err_only_letters: "Только буквы и пробелы (без цифр/символов)",
       err_same_city: "Пункт прилёта должен отличаться от пункта вылета",
 
-      // aliases (old keys in html) — чтобы не ломалось
-      date_from: "Выберите дату",
-      date_to: "Выберите дату",
-      btn_check: "Проверить и перейти",
-
       // index sections
       sec1_title: "Почему Aviabrand",
       sec1_1: "Понятные инструкции и ответы на вопросы перед покупкой.",
@@ -58,16 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sec2_1: "Вы добавите контакты и юридическую информацию.",
       sec2_2: "Мы подключим движок продаж (с инженерами).",
       sec2_3: "Добавим SEO-страницы по направлениям и FAQ.",
-      // aliases (for legacy data-i18n keys used in some HTML)
-      sec1: "Почему Aviabrand",
-      why1: "Понятные инструкции и ответы на вопросы перед покупкой.",
-      why2: "Удобная навигация и адаптивность под телефон.",
-      why3: "Подготовка к интеграции с движком продаж.",
-      sec2: "Что дальше",
-      next1: "Вы добавите контакты и юридическую информацию.",
-      next2: "Мы подключим движок продаж (с инженерами).",
-      next3: "Добавим SEO-страницы по направлениям и FAQ.",
-
+      
       // coming-soon
       coming_title: "Скоро начнём онлайн-продажу",
       coming_sub:
@@ -185,19 +171,21 @@ document.addEventListener("DOMContentLoaded", () => {
       faq_q8: "Как связаться с вами?",
 
       // contacts
-      contacts_h1: "Контакты",
-      contacts_lead:
-        "Свяжитесь с нами удобным способом.",
-      contacts_addr_title: "Адрес",
-      contacts_call_title: "Контакт центр", 
-      contacts_social_title: "Наши социальные сети",
-      contacts_email: "Email",
-      contacts_email_hint: "support@aviabrand.uz",
+contacts_page_title: "Aviabrand.uz — контакты",
 
-      contacts_phone: "Телефон",
-      contacts_phone_hint: "Укажем позже (например: +998 ...)",
-      contacts_hours: "Время работы",
-      contacts_hours_hint: "Укажем позже (например: 09:00–21:00)",
+contacts_h1: "Контакты",
+contacts_lead: "Свяжитесь с нами удобным способом.",
+contacts_addr_title: "Адрес",
+contacts_call_title: "Контакт центр",
+contacts_social_title: "Наши социальные сети",
+contacts_email: "Email",
+
+
+contacts_phone: "Телефон",
+contacts_phone_hint: "Укажем позже (например: +998 ...)",
+contacts_hours: "Время работы",
+contacts_hours_hint: "Укажем позже (например: 09:00–21:00)",
+
 
       // seo-route
       seo_bc_home: "Главная",
@@ -262,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Имя/фамилия должны быть как в паспорте: исправления могут быть платными.",
       seo_tm_li3: "После покупки сохраните номер брони и PDF-билет.",
     },
-
+    
     uz: {
       // nav
       nav_home: "Bosh sahifa",
@@ -302,11 +290,6 @@ document.addEventListener("DOMContentLoaded", () => {
       err_only_letters: "Faqat harflar va bo‘sh joy (raqam/belgisiz)",
       err_same_city: "Qayerga maydoni Qayerdan’dan farq qilishi kerak",
 
-      // aliases (old keys in html)
-      date_from: "Sanani tanlang",
-      date_to: "Sanani tanlang",
-      btn_check: "Tekshirish va o‘tish",
-
       // index sections
       sec1_title: "Nega Aviabrand",
       sec1_1: "Xarid oldidan tushunarli ko‘rsatmalar va savollarga javoblar.",
@@ -316,16 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sec2_1: "Kontaktlar va yuridik ma’lumotlarni qo‘shamiz.",
       sec2_2: "Sotuv dvigelini (muhandislar bilan) ulaymiz.",
       sec2_3: "Yo‘nalishlar bo‘yicha SEO-sahifalar va FAQ qo‘shamiz.",
-      // aliases (for legacy data-i18n keys used in some HTML)
-      sec1: "Nega Aviabrand",
-      why1: "Xarid oldidan tushunarli ko‘rsatmalar va savollarga javoblar.",
-      why2: "Qulay navigatsiya va telefon uchun moslashuv.",
-      why3: "Sotuv dvigateli bilan integratsiyaga tayyorgarlik.",
-      sec2: "Keyingi qadamlar",
-      next1: "Kontaktlar va yuridik ma’lumotlarni qo‘shamiz.",
-      next2: "Sotuv dvigatelini (muhandislar bilan) ulaymiz.",
-      next3: "Yo‘nalishlar bo‘yicha SEO-sahifalar va FAQ qo‘shamiz.",
-
+    
       // coming-soon
       coming_title: "Tez orada onlayn sotuvni boshlaymiz",
       coming_sub:
@@ -443,6 +417,8 @@ document.addEventListener("DOMContentLoaded", () => {
       faq_q8: "Siz bilan qanday bog‘lanish mumkin?",
 
       // contacts
+      contacts_page_title: "Aviabrand.uz — kontaktlar",
+
       contacts_h1: "Kontaktlar",
       contacts_lead: 
       "Biz bilan qulay usulda bog‘laning.",
@@ -450,7 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
       contacts_call_title: "CALL CENTER",
       contacts_social_title: "Ijtimoiy tarmoqlar",
       contacts_email: "Email",
-      contacts_email_hint: "support@aviabrand.uz",
+      
       contacts_phone: "Telefon",
       contacts_phone_hint: "Keyinroq ko‘rsatamiz (masalan: +998 ...)",
       contacts_hours: "Ish vaqti",
@@ -522,6 +498,19 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
+    // =========================
+  // site config (contacts)
+  // =========================
+  const SITE = {
+    contacts: {
+      email: "support@aviabrand.uz",
+      phones: ["+998557037770", "+998882787770"],
+      address_ru: "Узбекистан, г. Самарканд, улица Дагбитская 47" , 
+      address_uz: "O‘zbekiston, Samarqand sh., Dagbitskaya ko‘chasi 47",
+    },
+  };
+
+
   // =========================
   // i18n core
   // =========================
@@ -544,6 +533,49 @@ document.addEventListener("DOMContentLoaded", () => {
   function applyLang(lang) {
     const pack = dict[lang] || dict.ru;
 
+      // sync contact email from config
+    pack.contacts_email_hint = SITE.contacts.email;
+
+        // sync contacts (address + phones) from SITE config
+    const addrEl = document.getElementById("contactAddr");
+    if (addrEl) {
+      addrEl.textContent =
+        lang === "uz"
+          ? (SITE.contacts.address_uz || SITE.contacts.address_ru || "")
+          : (SITE.contacts.address_ru || SITE.contacts.address_uz || "");
+    }
+
+    const toTelHref = (raw) => {
+      const digits = String(raw || "").replace(/\D/g, "");
+      return digits ? `tel:+${digits}` : "tel:";
+    };
+
+    const formatPhone = (raw) => {
+      const digits = String(raw || "").replace(/\D/g, "");
+      if (digits.length === 12 && digits.startsWith("998")) {
+        const op = digits.slice(3, 5);
+        const mid = digits.slice(5, 8);
+        const a = digits.slice(8, 10);
+        const b = digits.slice(10, 12);
+        return `+998 ${op} ${mid}-${a}-${b}`;
+      }
+      return raw || "";
+    };
+
+    const p1 = document.getElementById("contactPhone1");
+    const phone1 = SITE.contacts.phones?.[0];
+    if (p1 && phone1) {
+      p1.textContent = formatPhone(phone1);
+      p1.setAttribute("href", toTelHref(phone1));
+    }
+
+    const p2 = document.getElementById("contactPhone2");
+    const phone2 = SITE.contacts.phones?.[1];
+    if (p2 && phone2) {
+      p2.textContent = formatPhone(phone2);
+      p2.setAttribute("href", toTelHref(phone2));
+    }
+
     // update <html lang="..">
     document.documentElement.setAttribute("lang", lang);
 
@@ -552,6 +584,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const key = el.getAttribute("data-i18n");
       const val = pack[key] ?? dict.ru[key] ?? key;
       el.textContent = val;
+    });
+    // mailto links from i18n
+    document.querySelectorAll('a[data-i18n="contacts_email_hint"]').forEach((a) => {
+      const email = pack.contacts_email_hint ?? dict.ru.contacts_email_hint;
+      if (email) {
+        a.textContent = email;
+        a.setAttribute("href", `mailto:${email}`);
+      }
     });
 
     // placeholders: support both legacy [data-i18n-ph] and newer [data-i18n-placeholder]
