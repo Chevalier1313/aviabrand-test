@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footer_note: "Информационный сайт. Онлайн-продажа будет добавлена после интеграции.",
 
       // index hero
+      index_page_title: "Aviabrand — авиабилеты онлайн",
       hero_title: "Онлайн авиабилеты — удобно, легко, полезно",
       hero_sub:
         "Aviabrand — информационный сайт. Скоро запустим онлайн-продажу. Пока помогаем выбрать маршрут и подготовиться к покупке.",
@@ -134,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
       how_err3: "Если проблема повторяется — напишите нам в «Контактах».",
 
       // fares
+      fares_page_title: "Aviabrand.uz — тарифы и услуги",
       fares_h1: "Тарифы и услуги",
       fares_lead:
         "Здесь — простое объяснение: чем отличаются тарифы, что с багажом и какими бывают условия обмена/возврата.",
@@ -170,22 +172,24 @@ document.addEventListener("DOMContentLoaded", () => {
       faq_q7: "Какие документы нужны для международного перелёта?",
       faq_q8: "Как связаться с вами?",
 
+      faq_a1: "Мы готовим интеграцию с системой бронирования. Пока сайт информационный: помогаем разобраться с рейсами, тарифами и подготовкой к покупке.",
+      faq_a2: "Сейчас — нет. Мы принимаем только параметры поиска (для теста) и показываем подтверждение на странице “Скоро онлайн-продажа”.",
+      faq_a3: "Тариф влияет на багаж, обмен/возврат и условия. В разделе “Тарифы и услуги” мы кратко объясняем отличия, чтобы вы выбрали подходящий вариант.",
+      faq_a4: "Цена зависит от наличия мест, спроса, класса бронирования и правил авиакомпании. При покупке стоимость фиксируется только после подтверждения оплаты.",
+      faq_a5: "Ориентируйтесь на дату вылета по местному времени аэропорта. Если рейс вылетает после полуночи, он относится к следующему календарному дню.",
+      faq_a6: "Обычно достаточно электронного билета на телефоне и паспорта. Но некоторые аэропорты/направления могут просить распечатку — лучше иметь PDF/скрин.",
+      faq_a7: "Загранпаспорт, при необходимости — виза/разрешение на въезд. Также проверьте требования по сроку действия паспорта и правила транзита.",
+      faq_a8: "Перейдите на страницу “Контакты” — там будут актуальные способы связи (телефон/почта/мессенджеры).",
+
+
       // contacts
 contacts_page_title: "Aviabrand.uz — контакты",
-
 contacts_h1: "Контакты",
 contacts_lead: "Свяжитесь с нами удобным способом.",
 contacts_addr_title: "Адрес",
 contacts_call_title: "Контакт центр",
 contacts_social_title: "Наши социальные сети",
 contacts_email: "Email",
-
-
-contacts_phone: "Телефон",
-contacts_phone_hint: "Укажем позже (например: +998 ...)",
-contacts_hours: "Время работы",
-contacts_hours_hint: "Укажем позже (например: 09:00–21:00)",
-
 
       // seo-route
       seo_bc_home: "Главная",
@@ -266,6 +270,7 @@ contacts_hours_hint: "Укажем позже (например: 09:00–21:00)"
       footer_note: "Ma'lumot sayti. Integratsiyadan so‘ng onlayn sotuv qo‘shiladi.",
 
       // index hero
+      index_page_title: "Aviabrand — onlayn aviachipta",
       hero_title: "Onlayn aviabiletlar — qulay, oson, foydali",
       hero_sub:
         "Aviabrand ma'lumot sayti. Tez orada onlayn sotuvni ishga tushiramiz. Hozircha — reys tanlash va xaridga tayyorgarlik bo‘yicha yordam beramiz.",
@@ -379,6 +384,7 @@ contacts_hours_hint: "Укажем позже (например: 09:00–21:00)"
       how_err3: "Takrorlansa — “Kontaktlar” orqali yozing.",
 
       // fares
+      fares_page_title: "Aviabrand.uz — tariflar va xizmatlar",
       fares_h1: "Tariflar va xizmatlar",
       fares_lead:
         "Bu yerda sodda tushuntirish: tariflar farqi, bagaj va almashtirish/qaytarish shartlari.",
@@ -416,6 +422,16 @@ contacts_hours_hint: "Укажем позже (например: 09:00–21:00)"
       faq_q7: "Xalqaro parvoz uchun qanday hujjatlar kerak?",
       faq_q8: "Siz bilan qanday bog‘lanish mumkin?",
 
+      faq_a1: "Hozirda biz onlayn chipta sotish tizimi bilan integratsiyani tayyorlayapmiz. Sayt hozircha ma’lumot berish uchun mo‘ljallangan.",
+      faq_a2: "Yo‘q, hozircha chipta sotib olib bo‘lmaydi. Siz faqat parvoz parametrlarini kiritib, keyingi xaridga tayyorgarlik ko‘rishingiz mumkin.",
+      faq_a3: "Tariflar bagaj mavjudligi, almashtirish va qaytarish shartlari bilan farqlanadi. Tafsilotlar “Tariflar va xizmatlar” bo‘limida keltirilgan.",
+      faq_a4: "Chipta narxi talab, bo‘sh joylar soni va aviakompaniya qoidalariga bog‘liq. Xarid vaqtida narx yakuniy tasdiqlanadi.",
+      faq_a5: "Agar reys tun yarmidan keyin uchsa, u keyingi kalendar sanaga tegishli bo‘ladi. Har doim jo‘nab ketish vaqti va sanasini tekshiring.",
+      faq_a6: "Ko‘pincha telefoningizdagi elektron chipta yetarli bo‘ladi. Biroq ayrim holatlarda chop etilgan nusxa talab qilinishi mumkin.",
+      faq_a7: "Xalqaro parvozlar uchun xorijga chiqish pasporti, ba’zi yo‘nalishlar uchun esa viza talab qilinadi.",
+      faq_a8: "Biz bilan bog‘lanish uchun “Kontaktlar” sahifasiga o‘ting — u yerda barcha aloqa ma’lumotlari mavjud.",
+
+
       // contacts
       contacts_page_title: "Aviabrand.uz — kontaktlar",
 
@@ -426,12 +442,7 @@ contacts_hours_hint: "Укажем позже (например: 09:00–21:00)"
       contacts_call_title: "CALL CENTER",
       contacts_social_title: "Ijtimoiy tarmoqlar",
       contacts_email: "Email",
-      
-      contacts_phone: "Telefon",
-      contacts_phone_hint: "Keyinroq ko‘rsatamiz (masalan: +998 ...)",
-      contacts_hours: "Ish vaqti",
-      contacts_hours_hint: "Keyinroq ko‘rsatamiz (masalan: 09:00–21:00)",
-
+     
       // seo-route
       seo_bc_home: "Bosh sahifa",
       seo_bc_routes: "Yo‘nalishlar",
@@ -501,15 +512,7 @@ contacts_hours_hint: "Укажем позже (например: 09:00–21:00)"
     // =========================
   // site config (contacts)
   // =========================
-  const SITE = {
-    contacts: {
-      email: "support@aviabrand.uz",
-      phones: ["+998557037770", "+998882787770"],
-      address_ru: "Узбекистан, г. Самарканд, улица Дагбитская 47" , 
-      address_uz: "O‘zbekiston, Samarqand sh., Dagbitskaya ko‘chasi 47",
-    },
-  };
-
+  // const SITE passed to site.config.js //
 
   // =========================
   // i18n core
@@ -587,7 +590,7 @@ contacts_hours_hint: "Укажем позже (например: 09:00–21:00)"
     });
     // mailto links from i18n
     document.querySelectorAll('a[data-i18n="contacts_email_hint"]').forEach((a) => {
-      const email = pack.contacts_email_hint ?? dict.ru.contacts_email_hint;
+      const email = pack.contacts_email_hint || SITE.contacts.email;
       if (email) {
         a.textContent = email;
         a.setAttribute("href", `mailto:${email}`);
