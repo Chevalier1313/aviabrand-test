@@ -532,6 +532,10 @@ contacts_email: "Email",
     String(s || "").replace(/\{(\w+)\}/g, (_, k) =>
       params && params[k] != null ? params[k] : `{${k}}`
     );
+    // =========================
+  // applyLang hooks (post-render callbacks)
+  // =========================
+  const afterApplyLang = [];
 
   function applyLang(lang) {
     const pack = dict[lang] || dict.ru;
@@ -626,6 +630,11 @@ contacts_email: "Email",
 
     // dynamic SEO (seo-route.html)
     applySeoRouteMeta(lang);
+        // run post-applyLang hooks
+    afterApplyLang.forEach((fn) => {
+      try { fn(lang); } catch (_) {}
+    });
+
   }
 
   // init language buttons
@@ -715,6 +724,12 @@ contacts_email: "Email",
       onOpen: (_sd, _ds, inst) => applyDatePlaceholder(inst),
       onChange: () => syncMinReturnToDepart(),
     });
+      // a11y: give id/name to flatpickr altInput (visible date field)
+  if (window.__ab_fp1?.altInput) {
+    window.__ab_fp1.altInput.id = "date1_alt";
+    window.__ab_fp1.altInput.name = "date1_alt";
+  }
+
   }
 
   if (window.flatpickr && date2) {
@@ -736,6 +751,12 @@ contacts_email: "Email",
       },
       onChange: (_sd, _ds, inst) => applyDatePlaceholder(inst),
     });
+      // a11y: give id/name to flatpickr altInput (visible date field)
+  if (window.__ab_fp2?.altInput) {
+    window.__ab_fp2.altInput.id = "date2_alt";
+    window.__ab_fp2.altInput.name = "date2_alt";
+  }
+
   }
 
   // initial placeholder
@@ -754,9 +775,17 @@ contacts_email: "Email",
       if (window.__ab_fp2) window.__ab_fp2.set("minDate", BASE_MIN_DATE);
       applyDatePlaceholder(window.__ab_fp2);
       setFpDisabled(window.__ab_fp2, true);
-    } else {
+      if (window.__ab_fp2?.altInput) window.__ab_fp2.altInput.required = false;
+      date2.required = false;
+  
+    } 
+    
+    else {
       setFpDisabled(window.__ab_fp2, false);
+      if (window.__ab_fp2?.altInput) window.__ab_fp2.altInput.required = true;
       syncMinReturnToDepart();
+      date2.required = true;
+
     }
   }
 
@@ -978,13 +1007,9 @@ if (paxTrigger && paxPanel && paxTotalEl && adtEl && chdEl && infEl) {
 
   // initial paint
   syncUI();
-
-  // when language changes, re-render label
-  const _oldApplyLang = applyLang;
-  applyLang = function (lang) {
-    _oldApplyLang(lang);
-    syncUI();
-  };
+// re-render pax label when language changes
+afterApplyLang.push(() => syncUI());
+  
 }
 
 
@@ -997,7 +1022,18 @@ if (paxTrigger && paxPanel && paxTotalEl && adtEl && chdEl && infEl) {
         form.reportValidity();
         return;
       }
-
+        // require return date when not one-way
+      if (oneWay && !oneWay.checked) {
+        const hasReturn = Boolean((date2 && date2.value && date2.value.trim()) || window.__ab_fp2?.selectedDates?.length);
+        if (!hasReturn) {
+          e.preventDefault();
+          // focus the visible return date input if exists
+          if (window.__ab_fp2?.altInput) window.__ab_fp2.altInput.focus();
+          form.reportValidity();
+          return;
+        }
+      }
+   
       const fd = new FormData(form);
       const params = new URLSearchParams();
 

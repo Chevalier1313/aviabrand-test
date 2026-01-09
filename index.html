@@ -93,9 +93,9 @@
 
 <!-- PASSENGERS (ADT/CHD/INF dropdown) -->
 <div class="full pax">
-<label class="small" data-i18n="field_pax">Пассажиры</label>
+<label class="small" data-i18n="field_pax" for="paxTrigger">Пассажиры</label>
 <!-- visible "input" -->
-<button aria-expanded="false" aria-haspopup="dialog" class="input pax-trigger" id="paxTrigger" type="button">
+<button aria-expanded="false" aria-haspopup="dialog" class="input pax-trigger" id="paxTrigger" name="pax_trigger" type="button">
 <span id="paxLabel">1</span>
 </button>
 <!-- hidden totals for FormData -->
@@ -111,9 +111,9 @@
 <div class="pax-sub">12+</div>
 </div>
 <div class="pax-ctrl">
-<button class="pax-btn" data-pax-minus="adt" type="button">−</button>
+<button class="pax-btn" data-pax-minus="adt" name="adt_minus" type="button">−</button>
 <span class="pax-num" id="adtNum">1</span>
-<button class="pax-btn" data-pax-plus="adt" type="button">+</button>
+<button class="pax-btn" data-pax-plus="adt" name="adt_plus" type="button">+</button>
 </div>
 </div>
 <div class="pax-row">
@@ -122,9 +122,9 @@
 <div class="pax-sub">2–11</div>
 </div>
 <div class="pax-ctrl">
-<button class="pax-btn" data-pax-minus="chd" type="button">−</button>
+<button class="pax-btn" data-pax-minus="chd" name="chd_minus" type="button">−</button>
 <span class="pax-num" id="chdNum">0</span>
-<button class="pax-btn" data-pax-plus="chd" type="button">+</button>
+<button class="pax-btn" data-pax-plus="chd" name="chd_plus" type="button">+</button>
 </div>
 </div>
 <div class="pax-row">
@@ -133,13 +133,13 @@
 <div class="pax-sub">0–1</div>
 </div>
 <div class="pax-ctrl">
-<button class="pax-btn" data-pax-minus="inf" type="button">−</button>
+<button class="pax-btn" data-pax-minus="inf" name="inf_minus" type="button">−</button>
 <span class="pax-num" id="infNum">0</span>
-<button class="pax-btn" data-pax-plus="inf" type="button">+</button>
+<button class="pax-btn" data-pax-plus="inf" name="inf_plus" type="button">+</button>
 </div>
 </div>
 <div class="pax-actions">
-<button class="pax-done" id="paxDone" type="button">OK</button>
+<button class="pax-done" id="paxDone" name="pax_done" type="button">OK</button>
 </div>
 </div>
 </div>
