@@ -1,6 +1,20 @@
 // assets/script.js
 // Aviabrand: i18n + UX helpers (index form, coming-soon summary, SEO pages)
 document.addEventListener("DOMContentLoaded", () => {
+    // Step 2.1 — connect airports data (DATA ONLY)
+    console.log("script.js: DOMContentLoaded fired");
+
+  const AIRPORTS = window.AIRPORTS_DATA;
+
+  if (!AIRPORTS || !Array.isArray(AIRPORTS)) {
+    console.error("AIRPORTS_DATA not loaded", window.AIRPORTS_DATA);
+  } else {
+    console.log("AIRPORTS_DATA loaded:", AIRPORTS.length);
+  }
+
+
+
+
   // =========================
   // i18n dictionary
   // =========================
@@ -38,6 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
       ph_to: "Куда",
       ph_date: "Выберите дату",
       submit_btn: "Проверить и перейти",
+      err_pick_from: "Введите пункт вылета",
+      err_pick_to: "Введите пункт прилёта",
+
+
 
       // validation (index)  ✅ added
       err_from_min: "Введите пункт вылета (минимум 2 символа)",
@@ -288,6 +306,10 @@ contacts_email: "Email",
       ph_to: "Qayerga",
       ph_date: "Sanani tanlang",
       submit_btn: "Tekshirish va o‘tish",
+      err_pick_from: "Jo‘nash punktini kiriting",
+      err_pick_to: "Borish punktini kiriting",
+
+
 
       // validation (index) ✅ added
       err_from_min: "Qayerdan (kamida 2 ta belgi) kiriting",
@@ -825,10 +847,361 @@ contacts_email: "Email",
   // from/to validation (index)
   const fromEl = document.getElementById("from");
   const toEl = document.getElementById("to");
+  // Step 2.2 — clear stored code when user edits from/to
+function clearStoredCode(input) {
+  if (!input) return;
+  input.dataset.code = "";
+  input.dataset.type = "";
+  input.setCustomValidity(""); // ✅ hide previous error immediately
+}
+
+if (fromEl) fromEl.addEventListener("input", () => clearStoredCode(fromEl));
+if (toEl) toEl.addEventListener("input", () => clearStoredCode(toEl));
+
+// Step 2.5 — show validation on blur (field-level), not while typing
+function validateOneField(el, errKey) {
+  if (!el) return true;
+
+  // если поле пустое — не ругаемся (ошибка будет на submit)
+  if (!(el.value || "").trim()) {
+    el.setCustomValidity("");
+    return true;
+  }
+
+  // пробуем распознать код из введённого
+  handleBlurResolve(el);
+
+  const code = (el.dataset.code || "").trim();
+  if (!code) {
+    el.setCustomValidity(tErr(errKey));
+
+    const next = document.activeElement;
+    const inForm = form && next && form.contains(next);
+
+    // bubble only when user moves within the form (to another field/button)
+    if (inForm && typeof el.reportValidity === "function") el.reportValidity();
+
+    return false;
+  }
+
+  el.setCustomValidity("");
+  return true;
+}
+
+
+if (fromEl) fromEl.addEventListener("blur", () => validateOneField(fromEl, "err_pick_from"));
+if (toEl) toEl.addEventListener("blur", () => validateOneField(toEl, "err_pick_to"));
+
+// Step 4.1 — Autocomplete dropdown (city + airport) using AIRPORTS_DATA
+function getCityName(c, lang) {
+  return (c.city && (c.city[lang] || c.city.ru || c.city.en)) || "";
+}
+
+function buildSuggestions(query, lang) {
+  const q = (query || "").trim().toLowerCase();
+  if (!q) return [];
+
+  const data = window.AIRPORTS_DATA;
+  if (!Array.isArray(data)) return [];
+
+  const out = [];
+  for (const c of data) {
+    const cityCode = String(c.cityCode || c.group || "").toUpperCase();
+    const cityName = getCityName(c, lang);
+    const cityNameL = cityName.toLowerCase();
+
+    // 1) City suggestion (MOW) — match by city name or city code prefix
+    if (
+      (cityCode && cityCode.toLowerCase().startsWith(q)) ||
+      (cityNameL && cityNameL.includes(q))
+    ) {
+      if (cityCode && cityName) {
+        out.push({
+          type: "city",
+          code: cityCode,
+          display: `${cityName} (${cityCode})`,
+        });
+      }
+    }
+
+// 2) Airport suggestions (DME/SVO/VKO/TAS) — match by airport code prefix
+const airports = Array.isArray(c.airports) ? c.airports : [];
+
+// show airports only for code-like queries (latin) or longer queries
+const isLatin = /^[a-z]+$/i.test(q);
+const isCyr = /[а-яё]/i.test(q);
+
+for (const a of airports) {
+  const aCode = String(a.code || "").toUpperCase();
+  if (!aCode) continue;
+
+  if (
+  aCode.toLowerCase().startsWith(q) ||
+  (isLatin && q.length >= 3 && cityNameL.includes(q)) ||
+  (isCyr && q.length >= 4 && cityNameL.includes(q))
+) {
+
+    out.push({
+      type: "airport",
+      code: aCode,
+      display: cityName ? `${cityName} (${aCode})` : `(${aCode})`,
+    });
+  }
+}
+
+  }
+
+  // de-dupe + prioritize exact code match
+  const seen = new Set();
+  const uniq = [];
+  for (const it of out) {
+    const key = `${it.type}:${it.code}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      uniq.push(it);
+    }
+  }
+
+  uniq.sort((a, b) => {
+    const aq = a.code.toLowerCase() === q ? -1 : 0;
+    const bq = b.code.toLowerCase() === q ? -1 : 0;
+    return aq - bq;
+  });
+
+  return uniq.slice(0, 8);
+}
+
+function ensureAcBox(input) {
+  // create dropdown container right after input (positioned with CSS)
+  let box = input.parentElement.querySelector(".ac-box");
+  if (box) return box;
+
+  box = document.createElement("div");
+  box.className = "ac-box";
+  box.style.display = "none";
+
+  // important: parent should be position:relative for correct positioning
+  const parent = input.parentElement;
+  const cs = window.getComputedStyle(parent);
+  if (cs.position === "static") parent.style.position = "relative";
+
+  parent.appendChild(box);
+  return box;
+}
+
+function closeAc(box) {
+  if (!box) return;
+  box.style.display = "none";
+  box.innerHTML = "";
+}
+
+function applyPick(input, item) {
+  input.dataset.code = item.code;
+  input.dataset.type = item.type;
+  input.value = item.display;
+  input.setCustomValidity("");
+}
+
+function attachAutocomplete(input) {
+  if (!input) return;
+  const box = ensureAcBox(input);
+  // Step 4.4 — close dropdown on click outside (input + dropdown)
+document.addEventListener("mousedown", (e) => {
+  const t = e.target;
+  if (t === input) return;
+  if (box.contains(t)) return;
+  closeAc(box);
+});
+
+  
+let itemsCache = [];
+let activeIndex = -1;
+
+function renderActive() {
+  const rows = box.querySelectorAll(".ac-item");
+  rows.forEach((r, i) => r.classList.toggle("active", i === activeIndex));
+}
+
+  input.addEventListener("input", () => {
+    // keep your existing clearing logic (Step 2.2) working; we just show suggestions
+    const lang = document.documentElement.getAttribute("data-set-lang") || "ru";
+    itemsCache = buildSuggestions(input.value, lang);
+activeIndex = itemsCache.length ? 0 : -1;
+
+
+    box.innerHTML = "";
+    if (!itemsCache.length) return closeAc(box);
+itemsCache.forEach((it) => {
+
+      const row = document.createElement("div");
+      row.className = "ac-item";
+      row.textContent = it.display;
+      row.tabIndex = -1;
+
+      // mousedown чтобы выбрать до blur
+      row.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        applyPick(input, it);
+        closeAc(box);
+      });
+
+      box.appendChild(row);
+    });
+
+    // position box right under the input (fix for layout containers)
+const r = input.getBoundingClientRect();
+const pr = input.parentElement.getBoundingClientRect();
+
+box.style.left = (r.left - pr.left) + "px";
+box.style.top = (r.bottom - pr.top + 6) + "px";
+box.style.right = "auto";
+box.style.width = r.width + "px";
+
+    box.style.display = "block";
+    renderActive();
+
+  });
+
+  input.addEventListener("keydown", (e) => {
+  if (!itemsCache.length || box.style.display === "none") return;
+
+
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    activeIndex = Math.min(activeIndex + 1, itemsCache.length - 1);
+
+renderActive();
+
+    return;
+  }
+
+  if (e.key === "ArrowUp") {
+    e.preventDefault();
+    activeIndex = Math.max(activeIndex - 1, 0);
+
+renderActive();
+
+    return;
+  }
+
+  if (e.key === "Enter") {
+    // если dropdown открыт — Enter выбирает активный вариант
+    e.preventDefault();
+    const pick = itemsCache[activeIndex];
+    if (pick) {
+      applyPick(input, pick);
+      closeAc(box);
+    }
+    return;
+  }
+
+  if (e.key === "Tab") {
+  if (itemsCache.length && box.style.display !== "none") {
+    const pick = itemsCache[activeIndex];
+    if (pick) {
+      applyPick(input, pick);
+      closeAc(box);
+    }
+  }
+  // tab дальше работает как обычно (переход фокуса)
+  return;
+}
+
+
+  if (e.key === "Escape") {
+    e.preventDefault();
+    closeAc(box);
+    return;
+  }
+});
+
+
+  input.addEventListener("blur", () => {
+  setTimeout(() => {
+    // если кликнули/перешли внутрь dropdown — не закрывать
+    if (box.contains(document.activeElement)) return;
+    closeAc(box);
+  }, 150);
+});
+
+}
+
+attachAutocomplete(fromEl);
+attachAutocomplete(toEl);
+
+
+// Step 2.3 — resolve 3-letter city/airport code on blur (no dropdown yet)
+function resolveByIataCode(raw) {
+  const s = (raw || "").trim();
+  if (!s) return null;
+
+  // extract candidate: either "MOW" or "(MOW)" etc.
+  const m = s.match(/\b([A-Za-z]{3})\b/);
+  if (!m) return null;
+
+  const code = m[1].toUpperCase();
+  const data = window.AIRPORTS_DATA;
+  if (!Array.isArray(data)) return null;
+
+  // Determine current language for city name display
+  const lang = document.documentElement.getAttribute("data-set-lang") || "ru";
+
+  for (const c of data) {
+    const cityCode = String(c.cityCode || c.group || "").toUpperCase();
+    const cityName = (c.city && (c.city[lang] || c.city.ru || c.city.en)) || "";
+
+    // city code match (MOW)
+    if (cityCode && code === cityCode) {
+      return {
+        type: "city",
+        code,
+        display: cityName ? `${cityName} (${code})` : `(${code})`,
+      };
+    }
+
+    // airport code match (DME/SVO/VKO/TAS)
+    const airports = Array.isArray(c.airports) ? c.airports : [];
+    for (const a of airports) {
+      const aCode = String(a.code || "").toUpperCase();
+      if (aCode && code === aCode) {
+        return {
+          type: "airport",
+          code,
+          display: cityName ? `${cityName} (${code})` : `(${code})`,
+        };
+      }
+    }
+  }
+
+  return null;
+}
+
+function applyResolved(input, resolved) {
+  if (!input) return;
+  if (!resolved) return;
+
+  input.dataset.code = resolved.code;
+  input.dataset.type = resolved.type;
+  input.value = resolved.display;
+}
+
+function handleBlurResolve(input) {
+  if (!input) return;
+
+  // if user already selected something valid, do nothing
+  if (input.dataset.code && input.dataset.type) return;
+
+  const resolved = resolveByIataCode(input.value);
+  if (resolved) applyResolved(input, resolved);
+}
+
+// attach blur handlers
+if (fromEl) fromEl.addEventListener("blur", () => handleBlurResolve(fromEl));
+if (toEl) toEl.addEventListener("blur", () => handleBlurResolve(toEl));
+
 
   const norm = (s) => (s || "").trim().replace(/\s+/g, " ");
-  const allowedChars = /^[A-Za-zА-Яа-яЁё\s.'-]+$/;
-
+  
   const clearCustom = (el) => {
     if (!el) return;
     el.setCustomValidity("");
@@ -841,39 +1214,37 @@ contacts_email: "Email",
   };
 
   const validateFromTo = () => {
-    if (!fromEl || !toEl) return true;
+  if (!fromEl || !toEl) return true;
 
-    const fromV = norm(fromEl.value);
-    const toV = norm(toEl.value);
+  // try resolve code even if user didn't blur
+  handleBlurResolve(fromEl);
+  handleBlurResolve(toEl);
 
-    clearCustom(fromEl);
-    clearCustom(toEl);
+  // clear previous errors
+  clearCustom(fromEl);
+  clearCustom(toEl);
 
-    if (fromV.length < 2) {
-      fromEl.setCustomValidity(tErr("err_from_min"));
-      return false;
-    }
-    if (toV.length < 2) {
-      toEl.setCustomValidity(tErr("err_to_min"));
-      return false;
-    }
+  const fromCode = (fromEl.dataset.code || "").trim();
+  const toCode = (toEl.dataset.code || "").trim();
 
-    if (!allowedChars.test(fromV)) {
-      fromEl.setCustomValidity(tErr("err_only_letters"));
-      return false;
-    }
-    if (!allowedChars.test(toV)) {
-      toEl.setCustomValidity(tErr("err_only_letters"));
-      return false;
-    }
+  if (!fromCode) {
+    fromEl.setCustomValidity(tErr("err_pick_from"));
+    return false;
+  }
 
-    if (fromV.toLowerCase() === toV.toLowerCase()) {
-      toEl.setCustomValidity(tErr("err_same_city"));
-      return false;
-    }
+  if (!toCode) {
+    toEl.setCustomValidity(tErr("err_pick_to"));
+    return false;
+  }
 
-    return true;
-  };
+  if (fromCode.toLowerCase() === toCode.toLowerCase()) {
+    toEl.setCustomValidity(tErr("err_same_city"));
+    return false;
+  }
+
+  return true;
+};
+
 
   // ✅ Prefill from/to on index from URL (?from=...&to=...)
   if (fromEl && toEl) {
@@ -887,8 +1258,19 @@ contacts_email: "Email",
     validateFromTo();
   }
 
-  if (fromEl) fromEl.addEventListener("input", validateFromTo);
-  if (toEl) toEl.addEventListener("input", validateFromTo);
+  if (fromEl) {
+  fromEl.addEventListener("blur", () => {
+    if ((fromEl.value || "").trim()) validateFromTo();
+  });
+}
+
+if (toEl) {
+  toEl.addEventListener("blur", () => {
+    if ((toEl.value || "").trim()) validateFromTo();
+  });
+}
+
+
 
     // =========================
   // =========================
@@ -1037,11 +1419,20 @@ afterApplyLang.push(() => syncUI());
       const fd = new FormData(form);
       const params = new URLSearchParams();
 
-      ["from", "to", "date1", "date2", "pax", "adt", "chd", "inf", "oneway"].forEach((k) => {
-
+      ["date1", "date2", "pax", "adt", "chd", "inf", "oneway"].forEach((k) => {
+      
         const v = (fd.get(k) || "").toString().trim();
         if (v) params.set(k, v);
       });
+
+      // Step 3.1 — send codes (for booking engine)
+params.set("from", (fromEl?.dataset?.code || "").trim());
+params.set("to", (toEl?.dataset?.code || "").trim());
+
+// optional: keep pretty display for coming-soon UI
+params.set("from_display", (fromEl?.value || "").trim());
+params.set("to_display", (toEl?.value || "").trim());
+
 
       window.location.href = `coming-soon.html?${params.toString()}`;
       e.preventDefault();
@@ -1055,8 +1446,9 @@ afterApplyLang.push(() => syncUI());
   const qs = new URLSearchParams(window.location.search);
 
   if (document.getElementById("sumFrom")) {
-    const from = qs.get("from") || "-";
-    const to = qs.get("to") || "-";
+    const from = qs.get("from_display") || qs.get("from") || "-";
+const to = qs.get("to_display") || qs.get("to") || "-";
+
     const d1 = qs.get("date1") || "";
     const d2 = qs.get("date2") || "";
 
