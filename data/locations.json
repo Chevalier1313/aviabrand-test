@@ -1,0 +1,62 @@
+{
+  "version": "2026-01-12",
+  "items": [
+    {
+      "type": "city",
+      "code": "MOW",
+      "name": { "ru": "Москва", "uz": "Moskva", "en": "Moscow" },
+      "country": { "ru": "Россия", "uz": "Rossiya", "en": "Russia" },
+      "aliases": ["moscow", "moskva", "москва"],
+      "priority": 10
+    },
+    {
+      "type": "airport",
+      "code": "DME",
+      "cityCode": "MOW",
+      "airportName": { "ru": "Домодедово", "uz": "Domodedovo", "en": "Domodedovo" },
+      "aliases": ["domodedovo", "домодедово", "dme"],
+      "priority": 10
+    },
+    {
+      "type": "airport",
+      "code": "SVO",
+      "cityCode": "MOW",
+      "airportName": { "ru": "Шереметьево", "uz": "Sheremetevo", "en": "Sheremetyevo" },
+      "aliases": ["sheremetyevo", "шереметьево", "svo"],
+      "priority": 20
+    },
+    {
+      "type": "airport",
+      "code": "VKO",
+      "cityCode": "MOW",
+      "airportName": { "ru": "Внуково", "uz": "Vnukovo", "en": "Vnukovo" },
+      "aliases": ["vnukovo", "внуково", "vko"],
+      "priority": 30
+    },
+
+    {
+      "type": "city",
+      "code": "IST",
+      "name": { "ru": "Стамбул", "uz": "Istanbul", "en": "Istanbul" },
+      "country": { "ru": "Турция", "uz": "Turkiya", "en": "Turkey" },
+      "aliases": ["istanbul", "стамбул", "ist"],
+      "priority": 5
+    },
+    {
+      "type": "airport",
+      "code": "IST",
+      "cityCode": "IST",
+      "airportName": { "ru": "Istanbul Airport", "uz": "Istanbul Airport", "en": "Istanbul Airport" },
+      "aliases": ["istanbul airport", "ist"],
+      "priority": 5
+    },
+    {
+      "type": "airport",
+      "code": "SAW",
+      "cityCode": "IST",
+      "airportName": { "ru": "Сабиха Гёкчен", "uz": "Sabiha Gökçen", "en": "Sabiha Gokcen" },
+      "aliases": ["sabiha", "gokcen", "сабиха", "saw"],
+      "priority": 10
+    }
+  ]
+}

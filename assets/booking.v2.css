@@ -1,0 +1,217 @@
+/* Feature flag: hide v1 when v2 enabled (adjust selectors to your v1 markup) */
+body[data-booking="v2"] .booking-v1 { display: none !important; }
+body:not([data-booking="v2"]) .booking-v2 { display: none !important; }
+
+.booking-v2 .row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.booking-v2 .field {
+  position: relative;
+}
+
+.booking-v2 .field__label {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.booking-v2 .field__control {
+  position: relative;
+}
+
+.booking-v2 .field__input {
+  width: 100%;
+  padding: 12px 12px;
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  outline: none;
+}
+
+.booking-v2 .field.is-error .field__input {
+  border-color: #d93025;
+  box-shadow: 0 0 0 3px rgba(217, 48, 37, 0.12);
+}
+
+.booking-v2 .field__error {
+  min-height: 18px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #d93025;
+}
+
+.booking-v2 .dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 50;
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.booking-v2 .dropdown__list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.booking-v2 .opt {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.booking-v2 .opt:hover,
+.booking-v2 .opt.is-active {
+  background: rgba(0,0,0,0.05);
+}
+
+.booking-v2 .opt__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.booking-v2 .opt__title {
+  font-weight: 600;
+}
+
+.booking-v2 .opt__meta {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.booking-v2 .opt__sub {
+  margin-top: 2px;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+/* v2 should visually behave like existing form */
+.booking-v2 {
+  margin-top: 16px;
+}
+
+.booking-v2 .row {
+  margin-bottom: 12px;
+}
+
+/* inputs sizing consistent with existing .input */
+.booking-v2 .field__input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 840px) {
+  .booking-v2 .row { grid-template-columns: 1fr; }
+}
+
+/* allow dropdown to escape card */
+.booking-v2 .field {
+  overflow: visible;
+}
+
+.booking-v2 .dropdown {
+  z-index: 1000;
+}
+
+/* v2: pax panel as modal overlay (safe, always visible) */
+#paxPanel.pax-panel {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(720px, calc(100vw - 24px));
+  max-height: calc(100vh - 24px);
+  overflow: auto;
+  z-index: 2000;
+}
+
+/* dim background when pax panel is open */
+#paxPanel.pax-panel:not([hidden]) {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+/* flatpickr v2 dates: custom depart/return highlight (no range mode) */
+.flatpickr-day.ab-dep,
+.flatpickr-day.ab-ret{
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.flatpickr-day.ab-inrange{
+  border-radius: 0;
+  opacity: 0.85;
+}
+
+/* No return ticket button inside calendar */
+.fp-no-return{
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* PAX panel popover look */
+#paxPanel.pax-panel{
+  position: absolute;
+  z-index: 50;
+  width: min(420px, 92vw);
+  border-radius: 16px;
+  padding: 14px 14px 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+/* anchor: make the pax block a positioning context */
+.booking-v2 .pax{ position: relative; }
+
+/* place panel under the trigger (tweak as you like) */
+.booking-v2 .pax + #paxPanel{
+  right: 0;
+  margin-top: 10px;
+}
+.pax-btn{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 1;
+  user-select: none;
+}
+
+.pax-num{
+  min-width: 28px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+.pax-actions{
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.pax-done{
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 700;
+}

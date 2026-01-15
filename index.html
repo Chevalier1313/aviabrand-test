@@ -8,7 +8,7 @@
 <link href="assets/style.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
 </meta></head>
-<body>
+<body data-booking="v2">
 <div class="container">
 <header class="nav">
 <div class="brand">
@@ -56,7 +56,8 @@
 <aside class="card">
 <div class="p">
 <h2 class="h2" data-i18n="search_title">Поиск рейса (пока в тестовом режиме)</h2>
-<form class="form" id="searchForm">
+<form class="form booking-v1" id="searchForm_v1" aria-hidden="true">
+
 <div class="grid2">
 <label class="check full">
 <!-- ✅ FIX: добавили name -->
@@ -104,7 +105,141 @@
 <input id="chd" name="chd" type="hidden" value="0"/>
 <input id="inf" name="inf" type="hidden" value="0"/>
 <!-- dropdown panel -->
-<div class="pax-panel" hidden="" id="paxPanel">
+
+</div>
+<button data-i18n="submit_btn" type="submit">Проверить и перейти</button>
+</div>
+</form>
+
+<form class="booking-v2" data-booking-form="v2" action="coming-soon.html" method="GET" novalidate>
+  <div class="row">
+    <!-- FROM -->
+    <div class="field field--from" data-field="from">
+      <label class="field__label" for="bf-from-input" data-i18n="field_from">Откуда</label>
+
+      <div class="field__control">
+        <input
+          id="bf-from-input"
+          class="field__input"
+          type="text"
+          inputmode="search"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          
+          data-role="location-input"
+          data-field="from"
+          data-code=""
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded="false"
+          aria-controls="bf-from-list"
+          aria-activedescendant=""
+          aria-invalid="false"
+          aria-describedby="bf-from-err"
+        />
+        <input type="hidden" name="from_code" data-role="code" value="" />
+        <input type="hidden" name="from_label" data-role="label" value="" />
+      </div>
+
+      <div class="field__error" id="bf-from-err" data-role="field-error" aria-live="polite"></div>
+
+      <div class="dropdown" data-role="dropdown" hidden>
+        <ul class="dropdown__list" id="bf-from-list" data-role="listbox" role="listbox"></ul>
+      </div>
+    </div>
+
+    <!-- TO -->
+    <div class="field field--to" data-field="to">
+      <label class="field__label" for="bf-to-input" data-i18n="field_to">Куда</label>
+
+      <div class="field__control">
+        <input
+          id="bf-to-input"
+          class="field__input"
+          type="text"
+          inputmode="search"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          
+          data-role="location-input"
+          data-field="to"
+          data-code=""
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded="false"
+          aria-controls="bf-to-list"
+          aria-activedescendant=""
+          aria-invalid="false"
+          aria-describedby="bf-to-err"
+        />
+        <input type="hidden" name="to_code" data-role="code" value="" />
+        <input type="hidden" name="to_label" data-role="label" value="" />
+      </div>
+
+      <div class="field__error" id="bf-to-err" data-role="field-error" aria-live="polite"></div>
+
+      <div class="dropdown" data-role="dropdown" hidden>
+        <ul class="dropdown__list" id="bf-to-list" data-role="listbox" role="listbox"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- switchin to 1 calendary
+  <label class="check full">
+  <input id="oneway_v2" name="oneway" type="checkbox">
+  <span data-i18n="oneway_label">Обратный билет не нужен</span>
+</label> -->
+
+
+  <!-- ✅ keep existing date/pax unchanged: copy your current blocks here -->
+  <div class="row">
+    <!-- depart -->
+    <div class="datefield" id="departWrapV2">
+<input
+  class="input"
+  id="date1_v2"
+  name="date1"
+  type="text"
+  autocomplete="off"
+  data-i18n-ph="ph_depart_date"
+/>
+
+      <div class="field__error" id="date1_err" aria-live="polite"></div>
+    </div>
+
+    <!-- return -->
+    <div class="datefield" id="returnWrapV2">
+<input
+  class="input"
+  id="date2_v2"
+  name="date2"
+  type="text"
+  autocomplete="off"
+  data-i18n-ph="ph_return_date"
+/>
+
+      <div class="field__error" id="date2_err" aria-live="polite"></div>
+    </div>
+    
+
+   <!-- PAX (reuse existing panel logic) -->
+<div class="full pax">
+  <label class="small" data-i18n="field_pax" for="paxTriggerV2">Пассажиры</label>
+
+  <button aria-expanded="false" aria-haspopup="dialog"
+          class="input pax-trigger" id="paxTriggerV2" type="button">
+    <span id="paxLabelV2">1</span>
+  </button>
+
+  <!-- hidden totals for submit -->
+  <input id="pax_v2" name="pax" type="hidden" value="1"/>
+  <input id="adt_v2" name="adt" type="hidden" value="1"/>
+  <input id="chd_v2" name="chd" type="hidden" value="0"/>
+  <input id="inf_v2" name="inf" type="hidden" value="0"/>
+
+  <div class="pax-panel" hidden="" id="paxPanel">
 <div class="pax-row">
 <div class="pax-left">
 <div class="pax-title">ADT</div>
@@ -143,9 +278,12 @@
 </div>
 </div>
 </div>
-<button data-i18n="submit_btn" type="submit">Проверить и перейти</button>
-</div>
+
+
+ 
+    <button data-i18n="submit_btn" type="submit">Проверить и перейти</button>
 </form>
+
 </div>
 </aside>
 </main>
@@ -193,6 +331,9 @@
 <script src="site.config.js"></script>
 <script src="assets/airports.data.js"></script>
 <script src="assets/script.js" defer></script>
+<link rel="stylesheet" href="assets/booking.v2.css">
+<script src="assets/booking.v2.js" defer></script>
+
 
 </body>
 </html>

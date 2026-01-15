@@ -51,6 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ph_from: "Откуда",
       ph_to: "Куда",
       ph_date: "Выберите дату",
+      ph_depart_date: "Дата вылета",
+      ph_return_date: "Дата возврата (необязательно)",
+
       submit_btn: "Проверить и перейти",
       err_pick_from: "Введите пункт вылета",
       err_pick_to: "Введите пункт прилёта",
@@ -305,6 +308,9 @@ contacts_email: "Email",
       ph_from: "Qayerdan",
       ph_to: "Qayerga",
       ph_date: "Sanani tanlang",
+      ph_depart_date: "Jo'nash sanasi",
+      ph_return_date: "Qaytish sanasi (ixtiyoriy)",
+
       submit_btn: "Tekshirish va o‘tish",
       err_pick_from: "Jo‘nash punktini kiriting",
       err_pick_to: "Borish punktini kiriting",
@@ -558,6 +564,42 @@ contacts_email: "Email",
   // applyLang hooks (post-render callbacks)
   // =========================
   const afterApplyLang = [];
+  afterApplyLang.push(() => {
+  const qs = new URLSearchParams(location.search);
+
+  const from =
+    qs.get("from_label") ||
+    qs.get("from_code") ||
+    qs.get("from") ||
+    "-";
+
+  const to =
+    qs.get("to_label") ||
+    qs.get("to_code") ||
+    qs.get("to") ||
+    "-";
+
+  const pax =
+    qs.get("pax") ||
+    qs.get("adt") ||
+    "-";
+
+  const d1 = qs.get("date1") || "";
+  const d2 = qs.get("date2") || "";
+  const dates =
+    d1 && d2 ? `${d1} — ${d2}` : (d1 || d2 || "-");
+
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val || "-";
+  };
+
+  set("sumFrom", from);
+  set("sumTo", to);
+  set("sumPax", pax);
+  set("sumDates", dates);
+});
+
 
   function applyLang(lang) {
     const pack = dict[lang] || dict.ru;
@@ -667,6 +709,10 @@ contacts_email: "Email",
       setLang(lang);
     });
   });
+  // apply language on first load (so placeholders appear immediately)
+const initialLang = (localStorage.getItem("lang") || document.documentElement.lang || "ru").toLowerCase();
+setLang(initialLang);
+
 
   // =========================
   // INDEX: form + dates + validation
@@ -1276,7 +1322,17 @@ if (toEl) {
   // =========================
 // INDEX: pax dropdown (ADT/CHD/INF)
 // =========================
+
+// ❌ Disable legacy PAX on booking v2 pages
+if (document.body?.dataset?.booking === "v2") {
+  // PAX is fully handled in booking.v2.js
+  // Do NOT init legacy pax engine here
+  return;
+}
+
 const paxTrigger = document.getElementById("paxTrigger");
+const paxTriggerV2 = document.getElementById("paxTriggerV2");
+
 const paxPanel = document.getElementById("paxPanel");
 const paxDone = document.getElementById("paxDone");
 
@@ -1286,6 +1342,13 @@ const chdEl = document.getElementById("chd");
 const infEl = document.getElementById("inf");
 
 const paxLabel = document.getElementById("paxLabel");
+// v2 pax mirrors (optional)
+const paxLabelV2 = document.getElementById("paxLabelV2");
+const paxV2 = document.getElementById("pax_v2");
+const adtV2 = document.getElementById("adt_v2");
+const chdV2 = document.getElementById("chd_v2");
+const infV2 = document.getElementById("inf_v2");
+
 const adtNum = document.getElementById("adtNum");
 const chdNum = document.getElementById("chdNum");
 const infNum = document.getElementById("infNum");
@@ -1336,6 +1399,15 @@ if (paxTrigger && paxPanel && paxTotalEl && adtEl && chdEl && infEl) {
     if (adtNum) adtNum.textContent = String(adt);
     if (chdNum) chdNum.textContent = String(chd);
     if (infNum) infNum.textContent = String(inf);
+
+    // v2: mirror values + label
+if (paxV2) paxV2.value = String(total());
+if (adtV2) adtV2.value = String(adt);
+if (chdV2) chdV2.value = String(chd);
+if (infV2) infV2.value = String(inf);
+
+if (paxLabelV2) paxLabelV2.textContent = String(total());
+
   };
 
   const openPanel = () => {
@@ -1383,7 +1455,11 @@ if (paxTrigger && paxPanel && paxTotalEl && adtEl && chdEl && infEl) {
   // close when clicking outside
   document.addEventListener("click", (e) => {
     if (paxPanel.hidden) return;
-    const inside = paxPanel.contains(e.target) || paxTrigger.contains(e.target);
+    const inside =
+      paxPanel.contains(e.target) ||
+      paxTrigger.contains(e.target) ||
+      (paxTriggerV2 && paxTriggerV2.contains(e.target));
+
     if (!inside) closePanel();
   });
 
