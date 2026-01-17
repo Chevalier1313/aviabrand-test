@@ -608,7 +608,7 @@ if (!d1val) {
 
 // We prevented default, so submit manually:
 if (window.__ab_v2_fpDates?.close) window.__ab_v2_fpDates.close();
-this.form.submit();
+e.currentTarget.submit();
 
 });
 
@@ -705,23 +705,39 @@ if (window.flatpickr) {
     let btn = null;
 
     const update = () => {
-      if (!btn) return;
-      btn.textContent = labels().noReturn;
-      // show only if return is currently selected
-      btn.style.display = ret ? "inline-flex" : "none";
-    };
+  if (!btn) return;
+
+  btn.textContent = labels().noReturn;
+
+  // always visible
+  btn.style.display = "inline-flex";
+
+  // muted until depart is chosen
+  const hasDepart = !!dep;
+  btn.classList.toggle("is-muted", !hasDepart);
+  btn.toggleAttribute("aria-disabled", !hasDepart);
+};
+
 
     return {
       onReady: function () {
         btn = document.createElement("button");
         btn.type = "button";
         btn.className = "fp-no-return";
-        btn.addEventListener("click", () => {
-          ret = null;
-          syncInputs();
-          fp.redraw();
-          fp.close();
-        });
+      btn.addEventListener("click", () => {
+  // if depart not chosen yet — just close
+  if (!dep) {
+    fp.close();
+    return;
+  }
+
+  // depart chosen -> make OW (clear return)
+  ret = null;
+  syncInputs();
+  fp.redraw();
+  fp.close();
+});
+
         fp.calendarContainer.appendChild(btn);
         update();
       },
