@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/core/base.css">
+<title>Aviabrand Booking V3</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- V3 styles -->
+  <link rel="stylesheet" href="assets/v3/booking-v3.css">
+</head>
+
+<body>
+  <header class="bk3-topbar" role="banner">
+    <a class="bk3-brand" href="index.html" aria-label="Brand">
+      <div class="bk3-logoSlot" aria-hidden="true"></div>
+      <div class="bk3-brandText">aviabrand.uz</div>
+    </a>
+
+    <nav class="bk3-nav" aria-label="Primary">
+      <a href="index.html" class="bk3-navlink" data-i18n="nav_home">Главная</a>
+      <a href="routes.html" class="bk3-navlink" data-i18n="nav_routes">Направления</a>
+      <a href="how.html" class="bk3-navlink" data-i18n="nav_how">Как купить</a>
+      <a href="fares.html" class="bk3-navlink" data-i18n="nav_fares">Тарифы и услуги</a>
+      <a href="faq.html" class="bk3-navlink" data-i18n="nav_faq">FAQ</a>
+      <a href="contacts.html" class="bk3-navlink" data-i18n="nav_contacts">Контакты</a>
+    </nav>
+
+    <button type="button" class="bk3-burger" aria-label="Menu" aria-expanded="false">☰</button>
+
+    <div class="bk3-lang" data-i18n="aria_lang" data-i18n-attr="aria-label">
+      <button type="button" class="bk3-langbtn" data-lang="uz">UZ</button>
+      <button type="button" class="bk3-langbtn" data-lang="en">EN</button>
+      <button type="button" class="bk3-langbtn" data-lang="ru">RU</button>
+    </div>
+  </header>
+
+  <!-- Mobile menu overlay -->
+  <div class="bk3-mmenu" hidden>
+    <nav class="bk3-mmenu-nav" aria-label="Mobile">
+      <div class="bk3-mmenu-head">
+        <div class="bk3-mmenu-brand">
+          <div class="bk3-mmenu-logo" aria-hidden="true"></div>
+          <div class="bk3-mmenu-brandText">aviabrand.uz</div>
+        </div>
+
+        <button type="button" class="bk3-mmenu-close" aria-label="Close menu">×</button>
+      </div>
+
+      <a href="index.html" class="bk3-mmenu-link" data-i18n="nav_home">Главная</a>
+      <a href="routes.html" class="bk3-mmenu-link" data-i18n="nav_routes">Направления</a>
+      <a href="how.html" class="bk3-mmenu-link" data-i18n="nav_how">Как купить</a>
+      <a href="fares.html" class="bk3-mmenu-link" data-i18n="nav_fares">Тарифы и услуги</a>
+      <a href="faq.html" class="bk3-mmenu-link" data-i18n="nav_faq">FAQ</a>
+      <a href="contacts.html" class="bk3-mmenu-link" data-i18n="nav_contacts">Контакты</a>
+    </nav>
+  </div>
+  <main class="home" id="main">
+    <section class="hero" aria-label="Search flights">
+      <div class="hero-inner">
+        <div class="hero-copy hero-copy-center">
+          <h1 class="hero-title" data-i18n="hero_h1">
+            Купить авиабилет — просто
+          </h1>
+
+          <p class="hero-sub" data-i18n="hero_sub">
+            Проверьте цены на перелёты за минуту и спокойно переходите к покупке, когда будете готовы.
+          </p>
+
+          <p class="hero-micro" data-i18n="hero_micro">
+            Можно просто посмотреть цены — без обязательств
+          </p>
+        </div>
+
+
+        <div class="hero-form">
+
+          <form id="bookingV3" class="bk3" action="#" method="get" novalidate>
+
+            <!-- Mobile menu overlay -->
+
+            <div class="bk3-row" role="group" aria-label="Aviabrand booking form V3">
+              <!-- FROM -->
+              <section class="bk3-pill" data-pill="from">
+                <label class="bk3-label" for="fromInput" data-i18n="field_from">Откуда</label>
+
+                <input id="fromInput" name="from" type="text" inputmode="search" autocomplete="off" spellcheck="false"
+                  aria-autocomplete="list" aria-controls="fromList" aria-expanded="false" />
+                <ul id="fromList" class="bk3-list" role="listbox" data-i18n="aria_from_suggest"
+                  data-i18n-attr="aria-label" hidden></ul>
+                <input id="fromCode" name="fromCode" type="hidden" />
+                <div class="bk3-error" hidden></div>
+              </section>
+              <!-- SWAP (FROM ↔ TO) -->
+              <button id="swapBtn" type="button" class="bk3-swap" aria-label="Swap From and To">
+                ⇄
+              </button>
+
+              <!-- TO -->
+              <section class="bk3-pill" data-pill="to">
+                <label class="bk3-label" for="toInput" data-i18n="field_to">Куда</label>
+
+                <input id="toInput" name="to" type="text" inputmode="search" autocomplete="off" spellcheck="false"
+                  aria-autocomplete="list" aria-controls="toList" aria-expanded="false" />
+                <ul id="toList" class="bk3-list" role="listbox" data-i18n="aria_to_suggest" data-i18n-attr="aria-label"
+                  hidden></ul>
+                <input id="toCode" name="toCode" type="hidden" />
+                <div class="bk3-error" hidden></div>
+              </section>
+
+              <!-- DATES (group pill) -->
+              <section class="bk3-pill bk3-dates" data-pill="dates" aria-label="Dates">
+                <div class="bk3-dates-labels" aria-hidden="true">
+                  <label class="bk3-label" for="date1Input" data-i18n="field_depart">Туда</label>
+                  <label class="bk3-label" for="date2Input" data-i18n="field_return">Обратно</label>
+                </div>
+
+                <div class="bk3-dates-grid">
+                  <div class="bk3-date">
+
+
+                    <input id="date1Input" name="date1" type="text" readonly autocomplete="off" aria-haspopup="dialog"
+                      aria-controls="calPopup" aria-expanded="false" />
+                  </div>
+
+                  <div class="bk3-date">
+
+
+                    <input id="date2Input" name="date2" type="text" readonly autocomplete="off" aria-haspopup="dialog"
+                      aria-controls="calPopup" aria-expanded="false" />
+                  </div>
+                </div>
+
+                <button id="oneWayBtn" type="button" class="bk3-oneway" aria-pressed="false">
+                  Без обратного билета
+                </button>
+
+                <div class="bk3-error" hidden></div>
+              </section>
+
+              <!-- PAX -->
+              <section class="bk3-pill" data-pill="pax">
+                <label class="bk3-label" for="paxBtn" data-i18n="field_pax">Пассажиры</label>
+
+                <button id="paxBtn" type="button" class="bk3-paxbtn" aria-haspopup="dialog" aria-controls="paxPopup"
+                  aria-expanded="false">
+                  1 взрослый
+                </button>
+
+                <div id="paxPopup" class="bk3-pax" role="dialog" aria-label="Passengers" hidden>
+                  <div class="bk3-pax-row">
+                    <div class="bk3-pax-meta">
+                      <div class="bk3-pax-title" data-i18n="pax_adt_title">Взрослые</div>
+                      <div class="bk3-pax-desc" data-i18n="pax_adt_desc">от 12 лет и старше</div>
+                    </div>
+
+                    <div class="bk3-pax-ctrl">
+                      <button type="button" data-pax="-1" data-type="adt">−</button>
+                      <span id="paxAdt">1</span>
+                      <button type="button" data-pax="+1" data-type="adt">+</button>
+                    </div>
+                  </div>
+
+
+                  <div class="bk3-pax-row">
+                    <div class="bk3-pax-meta">
+                      <div class="bk3-pax-title" data-i18n="pax_chd_title">Дети</div>
+                      <div class="bk3-pax-desc" data-i18n="pax_chd_desc">от 2 до 12 лет на момент перелета</div>
+                    </div>
+
+                    <div class="bk3-pax-ctrl">
+                      <button type="button" data-pax="-1" data-type="chd">−</button>
+                      <span id="paxChd">0</span>
+                      <button type="button" data-pax="+1" data-type="chd">+</button>
+                    </div>
+                  </div>
+
+
+                  <div class="bk3-pax-row">
+                    <div class="bk3-pax-meta">
+                      <div class="bk3-pax-title" data-i18n="pax_inf_title">Младенцы</div>
+                      <div class="bk3-pax-desc" data-i18n="pax_inf_desc">до 2 лет (без места, на руках у взрослого)
+                      </div>
+                    </div>
+
+                    <div class="bk3-pax-ctrl">
+                      <button type="button" data-pax="-1" data-type="inf">−</button>
+                      <span id="paxInf">0</span>
+                      <button type="button" data-pax="+1" data-type="inf">+</button>
+                    </div>
+                  </div>
+
+
+                  <button id="paxDone" type="button" class="bk3-pax-done" data-i18n="pax_done">Готово</button>
+
+                </div>
+
+                <input id="paxValue" name="paxValue" type="hidden" />
+              </section>
+
+              <!-- SUBMIT -->
+              <section class="bk3-pill bk3-submit" data-pill="submit">
+                <button id="submitBtn" type="submit" class="bk3-submitbtn" data-i18n="btn_search">Найти</button>
+
+              </section>
+            </div>
+          </form>
+        </div><!-- /.hero-form -->
+      </div><!-- /.hero-inner -->
+    </section><!-- /.hero -->
+    <section class="routes-hint" aria-label="Popular routes">
+      <div class="routes-inner">
+        <h2 class="routes-title" data-i18n="routes_title">
+          Популярные направления
+        </h2>
+
+        <p class="routes-sub" data-i18n="routes_sub">
+          Часто смотрят — можно проверить цены за минуту
+        </p>
+
+        <div class="routes-grid">
+          <a href="seo-route.html?from=TAS&to=IST" class="route-card">
+            <span class="route-main">Ташкент → Стамбул</span>
+          </a>
+
+          <a href="seo-route.html?from=TAS&to=DXB" class="route-card">
+            <span class="route-main">Ташкент → Дубай</span>
+          </a>
+
+          <a href="seo-route.html?from=TAS&to=MOW" class="route-card">
+            <span class="route-main">Ташкент → Москва</span>
+          </a>
+
+          <a href="seo-route.html?from=TAS&to=DEL" class="route-card">
+            <span class="route-main">Ташкент → Дели</span>
+          </a>
+        </div>
+
+        <div class="routes-more">
+          <a href="routes.html" class="routes-link" data-i18n="routes_more">
+            Все направления →
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="how-works" aria-label="How it works">
+      <div class="how-inner">
+        <h2 class="how-title" data-i18n="how_title">
+          Как это работает
+        </h2>
+
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="how-num">1</div>
+            <div class="how-text" data-i18n="how_s1">
+              Выберите направление и даты
+            </div>
+          </div>
+
+          <div class="how-step">
+            <div class="how-num">2</div>
+            <div class="how-text" data-i18n="how_s2">
+              Посмотрите доступные варианты
+            </div>
+          </div>
+
+          <div class="how-step">
+            <div class="how-num">3</div>
+            <div class="how-text" data-i18n="how_s3">
+              Спокойно оформите билет
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="faq-preview" aria-label="FAQ">
+      <div class="faq-inner">
+        <h2 class="faq-title" data-i18n="faq_title">FAQ</h2>
+        <p class="faq-sub" data-i18n="faq_sub">Короткие ответы на частые вопросы</p>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-q" data-i18n="faq_q1">Нужно ли регистрироваться?</summary>
+            <div class="faq-a" data-i18n="faq_a1">Нет. Можно просто проверить цены и перейти к бронированию.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q" data-i18n="faq_q2">Можно ли купить билет без обратного?</summary>
+            <div class="faq-a" data-i18n="faq_a2">Да. Выберите «Без обратного билета» — и укажите только дату вылета.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q" data-i18n="faq_q3">Как понять, что всё оформлено правильно?</summary>
+            <div class="faq-a" data-i18n="faq_a3">Мы показываем понятные шаги и остаёмся на связи, если возникнут
+              вопросы.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q" data-i18n="faq_q4">Где связаться с поддержкой?</summary>
+            <div class="faq-a" data-i18n="faq_a4">В разделе «Контакты» — телефон, email и мессенджеры.</div>
+          </details>
+        </div>
+
+        <div class="faq-more">
+          <a href="faq.html" class="faq-link" data-i18n="faq_more">Все вопросы →</a>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+
+
+  <div id="calPopup" class="bk3-cal" aria-label="Calendar" hidden>
+    <div class="bk3-cal-head">
+      <div class="bk3-cal-title" data-i18n="cal_title">Календарь</div>
+      <button id="calCloseBtn" type="button" class="bk3-cal-close" aria-label="Close calendar">×</button>
+    </div>
+
+    <div class="bk3-cal-body">
+      <!-- Mobile calendar UI (custom, only shown on mobile via CSS/JS) -->
+      <div id="calMobile" class="bk3-mcal" hidden>
+        <div class="bk3-mcal-tabs">
+          <button id="mTabDepart" type="button" class="bk3-mcal-tab is-active" data-phase="DEPART">
+            <span data-i18n="cal_when">Когда</span>
+          </button>
+          <button id="mTabReturn" type="button" class="bk3-mcal-tab" data-phase="RETURN">
+            <span data-i18n="cal_return">Обратно</span>
+          </button>
+        </div>
+
+        <div class="bk3-mcal-weekdays" aria-hidden="true"></div>
+        <div id="mMonths" class="bk3-mcal-months"></div>
+      </div>
+
+      <!-- Desktop calendar mounts here (flatpickr inline) -->
+      <input id="calInput" type="text" class="bk3-cal-input" aria-hidden="true" readonly tabindex="-1">
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/uz_latn.js"></script>
+
+
+  <script src="assets/core/serialize.js"></script>
+  <script src="assets/core/i18n.js"></script>
+
+  <script src="assets/v3/booking-v3.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/core/base.css">
+<title data-i18n="results_page_title">Результаты — Aviabrand</title>
+
+  <!-- keep your existing form styles if you want consistent header/menu -->
+  <link rel="stylesheet" href="assets/v3/booking-v3.css" />
+  <link rel="stylesheet" href="assets/results/results.css" />
+
+  <script src="assets/core/serialize.js"></script>
+  <script src="assets/core/i18n.js"></script>
+</head>
+
+<body>
+
+  <!-- HEADER: copy-paste from your Home (same markup/classes) -->
+  <header class="bk3-topbar" role="banner">
+    <a class="bk3-brand" href="index.html" aria-label="Brand">
+      <div class="bk3-logoSlot" aria-hidden="true"></div>
+      <div class="bk3-brandText">aviabrand.uz</div>
+    </a>
+
+    <nav class="bk3-nav" aria-label="Primary">
+      <a href="index.html" class="bk3-navlink" data-i18n="nav_home">Главная</a>
+      <a href="routes.html" class="bk3-navlink" data-i18n="nav_routes">Направления</a>
+      <a href="how.html" class="bk3-navlink" data-i18n="nav_how">Как купить</a>
+      <a href="fares.html" class="bk3-navlink" data-i18n="nav_fares">Тарифы и услуги</a>
+      <a href="faq.html" class="bk3-navlink" data-i18n="nav_faq">FAQ</a>
+      <a href="contacts.html" class="bk3-navlink" data-i18n="nav_contacts">Контакты</a>
+    </nav>
+
+    <button type="button" class="bk3-burger" aria-label="Menu" aria-expanded="false">☰</button>
+
+    <div class="bk3-lang" data-i18n="aria_lang" data-i18n-attr="aria-label">
+      <button type="button" class="bk3-langbtn" data-lang="uz">UZ</button>
+      <button type="button" class="bk3-langbtn" data-lang="en">EN</button>
+      <button type="button" class="bk3-langbtn" data-lang="ru">RU</button>
+    </div>
+  </header>
+
+  <!-- Mobile menu overlay (same as Home) -->
+  <div class="bk3-mmenu" hidden>
+    <nav class="bk3-mmenu-nav" aria-label="Mobile">
+      <div class="bk3-mmenu-head">
+        <div class="bk3-mmenu-brand">
+          <div class="bk3-mmenu-logo" aria-hidden="true"></div>
+          <div class="bk3-mmenu-brandText">aviabrand.uz</div>
+        </div>
+        <button type="button" class="bk3-mmenu-close" aria-label="Close menu">×</button>
+      </div>
+
+      <a href="index.html" class="bk3-mmenu-link" data-i18n="nav_home">Главная</a>
+      <a href="routes.html" class="bk3-mmenu-link" data-i18n="nav_routes">Направления</a>
+      <a href="how.html" class="bk3-mmenu-link" data-i18n="nav_how">Как купить</a>
+      <a href="fares.html" class="bk3-mmenu-link" data-i18n="nav_fares">Тарифы и услуги</a>
+      <a href="faq.html" class="bk3-mmenu-link" data-i18n="nav_faq">FAQ</a>
+      <a href="contacts.html" class="bk3-mmenu-link" data-i18n="nav_contacts">Контакты</a>
+    </nav>
+  </div>
+
+  <main class="results" id="main">
+
+    <!-- Sticky search summary -->
+    <section class="rs-summary" aria-label="Search summary">
+      <div class="rs-summary-inner">
+        <div class="rs-trip">
+          <div class="rs-route" id="rsRoute">Tashkent → Istanbul</div>
+          <div class="rs-meta" id="rsMeta">31 Jan · 1 passenger</div>
+        </div>
+
+        <a class="rs-change" href="index.html" data-i18n="rs_change">Change search</a>
+      </div>
+    </section>
+
+    <!-- Reassurance -->
+    <section class="rs-note" aria-label="Info">
+      <div class="rs-note-inner">
+        <p class="rs-note-text" data-i18n="rs_note">
+          We’ve selected a few clear options for your trip. Prices are checked live.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- Main list -->
+    <section class="rs-list" aria-label="Available options">
+      <div class="rs-list-inner">
+        <h1 class="rs-title" data-i18n="rs_title">Available options for your trip</h1>
+        <p class="rs-sub" data-i18n="rs_sub">Prices shown for the selected dates and passengers</p>
+
+
+        <!-- States -->
+        <div class="rs-states">
+
+          <!-- Loading -->
+          <div id="rsLoading" class="rs-state rs-loading" hidden aria-live="polite">
+            <div class="rs-skel">
+              <div class="rs-skel-card"></div>
+              <div class="rs-skel-card"></div>
+              <div class="rs-skel-card"></div>
+            </div>
+            <p class="rs-state-text" data-i18n="rs_loading">
+              Checking available flights…
+            </p>
+          </div>
+
+          <!-- Empty -->
+          <div id="rsEmpty" class="rs-state rs-empty" hidden>
+            <h2 class="rs-state-title" data-i18n="rs_empty_title">
+              No flights found for these dates
+            </h2>
+            <p class="rs-state-text" data-i18n="rs_empty_text">
+              This can happen on some routes or dates. Try nearby dates.
+            </p>
+
+            <div class="rs-state-actions">
+              <a href="index.html#main" class="rs-btn rs-btn-primary" data-i18n="rs_change_dates">
+                Change dates
+              </a>
+              <a href="routes.html" class="rs-link" data-i18n="rs_change_route">
+                Change route
+              </a>
+            </div>
+          </div>
+
+          <!-- Error -->
+          <div id="rsError" class="rs-state rs-error" hidden>
+            <h2 class="rs-state-title" data-i18n="rs_error_title">
+              We couldn’t load flights right now
+            </h2>
+            <p class="rs-state-text" data-i18n="rs_error_text">
+              Please try again or come back in a moment.
+            </p>
+            <div class="rs-state-actions">
+              <button id="rsTryAgain" type="button" class="rs-btn rs-btn-primary" data-i18n="rs_try_again">
+                Try again
+              </button>
+
+              <a href="index.html" class="rs-link" data-i18n="rs_back_home">
+                Back to Home
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="rs-cards" id="rsCards" hidden></div>
+
+
+        <!-- Escape hatch -->
+        <div class="rs-more" hidden>
+          <span class="rs-more-text" data-i18n="rs_more_q">Looking for more options?</span>
+          <a href="#" class="rs-more-link" data-i18n="rs_more_link">Show all available flights</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="assets/core/header.js" defer></script>
+  <script src="assets/results/results.js" defer></script>
+
+</body>
+
+</html>

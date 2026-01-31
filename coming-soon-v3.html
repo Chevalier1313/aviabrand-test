@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/core/base.css">
+<title>Aviabrand — Search Summary (V3)</title>
+
+  <!-- Use your existing site styles -->
+  <link rel="stylesheet" href="assets/v3/booking-v3.css" />
+  <style>
+    /* coming-soon V3: минимальная база, чтобы страница не зависела от “общего сайта” */
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      border: 1px solid rgba(0, 0, 0, .15);
+    }
+
+    .btn.secondary {
+      background: transparent;
+    }
+  </style>
+
+</head>
+
+<body>
+  <main class="container" style="max-width: 980px; margin: 0 auto; padding: 24px;">
+
+    <h1 data-i18n="sum_title" style="margin: 0 0 8px;">Параметры поиска (V3)</h1>
+
+    <p style="margin: 0 0 18px; opacity: .8;" data-i18n="sum_desc">
+      Это временная страница для проверки redirect и параметров.
+    </p>
+
+
+    <section id="searchSummary" style="border: 1px solid rgba(0,0,0,.12); border-radius: 16px; padding: 16px;">
+      <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+        <div>
+          <b data-i18n="sum_from">Откуда</b>
+
+          <div id="sumFrom" class="small">-</div>
+        </div>
+
+        <div>
+          <b data-i18n="sum_to">Куда</b>
+
+          <div id="sumTo" class="small">-</div>
+        </div>
+
+        <div>
+          <b data-i18n="sum_dates">Даты</b>
+
+          <div id="sumDates" class="small">-</div>
+        </div>
+
+        <div>
+          <b data-i18n="sum_pax">Пассажиры</b>
+
+          <div id="sumPax" class="small">-</div>
+        </div>
+      </div>
+    </section>
+
+    <div style="margin-top: 16px;">
+      <a class="btn secondary" href="booking-v3.html" data-i18n="sum_back">
+        Назад к форме
+      </a>
+
+    </div>
+  </main>
+
+  <script src="assets/core/serialize.js"></script>
+<script src="assets/core/i18n.js"></script>
+<script src="assets/core/header.js" defer></script>
+<script src="assets/core/coming-soon-v3.js" defer></script>
+</body>
+
+</html>

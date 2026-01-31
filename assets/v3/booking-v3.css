@@ -1,0 +1,1084 @@
+/* 
+  booking-v3.css
+  CLEAN VERSION
+  date: 2026-01-23
+  reason: baseline alignment + css deduplication
+  previous version: booking-v3-old.css
+*/
+/* ===== BK3 CLEAN (single source, no duplicates) ===== */
+:root{
+  --bk3-bg:#fff;
+  --bk3-text:rgba(0,0,0,.92);
+  --bk3-muted:rgba(0,0,0,.70);
+
+  --bk3-border:rgba(0,0,0,.14);
+  --bk3-border-strong:rgba(0,0,0,.18);
+  --bk3-border-hover:rgba(0,0,0,.22);
+
+  --bk3-ring:rgba(0,0,0,.12);
+
+  --bk3-danger:#d33;
+  --bk3-danger-border:rgba(211,51,51,.70);
+
+  --bk3-r-pill:14px;
+  --bk3-r-in:10px;
+
+  --bk3-gap:12px;
+  --bk3-h-ctl:40px;
+
+  --bk3-h-label:18px; /* fixed */
+  --bk3-h-aux:16px;   /* fixed */
+
+  --bk3-sh-soft:0 6px 18px rgba(0,0,0,.06);
+  --bk3-sh-focus:0 10px 26px rgba(0,0,0,.10);
+  --bk3-sh-pop:0 14px 40px rgba(0,0,0,.14);
+}
+
+/* ===== Desktop header ===== */
+.bk3-topbar{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  padding:16px 24px;
+  border-bottom:1px solid var(--bk3-border);
+  background:var(--bk3-bg);
+}
+
+.bk3-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:800;
+}
+
+.bk3-logoSlot{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:rgba(0,0,0,.06);
+}
+
+.bk3-brandText{
+  font-weight:800;
+  letter-spacing:.3px;
+  font-size:15px;
+}
+
+.bk3-nav{
+  display:flex;
+  gap:18px;
+  margin-left:24px;
+}
+
+.bk3-navlink{
+  text-decoration:none;
+  font-weight:500;
+  color:var(--bk3-text);
+}
+
+.bk3-navlink:hover{
+  text-decoration:underline;
+}
+
+/* Language switcher (in header) */
+.bk3-topbar .bk3-lang{
+  margin-left:auto;
+  display:flex;
+  gap:8px;
+  margin-bottom:0;
+}
+
+
+/* ===== Row layout ===== */
+.bk3-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--bk3-gap);
+  align-items: flex-start; /* baseline by pills */
+}
+
+/* Flex sizing of pills */
+.bk3-pill{ flex:1 1 180px; min-width:180px; }
+.bk3-dates{ flex: 3 1 380px; min-width: 380px; }
+
+.bk3-submit{ flex:0 0 140px; min-width:140px; }
+
+.bk3-swap{ flex:0 0 auto; }
+
+/* ===== Pill container (grid rows) ===== */
+.bk3-pill{
+  position:relative;
+  display:grid;
+  grid-template-rows: var(--bk3-h-label) var(--bk3-h-ctl) var(--bk3-h-aux);
+  row-gap:8px;
+  padding:12px 14px;
+  border:1px solid var(--bk3-border);
+  border-radius:var(--bk3-r-pill);
+  background:var(--bk3-bg);
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+  transition: box-shadow .15s ease, border-color .15s ease, transform .05s ease;
+}
+@media (hover:hover) and (pointer:fine){
+.bk3-pill:hover{ border-color:var(--bk3-border-hover); box-shadow:var(--bk3-sh-soft); }
+}
+.bk3-pill:focus-within{ border-color:rgba(0,0,0,.32); box-shadow:var(--bk3-sh-focus); }
+
+/* Label row */
+.bk3-label{
+  grid-row:1;
+  min-height:var(--bk3-h-label);
+  display:flex;
+  align-items:center;
+  font-size:12px;
+  opacity:.70;
+  letter-spacing:.2px;
+}
+
+/* Main controls row */
+.bk3-pill input,
+.bk3-paxbtn,
+.bk3-submitbtn{
+  grid-row:2;
+  height:var(--bk3-h-ctl);
+  width:100%;
+  border:1px solid var(--bk3-border-strong);
+  border-radius:var(--bk3-r-in);
+  background:var(--bk3-bg);
+  color:var(--bk3-text);
+  outline:none;
+ 
+  box-sizing:border-box;
+  padding:0 12px;
+  line-height:calc(var(--bk3-h-ctl) - 2px);
+}
+
+/* Disabled inputs must look disabled (OW => return date) */
+.bk3-pill input:disabled{
+  opacity:.55;
+  color:var(--bk3-muted);
+  background:rgba(0,0,0,.03);
+  cursor:not-allowed;
+}
+
+
+/* flatpickr/readonly sometimes injects padding:1px – normalize date inputs */
+.bk3-date > input{
+  padding:0 12px;
+  box-sizing:border-box;
+}
+/* RT visual step: highlight the active date owner (date1/date2) */
+.bk3-date.is-owner > input{
+  border-color: rgba(0,0,0,.32);
+  box-shadow: 0 0 0 3px var(--bk3-ring);
+}
+
+/* Focus ring */
+.bk3-pill input:focus,
+.bk3-paxbtn:focus,
+.bk3-submitbtn:focus,
+.bk3-oneway:focus,
+.bk3-swap:focus{
+  outline:none;
+  box-shadow:0 0 0 3px var(--bk3-ring);
+  border-color:rgba(0,0,0,.28);
+}
+
+/* Error row (reserved, no jumping) */
+.bk3-error{
+  grid-row:3;
+  min-height:var(--bk3-h-aux);
+
+  display: flex;
+  align-items: center;
+  
+  margin:0;
+  font-size:12px;
+  line-height:1.2;
+  color:var(--bk3-danger);
+}
+.bk3-error[hidden]{ display:block; visibility:hidden; }
+
+.bk3-pill.is-error{
+  border-color:var(--bk3-danger-border);
+  background:rgba(211,51,51,.04);
+}
+
+/* ===== Dates pill (3 rows: label | controls | one-way +  error) ===== */
+.bk3-dates{
+  display:grid;
+  grid-template-rows: var(--bk3-h-label) var(--bk3-h-ctl) var(--bk3-h-aux);
+  grid-template-columns: 1fr auto 1fr; /* left(error) | center(OW) | right spacer */
+}
+
+/* Dates: label row (matches normal pill rhythm) */
+.bk3-dates-labels{
+  grid-row: 1;
+  grid-column: 1 / -1;
+  display:grid;
+  grid-template-columns: 1fr 1fr; /* match dates columns */
+  align-items:center;
+  column-gap:10px;
+}
+
+
+
+
+/* Dates controls baseline: force the 2 inputs to sit on the same control row */
+.bk3-dates-grid{
+  grid-row: 2;
+  grid-column: 1 / -1;   /* ✅ important: full width for 2 date inputs */
+  height: 100%;
+  width: 100%;
+  display:flex;
+  gap:10px;
+    align-items:stretch;
+}
+
+/* Dates: inputs are wrapped in .bk3-date, so flex must be on the wrapper */
+.bk3-dates-grid > .bk3-date{
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.bk3-dates-grid > .bk3-date > input{
+  width:100%;
+}
+
+
+
+
+.bk3-oneway{
+  grid-row: 3;
+  grid-column: 2;
+  justify-self: center;
+  align-self: center;
+  height: 22px;          /* smaller helper */
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 22px;
+  border: 1px solid var(--bk3-border-strong);
+  background: var(--bk3-bg);
+}
+
+
+/* Dates aux-row: keep error left, OW centered */
+.bk3-dates .bk3-error{
+  grid-row: 3;
+  grid-column: 1;
+  justify-self: start;
+  align-self: center;
+  width: auto;
+  text-align: left;
+}
+
+
+/* ===== PAX & submit buttons ===== */
+.bk3-paxbtn{ padding:0 12px; cursor:pointer; }
+.bk3-submitbtn{
+  padding:0 12px;
+  cursor:pointer;
+  background:rgba(0,0,0,.92);
+  color:#fff;
+  border-color:rgba(0,0,0,.92);
+  font-weight:600;
+}
+@media (hover:hover) and (pointer:fine){
+  .bk3-submitbtn:hover{ transform:translateY(-1px); }
+}
+.bk3-submitbtn:active{ transform:translateY(0); }
+
+/* ===== Swap ===== */
+.bk3-swap{
+  align-self:center;
+  height:44px;
+  min-width:44px;
+  width:44px;
+  border-radius:999px;
+  border:1px solid var(--bk3-border-strong);
+  background:var(--bk3-bg);
+  cursor:pointer;
+  line-height:1;
+  font-size:18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ===== Popups (list/pax/calendar) ===== */
+.bk3-list,
+.bk3-cal,
+.bk3-pax{
+  border:1px solid var(--bk3-border);
+  border-radius:14px;
+  background:var(--bk3-bg);
+  box-shadow:var(--bk3-sh-pop);
+
+}
+/* PAX popup: real dropdown card */
+.bk3-pax{
+  position:absolute;
+  top:calc(100% + 10px);
+  left:0;
+  right:0;
+  z-index:70;
+  padding:12px;
+  }
+
+  /* paxValue is a hidden serializer field (must never be visible) */
+#paxValue{
+  position:absolute;
+  left:-9999px;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
+}
+
+/* ===== Calendar popup: visual isolation & spacing ===== */
+.bk3-cal{
+  position:fixed;
+  left:0;
+  top:0;
+  transform:none;
+  z-index:80;
+}
+
+/* Flatpickr mount input must be hidden (ISO value) */
+.bk3-cal-input{
+  position:absolute;
+  left:-9999px;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
+}
+
+
+.bk3-list{
+  position:absolute;
+  top:calc(100% + 10px);
+  left:0; right:0;
+  margin:0;
+  padding:6px;
+  list-style:none;
+  z-index:60;
+  max-height:260px;
+  overflow:auto;
+}
+.bk3-option{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px;
+  border-radius:12px;
+  cursor:pointer;
+}
+@media (hover:hover) and (pointer:fine){
+  .bk3-option:hover{ background:rgba(0,0,0,.06); }
+}
+.bk3-option[aria-selected="true"]{ background:rgba(0,0,0,.10); }
+.bk3-option-code{ opacity:.7; font-size:12px; white-space:nowrap; }
+
+/* ===== Responsive ===== */
+@media (max-width:1024px){
+ /* .bk3-dates{ flex:1 1 320px; }*/
+  .bk3-submit{ flex:1 1 160px; }
+}
+@media (max-width:640px){
+  .bk3-row{ gap:10px; }
+  :root{
+  --bk3-gap:10px;
+  --bk3-h-ctl:38px;
+}
+.bk3-pill{ padding:10px 12px; row-gap:6px; }
+.bk3-label{ font-size:11px; }
+
+  .bk3-pill, .bk3-dates, .bk3-submit{ flex:1 1 100%; min-width:0; }
+  .bk3-dates{ min-width:0; }
+.bk3-swap{
+  width:44px;
+  min-width:44px;
+  height:44px;
+  align-self:center;
+}
+
+.bk3-dates-grid{
+  flex-direction:row;
+  gap:0;
+  align-items:center;
+}
+
+.bk3-dates-grid > .bk3-date{ flex:1 1 0; }
+
+.bk3-dates-grid > .bk3-date:first-child > input{
+  border-top-right-radius:0;
+  border-bottom-right-radius:0;
+}
+.bk3-dates-grid > .bk3-date:last-child > input{
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+  border-left:0;
+}
+
+/* OW chip stays small and below fields */
+.bk3-oneway{
+  height:20px;
+  line-height:20px;
+  padding:0 10px;
+  font-size:11px;
+  margin:8px auto 0;
+}
+
+/* Error below (mobile) */
+.bk3-dates .bk3-error{
+  margin-top:6px;
+}
+
+      /* Mobile calendar: fullscreen modal */
+  .bk3-cal{
+    position:fixed;
+    left:0 !important;
+    top:0 !important;
+    width:100vw;
+    height:100vh;
+    max-height:none;
+    overflow:auto;
+    border-radius:0;
+    padding:12px;
+    box-sizing:border-box;
+    z-index:999;
+  }
+  /* Mobile: show custom calendar UI, hide flatpickr UI */
+  #calMobile{ display:block; }
+  .bk3-cal .flatpickr-calendar{ display:none !important; }
+
+  /* Mobile calendar layout */
+  .bk3-mcal{ display:block; }
+
+  .bk3-mcal-tabs{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+    margin:12px 0 10px;
+  }
+  .bk3-mcal-tab{
+    height:44px;
+    border:1px solid var(--bk3-border);
+    border-radius:12px;
+    background:var(--bk3-bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .bk3-mcal-tab.is-active{
+    border-color:#0b63ff;
+    box-shadow:0 0 0 3px rgba(11,99,255,.12);
+  }
+
+  .bk3-mcal-weekdays{
+    display:grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap:6px;
+    font-size:12px;
+    font-weight:600;
+    opacity:.85;
+    margin:8px 0 10px;
+  }
+  .bk3-mcal-weekdays > div{
+    text-align:center;
+  }
+
+  .bk3-mcal-months{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding-bottom:12px;
+  }
+
+  .bk3-mcal-month{
+    border:1px solid rgba(11,99,255,.25);
+    border-radius:14px;
+    padding:12px;
+    background:var(--bk3-bg);
+  }
+  .bk3-mcal-month-title{
+    font-size:20px;
+    font-weight:800;
+    margin:2px 0 10px;
+  }
+
+  .bk3-mcal-grid{
+    display:grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap:6px;
+  }
+  .bk3-mcal-day{
+    height:40px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    user-select:none;
+  }
+  .bk3-mcal-day.is-dim{ opacity:.25; }
+  .bk3-mcal-day.is-disabled{ opacity:.18; pointer-events:none; }
+  .bk3-mcal-day.is-selected{
+    outline:2px solid #0b63ff;
+    outline-offset:-2px;
+    font-weight:800;
+  }
+  .bk3-mcal-day.is-inrange{
+    background:rgba(11,99,255,.10);
+  }
+    /* Mobile calendar header polish */
+  .bk3-cal-head{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:sticky;
+    top:0;
+    background:var(--bk3-bg);
+    padding:10px 0 12px;
+    z-index:2;
+  }
+
+  .bk3-cal-title{
+    font-weight:800;
+    font-size:18px;
+  }
+
+  .bk3-cal-close{
+    position:absolute;
+    right:12px;
+    top:8px;
+    width:40px;
+    height:40px;
+    border-radius:999px;
+    border:1px solid rgba(0,0,0,.10);
+    background:var(--bk3-bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+  }
+
+
+  /* Flatpickr: stack months vertically (like screenshot3) */
+  .bk3-cal .flatpickr-innerContainer{
+    display:flex;
+    flex-direction:column;
+  }
+  .bk3-cal .flatpickr-rContainer{
+    display:flex;
+    flex-direction:column;
+  }
+  .bk3-cal .flatpickr-days{
+    display:block;
+    width:100%;
+  }
+  .bk3-cal .dayContainer{
+    width:100% !important;
+    min-width:100% !important;
+    max-width:100% !important;
+  }
+
+  /* Mobile: make flatpickr fill fullscreen width */
+.bk3-cal .flatpickr-calendar{
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box;
+  margin:0 auto;
+}
+.bk3-cal .flatpickr-months,
+.bk3-cal .flatpickr-weekdays,
+.bk3-cal .flatpickr-days{
+  width:100% !important;
+}
+  /* Mobile: hide swap button */
+  .bk3-swap{
+    display:none !important;
+  }
+  /* ===== Topbar mobile ===== */
+  .bk3-topbar{
+    padding:10px 0 12px;
+    gap:10px;
+  }
+
+  .bk3-nav{
+    display:none;
+  }
+
+  .bk3-logoSlot{
+    width:28px;
+    height:28px;
+    border-radius:8px;
+  }
+
+  .bk3-brandText{
+    font-size:14px;
+  }
+    /* ===== Mobile burger & menu overlay ===== */
+
+  .bk3-burger{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    border:1px solid var(--bk3-border);
+    background:var(--bk3-bg);
+    font-size:18px;
+    line-height:1;
+    cursor:pointer;
+  }
+
+  /* hide desktop nav on mobile (already done, just ensure) */
+  .bk3-nav{ display:none; }
+
+  .bk3-mmenu{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.35);
+    z-index:1000;
+  }
+
+  .bk3-mmenu-nav{
+    position:absolute;
+    top:0;
+    right:0;
+    width:78%;
+    max-width:320px;
+    height:100%;
+    background:var(--bk3-bg);
+    padding:18px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    box-shadow:-8px 0 24px rgba(0,0,0,.18);
+  }
+
+  .bk3-mmenu-link{
+    text-decoration:none;
+    color:inherit;
+    font-weight:700;
+    font-size:16px;
+    padding:10px 6px;
+    border-radius:8px;
+  }
+
+  .bk3-mmenu-link:hover{
+    background:rgba(0,0,0,.05);
+  }
+  
+  /* Mobile menu backdrop (dark overlay) */
+  .bk3-mmenu{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:rgba(0,0,0,.45);
+}
+
+
+
+.bk3-mmenu-nav{
+  position:absolute;
+  top:0;
+  right:0;
+  height:100%;
+  z-index:1001;
+  background: var(--bk3-bg) !important;
+}
+  /* ===== Mobile menu header layout ===== */
+  .bk3-mmenu-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px 10px 14px;
+    border-bottom:1px solid var(--bk3-border);
+    margin:-18px -16px 12px; /* compensate nav padding */
+    background:var(--bk3-bg);
+  }
+
+  .bk3-mmenu-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:0;
+  }
+
+  .bk3-mmenu-logo{
+    width:32px;
+    height:32px;
+    border-radius:10px;
+    background:rgba(0,0,0,.06);
+    flex:0 0 auto;
+  }
+
+  .bk3-mmenu-brandText{
+    font-weight:800;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .bk3-mmenu-close{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    border:1px solid var(--bk3-border);
+    background:var(--bk3-bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    line-height:1;
+    cursor:pointer;
+    flex:0 0 auto;
+  }
+
+
+}
+
+
+/* ===== Language switcher ===== */
+.bk3-langbtn{
+  height:32px; padding:0 10px;
+  border-radius:999px;
+  border:1px solid var(--bk3-border-strong);
+  background:var(--bk3-bg);
+  cursor:pointer;
+  font-weight:600;
+  font-size:12px;
+  opacity:.85;
+}
+.bk3-langbtn.is-active{
+  background:rgba(0,0,0,.92);
+  color:#fff;
+  border-color:rgba(0,0,0,.92);
+  opacity:1;
+}
+/* ===============================
+   Burger: mobile only
+   =============================== */
+.bk3-burger{
+  display: none;
+}
+
+@media (max-width: 640px){
+  .bk3-burger{
+    display: inline-flex;
+  }
+}
+/* =========================
+   Home (Hero shell)
+   ========================= */
+
+.home { width: 100%; }
+
+.hero {
+  padding: 28px 16px 18px;
+}
+
+.hero-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.hero-copy {
+  padding: 8px 0;
+}
+
+.hero-title {
+  margin: 0 0 10px;
+  font-size: 40px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  margin: 0 0 14px;
+  font-size: 16px;
+  line-height: 1.55;
+  opacity: 0.88;
+  max-width: 54ch;
+}
+
+.hero-badges {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 999px;
+  font-size: 13px;
+  line-height: 1;
+  opacity: 0.92;
+}
+
+.hero-form {
+  /* keep your existing form look, just place it nicely */
+}
+
+/* Make form width behave nicely in hero */
+.hero-form .bk3 {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .hero-title { font-size: 34px; }
+}
+
+@media (max-width: 560px) {
+  .hero { padding: 18px 12px 12px; }
+  .hero-title { font-size: 30px; }
+}
+.hero-copy-center {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 16px;
+}
+
+.hero-micro {
+  margin: 6px 0 0;
+  font-size: 13px;
+  opacity: 0.7;
+}
+/* =========================
+   Popular routes (hint)
+   ========================= */
+
+.routes-hint {
+  padding: 28px 16px;
+}
+
+.routes-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.routes-title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.routes-sub {
+  margin: 0 0 16px;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.routes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.route-card {
+  display: block;
+  padding: 14px 16px;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color .15s ease, transform .15s ease;
+}
+
+.route-card:hover {
+  border-color: rgba(0,0,0,.25);
+  transform: translateY(-1px);
+}
+
+.route-main {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.routes-more {
+  margin-top: 12px;
+}
+
+.routes-link {
+  font-size: 14px;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.routes-link:hover {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .routes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .routes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================
+   How it works (3 steps)
+   ========================= */
+
+.how-works {
+  padding: 28px 16px;
+}
+
+.how-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.how-title {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.how-step {
+  padding: 16px;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.how-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.how-text {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .how-steps {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================
+   FAQ preview
+   ========================= */
+
+.faq-preview { padding: 28px 16px; }
+.faq-inner { max-width: 1180px; margin: 0 auto; }
+
+.faq-title { margin: 0 0 6px; font-size: 22px; font-weight: 600; }
+.faq-sub { margin: 0 0 14px; font-size: 14px; opacity: 0.75; }
+
+.faq-list { display: grid; gap: 10px; }
+
+.faq-item {
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.faq-q {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.faq-q::-webkit-details-marker { display: none; }
+
+.faq-a {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.86;
+}
+
+.faq-more { margin-top: 12px; }
+.faq-link { font-size: 14px; text-decoration: none; opacity: 0.8; }
+.faq-link:hover { opacity: 1; }
+/* =========================
+   Contacts CTA
+   ========================= */
+
+.contacts-cta {
+  padding: 32px 16px 40px;
+  background: rgba(0,0,0,.02);
+}
+
+.contacts-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contacts-title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.contacts-sub {
+  margin: 0 0 14px;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.25);
+  text-decoration: none;
+  font-size: 14px;
+  color: inherit;
+}
+
+.cta-btn:hover {
+  background: rgba(0,0,0,.04);
+}
+
+
+
