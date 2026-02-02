@@ -179,44 +179,15 @@ document.addEventListener("DOMContentLoaded", () => {
       price: "4 390 000 UZS",
     },
   ];
-  
-   
-  /* дальше КАК У ТЕБЯ УЖЕ ЕСТЬ */
-
 
   function rerenderOnLangChange() {
     renderMeta();
     ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
-);
+    );
   }
 
   ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
-);
-
-
-  window.setTimeout(() => {
-    const st = resolveState();
-    if (st === "results") ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
-);
-
-    showState(st);
-  }, 900);
-
-  if (tryAgainBtn) {
-    tryAgainBtn.addEventListener("click", () => {
-      showState("loading");
-      window.setTimeout(() => {
-        const st = resolveState();
-        if (st === "results") ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
-);
-
-        showState(st);
-      }, 900);
-    });
-  }
-
-
-
+  );
 
 
   // --------- Resolve state (skeleton phase) ----------
@@ -226,34 +197,30 @@ document.addEventListener("DOMContentLoaded", () => {
     return "results";
   }
 
-  // 1) baseline: show loading first
-  showState("loading");
+  function runAsync() {
+    showState("loading");
 
-  // 2) simulate async
-  window.setTimeout(() => {
-    const st = resolveState();
-    if (st === "results") ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
-);
+    window.setTimeout(() => {
+      const st = resolveState();
 
+      if (st === "results") {
+        ResultsView.renderCards(
+          cardsEl,
+          ResultsAdapter.normalizeResults(mockResults)
+        );
+      }
 
-
-    showState(st);
-  }, 900);
-
-
-  if (tryAgainBtn) {
-    tryAgainBtn.addEventListener("click", () => {
-      showState("loading");
-      window.setTimeout(() => {
-        const st = resolveState();
-        if (st === "results") ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
-);
-
-
-        showState(st);
-      }, 900);
-
-    });
+      showState(st);
+    }, 900);
   }
+
+  // init
+  runAsync();
+
+  // retry
+  if (tryAgainBtn) {
+    tryAgainBtn.addEventListener("click", runAsync);
+  }
+
   window.addEventListener("ab:langchange", rerenderOnLangChange);
 });
