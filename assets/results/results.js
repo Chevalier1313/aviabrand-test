@@ -179,98 +179,26 @@ document.addEventListener("DOMContentLoaded", () => {
       price: "4 390 000 UZS",
     },
   ];
-  function normalizeResults(raw) {
-    // raw can be:
-    // 1) already-normalized array (our mock)
-    // 2) ETS response object (later)
-    if (Array.isArray(raw)) return raw;
-
-    // ETS: placeholder contract (we'll implement after ETS sample)
-    // return mapEtsToModel(raw);
-
-    return mapEtsToModel(raw);
-  }
-  function mapEtsToModel(raw) {
-    // ETS adapter placeholder.
-    // Input: raw ETS response (object)
-    // Output: array of cards in our model shape:
-    // { id, reco, depart, arrive, stopsKey, duration, carrier, bagKey, price }
-
-    // No ETS sample yet — do not break UI
-    return [];
-  }
-  /* 👆 ДО любого renderCards / setTimeout / listeners */
-
+  
+   
   /* дальше КАК У ТЕБЯ УЖЕ ЕСТЬ */
 
-  const t = (key) =>
-    window.AB_I18N?.t ? window.AB_I18N.t(key) : key;
-
-  function getLabel(key, params = {}) {
-    switch (key) {
-      case "stops": {
-        const k = params.stopsKey || "";
-        return t(k);
-      }
-
-      case "bag": {
-        const k = params.bagKey || "";
-        return t(k);
-      }
-
-      default:
-        return "";
-    }
-  }
-
-  function cardHTML(x) {
-    return `
-      <article class="rs-card" aria-label="${t("rs_card_aria")}">
-
-        <div class="rs-card-main">
-          <div class="rs-col rs-col-time">
-            <div class="rs-time">${x.depart} → ${x.arrive}</div>
-            <div class="rs-small">${getLabel("stops", { stopsKey: x.stopsKey })} · ${x.duration}</div>
-          </div>
-
-          <div class="rs-col rs-col-air">
-            <div class="rs-air">${x.carrier}</div>
-            <div class="rs-small">${getLabel("bag", { bagKey: x.bagKey })}</div>
-          </div>
-
-          <div class="rs-col rs-col-price">
-            <div class="rs-price">${x.price}</div>
-            <div class="rs-small" data-i18n="rs_total">${t("rs_total")}</div>
-          </div>
-
-          <div class="rs-col rs-col-cta">
-            <button type="button" class="rs-btn" data-i18n="rs_select">${t("rs_select")}</button>
-            <a href="#" class="rs-link" data-i18n="rs_details">${t("rs_details")}</a>
-          </div>
-        </div>
-
-        ${x.reco ? `<div class="rs-badge" aria-label="${t("rs_badge_aria")}" data-i18n="rs_badge_reco">${t("rs_badge_reco")}</div>` : ``}
-
-      </article>
-    `.trim();
-  }
-
-  function renderCards(items) {
-    if (!cardsEl) return;
-    cardsEl.innerHTML = items.map(cardHTML).join("");
-    if (window.AB_I18N?.apply) window.AB_I18N.apply(); // translate injected nodes
-  }
 
   function rerenderOnLangChange() {
     renderMeta();
-    renderCards(normalizeResults(mockResults));
+    ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
+);
   }
 
-  renderCards(normalizeResults(mockResults));
+  ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
+);
+
 
   window.setTimeout(() => {
     const st = resolveState();
-    if (st === "results") renderCards(normalizeResults(mockResults));
+    if (st === "results") ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
+);
+
     showState(st);
   }, 900);
 
@@ -279,7 +207,9 @@ document.addEventListener("DOMContentLoaded", () => {
       showState("loading");
       window.setTimeout(() => {
         const st = resolveState();
-        if (st === "results") renderCards(normalizeResults(mockResults));
+        if (st === "results") ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
+);
+
         showState(st);
       }, 900);
     });
@@ -302,7 +232,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // 2) simulate async
   window.setTimeout(() => {
     const st = resolveState();
-    if (st === "results") renderCards(normalizeResults(mockResults));
+    if (st === "results") ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
+);
+
 
 
     showState(st);
@@ -314,7 +246,9 @@ document.addEventListener("DOMContentLoaded", () => {
       showState("loading");
       window.setTimeout(() => {
         const st = resolveState();
-        if (st === "results") renderCards(normalizeResults(mockResults));
+        if (st === "results") ResultsView.renderCards(cardsEl, ResultsAdapter.normalizeResults(mockResults)
+);
+
 
         showState(st);
       }, 900);
