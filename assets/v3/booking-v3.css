@@ -100,8 +100,8 @@
 /* Flex sizing of pills */
 .bk3-pill{ flex:1 1 180px; min-width:180px; }
 .bk3-dates{ flex: 3 1 380px; min-width: 380px; }
-
-.bk3-submit{ flex:0 0 140px; min-width:140px; }
+.bk3-submit{ flex:1 1 180px; min-width:180px; }
+/*.bk3-submit{ flex:0 0 140px; min-width:140px; }*/
 
 .bk3-swap{ flex:0 0 auto; }
 
@@ -136,8 +136,7 @@
 
 /* Main controls row */
 .bk3-pill input,
-.bk3-paxbtn,
-.bk3-submitbtn{
+.bk3-paxbtn{
   grid-row:2;
   height:var(--bk3-h-ctl);
   width:100%;
@@ -146,11 +145,11 @@
   background:var(--bk3-bg);
   color:var(--bk3-text);
   outline:none;
- 
   box-sizing:border-box;
   padding:0 12px;
   line-height:calc(var(--bk3-h-ctl) - 2px);
 }
+
 
 /* Disabled inputs must look disabled (OW => return date) */
 .bk3-pill input:disabled{
@@ -276,13 +275,20 @@
 /* ===== PAX & submit buttons ===== */
 .bk3-paxbtn{ padding:0 12px; cursor:pointer; }
 .bk3-submitbtn{
+  grid-row:2;
+  height:var(--bk3-h-ctl);
+  width:100%;
+  line-height:calc(var(--bk3-h-ctl) - 2px);
+
   padding:0 12px;
   cursor:pointer;
   background:rgba(0,0,0,.92);
   color:#fff;
-  border-color:rgba(0,0,0,.92);
+  border:1px solid rgba(0,0,0,.92);
+  border-radius:var(--bk3-r-in);
   font-weight:600;
 }
+
 @media (hover:hover) and (pointer:fine){
   .bk3-submitbtn:hover{ transform:translateY(-1px); }
 }
@@ -382,9 +388,9 @@
 
 /* ===== Responsive ===== */
 @media (max-width:1024px){
- /* .bk3-dates{ flex:1 1 320px; }*/
-  .bk3-submit{ flex:1 1 160px; }
+  .bk3-submit{ flex:1 1 180px; min-width:180px; }
 }
+
 @media (max-width:640px){
   .bk3-row{ gap:10px; }
   :root{
@@ -784,28 +790,30 @@
 .home { width: 100%; }
 
 .hero {
-  padding: 28px 16px 18px;
+  padding: 36px 16px 18px;
 }
 
 .hero-inner {
-  max-width: 1180px;
+  max-width: 980px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 18px;
+  grid-template-columns: 1fr;
+  gap: 12px;
   align-items: start;
 }
+
 
 .hero-copy {
   padding: 8px 0;
 }
 
 .hero-title {
-  margin: 0 0 10px;
-  font-size: 40px;
-  line-height: 1.12;
+  margin: 0 0 6px;     /* было 10px */
+  font-size: 28px;    /* было 40px */
+  line-height: 1.15;  /* можно чуть спокойнее */
   letter-spacing: -0.02em;
 }
+
 
 .hero-sub {
   margin: 0 0 14px;
@@ -843,6 +851,17 @@
 .hero-form .bk3 {
   width: 100%;
 }
+.hero-form{
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.hero-form .bk3{
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(0,0,0,0.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
 
 /* Responsive */
 @media (max-width: 980px) {
@@ -856,11 +875,12 @@
   .hero { padding: 18px 12px 12px; }
   .hero-title { font-size: 30px; }
 }
-.hero-copy-center {
-  text-align: center;
+.hero-copy-center{
+  text-align: left;
   max-width: 760px;
-  margin: 0 auto 16px;
+  margin: 0 auto;
 }
+
 
 .hero-micro {
   margin: 6px 0 0;

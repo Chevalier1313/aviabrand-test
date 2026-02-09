@@ -7,15 +7,18 @@ window.serializeV3 = function serializeV3(state, opts = {}) {
       owMode: "omit", // "omit" | "empty" | "flag"
       paxMode: "separate", // "separate" | "joined"
       paramMap: {
-        origin: "origin",
-        destination: "destination",
-        departDate: "depart",
-        returnDate: "return",
-        adults: "adt",
-        children: "chd",
-        infants: "inf",
-        oneway: "oneway",
-      },
+  origin: "from",
+  destination: "to",
+  departDate: "date1",
+  returnDate: "date2",
+  adults: "adt",
+  children: "chd",
+  infants: "inf",
+  oneway: "oneway",
+  locale: "locale",
+},
+
+
     },
     opts
   );
@@ -59,6 +62,9 @@ window.serializeV3 = function serializeV3(state, opts = {}) {
     payload[options.paramMap.children] = chd;
     payload[options.paramMap.infants] = inf;
   }
+  // locale (optional)
+  const loc = state.locale || new URLSearchParams(location.search).get("locale");
+  if (loc) payload[options.paramMap.locale] = loc;
 
   // query string
   const params = new URLSearchParams();

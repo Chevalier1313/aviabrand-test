@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aviabrand → ETS</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 24px; }
+    .card { max-width: 760px; margin: 0 auto; padding: 18px 16px; border: 1px solid rgba(127,127,127,.25); border-radius: 14px; }
+    h1 { font-size: 18px; margin: 0 0 8px; }
+    p { margin: 8px 0; line-height: 1.4; opacity: .92; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 12px; }
+    .muted { opacity: .75; }
+    .err { color: #b00020; }
+    a { color: inherit; }
+    hr { border:none;border-top:1px solid rgba(127,127,127,.25);margin:14px 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Перенаправляем в результаты ETS…</h1>
+    <p class="muted">Если редирект не сработал, ниже будет ссылка.</p>
+    <p id="status" class="muted"></p>
+    <p id="linkWrap" hidden>
+      <a id="link" href="#" rel="noopener">Открыть результаты ETS</a>
+    </p>
+    <p id="error" class="err" hidden></p>
+    <hr>
+    <p class="muted" style="margin:0">
+      <strong>Inbound contract (V3)</strong><br>
+      <code>origin,destination,depart,return?,adt,chd,inf</code> (+ <code>lang?</code>)<br>
+      <strong>Outbound (ETS AVIA)</strong><br>
+      <code>from,to,date1,date2,adt,chd,inf,locale</code>
+    </p>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ============================================================
+  // ETS Redirect URL Contract — Phase 1 (Online Module)
+  //
+  // Inbound from Aviabrand V3 (serializer):
+  //   origin, destination, depart, return?, adt, chd, inf, lang?
+  //
+  // Outbound to ETS AVIA Online Module (confirmed by your working URL sample):
+  //   /avia?from=...&to=...&date1=...&date2=...&adt=...&chd=...&inf=...&locale=ru
+  // ============================================================
+
+  const ETS_CONFIG = {
+    baseUrl: "https://book.aviabrand.uz", // your ETS CNAME subdomain
+    path: "/air",
+    paramMap: {
+      origin: "from",
+      destination: "to",
+      depart: "date1",
+      return: "date2",
+      adt: "adt",
+      chd: "chd",
+      inf: "inf",
+      lang: "locale"
+    },
+    fixedParams: {
+      // add only if ETS requires extra tags
+    }
+  };
+
+  // --- Read inbound query params ---
+  const q = new URLSearchParams(window.location.search);
+
+  const inbound = {
+  // accept BOTH:
+  // V3 inbound: origin,destination,depart,return,lang
+  // ETS-style inbound: from,to,date1,date2,locale (and sometimes lang)
+  origin: (q.get("origin") || q.get("from") || "").trim(),
+  destination: (q.get("destination") || q.get("to") || "").trim(),
+  depart: (q.get("depart") || q.get("date1") || "").trim(),
+  return: (q.get("return") || q.get("date2") || "").trim(),
+  adt: (q.get("adt") || "").trim(),
+  chd: (q.get("chd") || "").trim(),
+  inf: (q.get("inf") || "").trim(),
+  // prefer locale, fallback to lang
+  lang: (q.get("locale") || q.get("lang") || "").trim()
+};
+
+
+  // Minimal guards
+  const missing = [];
+  if (!inbound.origin) missing.push("origin");
+  if (!inbound.destination) missing.push("destination");
+  if (!inbound.depart) missing.push("depart");
+  if (!inbound.adt && inbound.adt !== "0") missing.push("adt");
+  if (!inbound.chd && inbound.chd !== "0") missing.push("chd");
+  if (!inbound.inf && inbound.inf !== "0") missing.push("inf");
+
+  const statusEl = document.getElementById("status");
+  const linkWrap = document.getElementById("linkWrap");
+  const linkEl = document.getElementById("link");
+  const errEl = document.getElementById("error");
+
+  function showError(msg) {
+    errEl.hidden = false;
+    errEl.textContent = msg;
+    statusEl.textContent = "";
+  }
+
+  if (missing.length) {
+    showError("Не хватает параметров: " + missing.join(", ") + ". Вернитесь назад и попробуйте снова.");
+    return;
+  }
+
+  // --- Build ETS URL ---
+  let target;
+  try {
+    target = new URL(ETS_CONFIG.path || "/", ETS_CONFIG.baseUrl);
+  } catch (e) {
+    showError("ETS_CONFIG.baseUrl / path настроены неверно. Проверьте значения в ets-redirect.html.");
+    return;
+  }
+
+  // Fixed params
+  if (ETS_CONFIG.fixedParams && typeof ETS_CONFIG.fixedParams === "object") {
+    Object.keys(ETS_CONFIG.fixedParams).forEach((k) => {
+      const v = ETS_CONFIG.fixedParams[k];
+      if (v !== undefined && v !== null && String(v).length) target.searchParams.set(k, String(v));
+    });
+  }
+
+  const map = ETS_CONFIG.paramMap || {};
+  function setIf(inKey, value) {
+    const outKey = map[inKey];
+    if (!outKey) return;
+    if (value === undefined || value === null) return;
+    const v = String(value).trim();
+    if (!v.length) return;
+    target.searchParams.set(outKey, v);
+  }
+
+  setIf("origin", inbound.origin);
+  setIf("destination", inbound.destination);
+  setIf("depart", inbound.depart);
+
+  // RT only if present
+  if (inbound.return) setIf("return", inbound.return);
+
+  setIf("adt", inbound.adt);
+  setIf("chd", inbound.chd);
+  setIf("inf", inbound.inf);
+
+  // locale: if no lang, default to 'ru' (safe fallback; can remove if you prefer)
+  setIf("lang", inbound.lang || "ru");
+
+  const finalUrl = target.toString();
+  statusEl.innerHTML = "Цель: <code>" + finalUrl.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</code>";
+
+  // fallback link
+  linkWrap.hidden = false;
+  linkEl.href = finalUrl;
+
+  // redirect
+  setTimeout(() => {
+    window.location.replace(finalUrl);
+  }, 50);
+})();
+</script>
+</body>
+</html>

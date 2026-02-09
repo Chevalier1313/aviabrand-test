@@ -104,7 +104,8 @@ document.addEventListener("keydown", (e) => {
       pax: { adt: 1, chd: 0, inf: 0 }
     };
 
-    const TARGET = "results.html";
+    const TARGET = "ets-redirect.html";
+
     
   //  const TARGET = "coming-soon-v3.html";
 
